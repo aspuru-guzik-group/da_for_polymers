@@ -1,0 +1,67 @@
+{
+    "CO2_Soleimani": {
+        "datasets": [
+            "CO2_Soleimani"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "SVM",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "OPV_Min": {
+        "datasets": [
+            "OPV_Min"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "SVM",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "PV_Wang": {
+        "datasets": [
+            "PV_Wang"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "SVM",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "Swelling_Xu": {
+        "datasets": [
+            "Swelling_Xu"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "SVM",
+            "KRR",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    }
+}

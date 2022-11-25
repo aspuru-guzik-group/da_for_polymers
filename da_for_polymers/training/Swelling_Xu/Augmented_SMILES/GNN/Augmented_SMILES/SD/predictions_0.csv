@@ -1,0 +1,12 @@
+Augmented_SMILES,SD
+C[Si](C)(C)OC.CCCCCC,2.425434071329799
+COc4ccc(S(=O)(=O)c3ccc(Oc2ccc(C(C)(C)c1ccc(C)cc1)cc2)cc3)cc4.CCCCCC,1.1012680529906582
+Cc7ccc(Cc6ccc(c5ccc(n4c(=O)c3ccc(C(=O)c2ccc1c(=O)n(C)c(=O)c1c2)cc3c4=O)c(C)c5)cc6)cc7.c1ccccc1C,0.9226729060812424
+COc2ccc(S(=O)(=O)c1ccc(C)cc1)cc2.CCOC(=O)C,8.41875177618589
+Cc7ccc(Cc6ccc(c5ccc(n4c(=O)c3ccc(C(=O)c2ccc1c(=O)n(C)c(=O)c1c2)cc3c4=O)c(C)c5)cc6)cc7.CCC(=O)C,6.287532830599548
+C/C(C)=C(C)\[Si](C)(C)C.CC(=O)C,11.244216273261458
+C/C(C)=C(C)\[Si](C)(C)C.CC(C)O,5.74757710679014
+COc2ccc(S(=O)(=O)c1ccc(C)cc1)cc2.CC(C)O,2.711593043247241
+C/C(C)=C(C)\[Si](C)(C)C.CCO,4.126852314883718
+Cc7cccc(n6c(=O)c5ccc(Oc4ccc(C(C)(C)c3ccc(Oc2ccc1c(=O)n(C)c(=O)c1c2)cc3)cc4)cc5c6=O)c7.CO,2.201140173642755
+CNCCCCCCCCCCCC(=O)OCCCCCOCCCCOCCCCC.O,11.557060372516139

@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+Swelling_Xu,1,PS_pair_BRICS,SD,LSTM,0.06919356828973754,0.0,-0.1397759412922559,0.0,13.18173852693252,0.0,7.89790772032162,0.0,77,118

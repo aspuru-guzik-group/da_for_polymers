@@ -1,0 +1,449 @@
+{
+    "CO2_Soleimani": {
+        "datasets": [
+            "CO2_Soleimani"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "feature_names": [],
+        "target_names": [],
+        "x": "Model",
+        "hue": "Features",
+        "metrics": "r2"
+    },
+    "CO2_Soleimani_augment": {
+        "datasets": [
+            "CO2_Soleimani"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "CO2_Soleimani_DL_augment": {
+        "datasets": [
+            "CO2_Soleimani"
+        ],
+        "models": [
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "OPV_Min": {
+        "datasets": [
+            "OPV_Min"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "OPV_Min_augment": {
+        "datasets": [
+            "OPV_Min"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "PV_Wang": {
+        "datasets": [
+            "PV_Wang"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "PV_Wang_augment": {
+        "datasets": [
+            "PV_Wang"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "Swelling_Xu": {
+        "datasets": [
+            "Swelling_Xu"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "Swelling_Xu_augment": {
+        "datasets": [
+            "Swelling_Xu"
+        ],
+        "models": [
+            "RF",
+            "BRT",
+            "NN",
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Model",
+        "hue": "Features",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_smiles_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "SMILES",
+            "Augmented_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_smiles_data_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "SMILES",
+            "Augmented_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "num_of_data"
+    },
+    "augment_frag_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_frag_data_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "SMILES",
+            "Augmented_SMILES",
+            "manual_frag",
+            "manual_frag_aug",
+            "manual_recombined_aug_fingerprint"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "num_of_data"
+    },
+    "augment_smiles_lstm_comparison": {
+        "datasets": [],
+        "models": [
+            "LSTM"
+        ],
+        "input_representations": [
+            "SMILES",
+            "Augmented_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_frag_lstm_comparison": {
+        "datasets": [],
+        "models": [
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_frag_SMILES",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_smiles_gnn_comparison": {
+        "datasets": [],
+        "models": [
+            "GNN"
+        ],
+        "input_representations": [
+            "SMILES",
+            "Augmented_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_frag_gnn_comparison": {
+        "datasets": [],
+        "models": [
+            "GNN"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_frag_rf_comparison": {
+        "datasets": [],
+        "models": [
+            "RF"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_frag_brt_comparison": {
+        "datasets": [],
+        "models": [
+            "BRT"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "best_plots": {
+        "datasets": [],
+        "models": [
+            "RF"
+        ],
+        "input_representations": [
+            "manual_frag",
+            "manual_frag_SMILES",
+            "manual_frag_aug",
+            "manual_frag_aug_SMILES"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_rf_fingerprint_comparison": {
+        "datasets": [],
+        "models": [
+            "RF"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_brt_fingerprint_comparison": {
+        "datasets": [],
+        "models": [
+            "BRT"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_nn_fingerprint_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_svm_fingerprint_comparison": {
+        "datasets": [],
+        "models": [
+            "SVM"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_lstm_fingerprint_comparison": {
+        "datasets": [],
+        "models": [
+            "LSTM"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "r2"
+    },
+    "augment_recombined_fingerprint_data_comparison": {
+        "datasets": [],
+        "models": [
+            "NN"
+        ],
+        "input_representations": [
+            "manual_recombined_aug_fingerprint",
+            "fingerprint",
+            "manual_frag_aug"
+        ],
+        "x": "Features",
+        "hue": "Dataset",
+        "feature_names": [],
+        "target_names": [],
+        "metrics": "num_of_data"
+    }
+}

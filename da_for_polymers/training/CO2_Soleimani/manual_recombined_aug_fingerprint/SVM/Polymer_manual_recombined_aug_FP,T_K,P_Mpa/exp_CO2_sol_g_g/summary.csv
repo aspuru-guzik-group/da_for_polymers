@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+CO2_Soleimani,7,"Polymer_manual_recombined_aug_FP,T_K,P_Mpa",exp_CO2_sol_g_g,SVM,0.8893185661703242,0.019801122849463376,0.7786637318796291,0.038112493125195095,0.06182217130067184,0.00739427937792432,0.04615173014570343,0.003039238662645042,1332,514
