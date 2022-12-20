@@ -227,7 +227,7 @@ class Augment:
 
 
 augmenter = Augment(PV_MASTER)
-augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5)
+augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5) # 5 = number of random SMILES to generate
 # augmenter.aug_smi_tokenize(AUGMENT_SMILES_DATA)
 
 # from rdkit.Chem import Descriptors

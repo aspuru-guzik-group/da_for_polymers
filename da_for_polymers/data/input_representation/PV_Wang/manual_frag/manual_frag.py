@@ -693,7 +693,8 @@ class manual_frag:
 def cli_main():
     manual = manual_frag(PV_INVENTORY)
 
-    # # iterate through donor and acceptor files
+    # ATTENTION: Fragmenting and Order for Data Augmentation
+    # iterate through donor and acceptor files
     # manual_df = pd.read_csv(PV_INVENTORY)
     # for idx, row in manual_df.iterrows():
     #     if pd.isnull(row["Fragments"]):
@@ -720,15 +721,15 @@ def cli_main():
 
     #     manual_df.to_csv(PV_INVENTORY, index=False)
 
-    # prepare manual frag data
+    # ATTENTION: prepare manual frag data after data augmentation
     # manual = manual_frag(PV_INVENTORY)
     # frag_dict = manual.return_frag_dict()
     # print(len(frag_dict))
     # manual.frag_visualization(frag_dict)
     # manual.bigsmiles_from_frag(PV_INVENTORY)
     # manual.create_manual_csv(frag_dict, PV_EXPT_RESULT, MASTER_MANUAL_DATA)
-    manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, MASTER_MANUAL_DATA)
-    manual.fingerprint_from_frag(MASTER_MANUAL_DATA)
+    # manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, MASTER_MANUAL_DATA)
+    # manual.fingerprint_from_frag(MASTER_MANUAL_DATA)
 
 
 if __name__ == "__main__":
