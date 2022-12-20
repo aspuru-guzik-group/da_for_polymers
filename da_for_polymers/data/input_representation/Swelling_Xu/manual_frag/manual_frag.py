@@ -674,6 +674,7 @@ class manual_frag:
 def cli_main():
     manual = manual_frag(PS_INVENTORY)
 
+    # ATTENTION: Fragmenting and Order for Data Augmentation
     # # iterate through donor and acceptor files
     # manual_df: pd.DataFrame = pd.read_csv(PS_INVENTORY)
     # for idx, row in manual_df.iterrows():

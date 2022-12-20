@@ -673,8 +673,9 @@ class manual_frag:
 
 
 def cli_main():
-    manual = manual_frag(CO2_INVENTORY)
+    manual = manual_frag(CO2_INVENTORY) 
 
+    # ATTENTION: Fragmenting and Order for Data Augmentation
     # # iterate through inventory
     # manual_df = pd.read_csv(CO2_INVENTORY)
     # for idx, row in manual_df.iterrows():

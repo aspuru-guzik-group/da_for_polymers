@@ -1,4 +1,4 @@
-Augmenting Polymer Datasets via Iterative Rearrangement
+# Augmenting Polymer Datasets via Iterative Rearrangement
 
 [![DOI](https://zenodo.org/badge/570637902.svg)](https://zenodo.org/badge/latestdoi/570637902)
 
@@ -15,4 +15,4 @@ Welcome to the GitHub repository for the paper: https://doi.org/10.26434/chemrxi
 6. Access processed data ->  `data/input_representation/Dataset`
 6. Access prediction results -> `training`
 7. Run the shell files in `ML_models/pytorch/Dataset` or `ML_models/sklearn/Dataset` to run models on your setup. To run specific models or molecular representations, uncomment or comment specific lines. Recommened to understand how to use argument parsers for these scripts.
-8. To view or re-create figures, go to -> `visualization`. Each figure in the paper can be recreated with the corresponding python file.
+8. To view or re-create figures, go to -> `visualization`. Each figure in the paper can be recreated with the `recreate_all_plots.sh` file (read comments). (Supplementary Figures are found in `data/exploration`)
