@@ -4,7 +4,8 @@ Augmenting Polymer Datasets via Iterative Rearrangement
 
 Welcome to the GitHub repository for the paper: https://doi.org/10.26434/chemrxiv-2022-hxvcc
 
-![alt text](https://github.com/stanlo229/da_for_polymers/TOC.png?raw=true)
+![alt text](https://github.com/stanlo229/da_for_polymers/blob/main/TOC.png?raw=true)
+![alt text](https://github.com/stanlo229/da_for_polymers/blob/main/TOC2.png?raw=true)
 
 1. Fork, Clone, or Download this repository.
 2. Create a conda environment.
