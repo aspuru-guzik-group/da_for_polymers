@@ -1,4 +1,4 @@
-model_types=('BRT')
+model_types=('RF' 'BRT' 'SVM')
 for model in "${model_types[@]}"
 do
     # AUGMENTED SMILES
