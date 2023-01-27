@@ -8,9 +8,11 @@ Abstract: One of the biggest obstacles to successful polymer property prediction
 
 Keywords: data augmentation, machine learning, polymers, molecular representation
 
-![alt text](https://github.com/stanlo229/da_for_polymers/blob/main/TOC.png?raw=true)
+![alt text](https://github.com/stanlo229/da_for_polymers/blob/main/TOC1.png?raw=true)
 ![alt text](https://github.com/stanlo229/da_for_polymers/blob/main/TOC2.png?raw=true)
 
+
+## Getting Started
 1. Fork, Clone, or Download this repository.
 2. Create a conda environment.
 3. In this directory,  `pip install -e .`
