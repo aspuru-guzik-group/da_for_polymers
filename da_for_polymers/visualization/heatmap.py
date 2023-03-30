@@ -54,17 +54,6 @@ def heatmap(config: dict):
 
     # Plot Axis
     fig, ax = plt.subplots(figsize=(18, 8))
-    # Title
-    # ax.set_title(
-    #     "Heatmap of CO2 Solubility in Polymers".format(config["datasets"][0]),
-    #     fontsize=18,
-    # )
-    # ax.set_title(
-    #     "Heatmap of Polymer Pervaporation".format(config["datasets"][0]), fontsize=18
-    # )
-    ax.set_title(
-        "Heatmap of Polymer Swelling".format(config["datasets"][0]), fontsize=18
-    )
 
     # Color Brewer color palette
     # custom_palette = sns.color_palette("Greens", as_cmap=True)
@@ -111,14 +100,16 @@ def heatmap(config: dict):
         cmap=custom_palette,
         fmt="",
         cbar_kws={
-            "label": "$Avg.\;R^2$ \n ($±\;StDev.\;R^2$)".format(mean_metric, std_metric)
+            "label": "Average of $\;R^2$ \n ($±\;$Standard Deviation of $\;R^2$)".format(
+                mean_metric, std_metric
+            )
         },
     )
 
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize=14)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize=14, rotation=0)
     res.set_ylabel("Models", fontsize=18)
-    res.set_xlabel("Input Representation", fontsize=18)
+    res.set_xlabel("Input Representations", fontsize=18)
     # for plotting/saving
     # fig.subplots_adjust(left=0.4)
     plot_path: Path = Path(config["plot_path"])
@@ -126,6 +117,7 @@ def heatmap(config: dict):
         config["config_name"], config["metrics"]
     )
     plt.savefig(plot_path, dpi=500, bbox_inches="tight")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

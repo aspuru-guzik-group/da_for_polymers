@@ -117,6 +117,7 @@ def barplot(config: dict):
             "fingerprint": "Fingerprints",
             "Augmented_SMILES": "Augmented SMILES",
             "SMILES": "Non-Augmented Data",
+            "CO2_Soleimani": r"$CO_2 Solubility$",
         }
     )
 

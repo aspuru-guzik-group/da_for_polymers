@@ -24,8 +24,8 @@
 
 # Data Comparisons
 # python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_smiles_data_comparison --plot_path ./dataset_comparisons/
-python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_data_comparison --plot_path ./dataset_comparisons/
-python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_fingerprint_data_comparison --plot_path ./dataset_comparisons/
+# python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_data_comparison --plot_path ./dataset_comparisons/
+# python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_fingerprint_data_comparison --plot_path ./dataset_comparisons/
 
 # HEATMAP
 # python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name CO2_Soleimani --plot_path ./CO2_Soleimani

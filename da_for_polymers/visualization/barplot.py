@@ -89,14 +89,14 @@ def barplot(config: dict):
             "manual_recombined_aug_fingerprint": "Recombined Augmented Fingerprints",
             "fingerprint": "Fingerprints",
             "Augmented_SMILES": "Augmented SMILES",
-            "CO2_Soleimani": "CO2 Solubility",
+            "CO2_Soleimani": r"$CO_2$ Solubility",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }
     )
 
     # Plot Axis
-    fig, ax = plt.subplots(figsize=(8, 6.5))
+    fig, ax = plt.subplots(figsize=(9, 6.5))
     # Title
     # ax.set_title(
     #     "Barplot of {} for {}".format(
@@ -144,7 +144,7 @@ def barplot(config: dict):
         "comparison" in config["config_name"] and "recombined" in config["config_name"]
     ):
         ax.set_title(
-            "Property Prediction Performance using {} and Recombined Augmented Fingerprints".format(
+            "Property Prediction Performance using a Neural Network and Recombined Augmented Fingerprints".format(
                 config["models"][0]
             ),
             fontsize=12,
@@ -179,10 +179,10 @@ def barplot(config: dict):
 
     elif "comparison" in config["config_name"]:
         ax.set_title(
-            "Property Prediction Performance using {} and Augmented Fragments".format(
+            "Property Prediction Performance using a Neural Network and Augmented Fragments".format(
                 config["models"][0]
             ),
-            fontsize=15,
+            fontsize=12,
         )  # config["models"][0])
         if "frag" in config["config_name"]:
             sns.barplot(
