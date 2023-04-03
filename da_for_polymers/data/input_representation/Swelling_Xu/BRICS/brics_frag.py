@@ -11,7 +11,7 @@ import numpy as np
 import copy
 import ast
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -30,7 +30,7 @@ class BRIC_FRAGS:
     def __init__(self, datapath):
         """
         Inits BRIC_FRAGS with preprocessed data
-        
+
         Args:
             datapath: path to preprocessed polymer-solvent data
         """
@@ -159,7 +159,7 @@ class BRIC_FRAGS:
 
         Args:
             dictionary of unique fragments from polymer and solvent molecules
-        
+
         Returns:
             img: image of all the unique fragments
         """
@@ -180,7 +180,7 @@ class BRIC_FRAGS:
         display(img)
 
 
-b_frag = BRIC_FRAGS(MASTER_MANUAL_DATA)
+b_frag = BRIC_FRAGS(master_MANUAL_DATA)
 b_frag.bric_frag()
 # print(frag_dict)
 # b_frag.frag_visualization(frag_dict)

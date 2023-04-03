@@ -129,10 +129,7 @@ def process_features(train_feature_df, test_feature_df):
         input_instance == "list"
     ):  # could be list of fragments or list of (augmented) SMILES or list of (augmented) manual frag strings.
         # check if list of: 1) fragments or 2) SMILES
-        if (
-            "Augmented" in input_representation
-            or "aug_SMILES" in input_representation
-        ):
+        if "Augmented" in input_representation or "aug_SMILES" in input_representation:
             augmented_smi_list: list = []
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])
@@ -434,7 +431,7 @@ def process_features_LM(
             feature_scale_dict[feature_column_min] = feature_min
 
     # create feature vocabulary and then add to existing vocabulary
-    # Adapted from https://github.com/IBM/regression-transformer/blob/main/scripts/create_vocabulary.py
+    # Adapted from https://github.com/IBM/regression-transformer/blob/master/scripts/create_vocabulary.py
     property_vocabulary: Counter = Counter()
     # tokens for property numerical values
     digits = list(range(10))
@@ -474,10 +471,7 @@ def process_features_LM(
         input_instance == "list"
     ):  # could be list of fragments or list of (augmented) SMILES.
         # check if list of: 1) fragments or 2) SMILES
-        if (
-            "Augmented" in input_representation
-            or "aug_SMILES" in input_representation
-        ):
+        if "Augmented" in input_representation or "aug_SMILES" in input_representation:
             augmented_smi_list: list = []
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])

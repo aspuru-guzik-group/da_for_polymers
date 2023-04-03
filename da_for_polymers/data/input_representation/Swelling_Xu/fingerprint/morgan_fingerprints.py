@@ -5,7 +5,7 @@ import pkg_resources
 import pandas as pd
 import numpy as np
 
-SWELLING_MASTER = pkg_resources.resource_filename(
+SWELLING_master = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -26,7 +26,7 @@ class fp_data:
     def __init__(self, master_data):
         """
         Inits fp_data with preprocessed data
-        
+
         Args:
             master_data: path to preprocessed donor-acceptor data
         """
@@ -81,5 +81,5 @@ class fp_data:
         # fp_df.to_pickle(fp_path)
 
 
-fp_main = fp_data(SWELLING_MASTER)
-fp_main.create_master_fp(FP_SWELLING, 3, 512)
+fp_master = fp_data(SWELLING_master)
+fp_master.create_master_fp(FP_SWELLING, 3, 512)

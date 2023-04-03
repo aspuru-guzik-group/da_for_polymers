@@ -174,7 +174,7 @@ class Tokenizer:
 
 class PropertyTokenizer:
     """Run a property tokenization.
-    Adapted from https://github.com/IBM/regression-transformer/blob/main/terminator/tokenization.py
+    Adapted from https://github.com/IBM/regression-transformer/blob/master/terminator/tokenization.py
     """
 
     def __init__(self):

@@ -15,20 +15,20 @@ import torch
 from torch.utils.data import random_split
 import yaspin
 
-TRAIN_MASTER_DATA = pkg_resources.resource_filename(
+TRAIN_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/OPV_Min/master_ml_for_opvs_from_min.csv"
 )
 
-AUG_SMI_MASTER_DATA = pkg_resources.resource_filename(
+AUG_SMI_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/augmentation/train_aug_master4.csv",
 )
 
-BRICS_MASTER_DATA = pkg_resources.resource_filename(
+BRICS_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/OPV_Min/BRICS/master_brics_frag.csv"
 )
 
-MANUAL_MASTER_DATA = pkg_resources.resource_filename(
+MANUAL_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/manual_frag/master_manual_frag.csv",
 )
@@ -43,7 +43,7 @@ MANUAL_ACCEPTOR_CSV = pkg_resources.resource_filename(
     "data/input_representation/OPV_Min/manual_frag/acceptor_frags.csv",
 )
 
-FP_MASTER_DATA = pkg_resources.resource_filename(
+FP_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/fingerprint/opv_fingerprint.csv",
 )
@@ -214,7 +214,7 @@ class Dataset:
                 da_pair_list = json.loads(self.data["DA_tokenized_BRICS"][i])
                 tokenized_input.append(da_pair_list)
             # add device parameters to the end of input
-            b_frag = BRIC_FRAGS(TRAIN_MASTER_DATA)
+            b_frag = BRIC_FRAGS(TRAIN_master_DATA)
             token_dict = b_frag.bric_frag()
         elif self.input == "manual":
             tokenized_input = []
@@ -224,7 +224,7 @@ class Dataset:
                 tokenized_input.append(da_pair_list)
             # add device parameters to the end of input
             manual = manual_frag(
-                TRAIN_MASTER_DATA, MANUAL_DONOR_CSV, MANUAL_ACCEPTOR_CSV
+                TRAIN_master_DATA, MANUAL_DONOR_CSV, MANUAL_ACCEPTOR_CSV
             )
             token_dict = manual.return_frag_dict()
         elif self.input == "fp":

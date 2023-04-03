@@ -3,22 +3,22 @@ import pandas as pd
 import pkg_resources
 from rdkit import Chem
 
-MASTER_DATA = pkg_resources.resource_filename(
+master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
 
 MASTER_SMILES_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
-    "data/input_representation/Swelling_Xu/SMILES/master_smiles.csv",
+    "data/input_representation/Swelling_Xu/SMILES/MASTER_Smiles.csv",
 )
 
 
-def combine_polymer_solvent(data_csv_path, master_smi_path):
+def combine_polymer_solvent(data_csv_path, MASTER_Smi_path):
     """
     Args:
         data_csv_path (str): filepath to .csv data with SMILES and features and target value
-        master_smi_path (str): filepath to .csv data with combined Polymer and Solvent SMILES, SELFIES, BigSMILES
+        MASTER_Smi_path (str): filepath to .csv data with combined Polymer and Solvent SMILES, SELFIES, BigSMILES
 
     Returns:
         .csv file with combined Polymer and Solvent SMILES, SELFIES, BigSMILES
@@ -43,7 +43,7 @@ def combine_polymer_solvent(data_csv_path, master_smi_path):
             + "."
             + data_df.at[i, "Solvent_BigSMILES"]
         )
-    data_df.to_csv(master_smi_path, index=False)
+    data_df.to_csv(MASTER_Smi_path, index=False)
 
 
-combine_polymer_solvent(MASTER_DATA, MASTER_SMILES_DATA)
+combine_polymer_solvent(master_DATA, MASTER_SMILES_DATA)

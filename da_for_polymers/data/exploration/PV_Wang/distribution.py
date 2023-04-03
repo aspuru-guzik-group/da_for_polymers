@@ -14,17 +14,21 @@ DISTRIBUTION_PLOT = pkg_resources.resource_filename(
 )
 
 PV_AUG_DATA = pkg_resources.resource_filename(
-    "da_for_polymers", "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv"
+    "da_for_polymers",
+    "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
 
 
 AUGMENTED_DISTRIBUTION_PLOT = pkg_resources.resource_filename(
-    "da_for_polymers", "data/exploration/PV_Wang/pv_augmented_polymer_distribution_plot.png"
+    "da_for_polymers",
+    "data/exploration/PV_Wang/pv_augmented_polymer_distribution_plot.png",
 )
 
 AUGMENTED_OUTPUT_DISTRIBUTION_PLOT = pkg_resources.resource_filename(
-    "da_for_polymers", "data/exploration/PV_Wang/pv_augmented_polymer_output_distribution_plot.png"
-) 
+    "da_for_polymers",
+    "data/exploration/PV_Wang/pv_augmented_polymer_output_distribution_plot.png",
+)
+
 
 class Distribution:
     """
@@ -152,20 +156,29 @@ class Distribution:
             augmented_distribution_df: dataframe with distribution of augmented polymers
         """
         manual: pd.DataFrame = pd.read_csv(manual_frag_path)
-        augment: dict = {'Polymer': [], 'num_of_original': [], 'num_of_augmented': [], 'num_of_recombined_augmented': []}
+        augment: dict = {
+            "Polymer": [],
+            "num_of_original": [],
+            "num_of_augmented": [],
+            "num_of_recombined_augmented": [],
+        }
 
         # iterate through each polymer
         for polymer in manual["Polymer"].unique():
-        # iterate through dataframe each time
+            # iterate through dataframe each time
             original: int = 0
             augmented: int = 0
             recombined: int = 0
             for index, row in manual.iterrows():
                 if manual.at[index, "Polymer"] == polymer:
                     original += 1
-                    augmented_polymers: list = ast.literal_eval(manual.at[index, "PS_manual_aug"])
+                    augmented_polymers: list = ast.literal_eval(
+                        manual.at[index, "PS_manual_aug"]
+                    )
                     augmented += len(augmented_polymers)
-                    recombined_polymers: list = ast.literal_eval(manual.at[index, "PS_manual_recombined_aug_SMILES"])
+                    recombined_polymers: list = ast.literal_eval(
+                        manual.at[index, "PS_manual_recombined_aug_SMILES"]
+                    )
                     recombined += len(recombined_polymers)
             augment["Polymer"].append(polymer)
             augment["num_of_original"].append(original)
@@ -183,11 +196,18 @@ class Distribution:
         Returns:
             Distribution plot!
         """
-        fig, ax = plt.subplots(figsize=(12,5))
+        fig, ax = plt.subplots(figsize=(12, 5))
         _X = np.arange(len(augment["Polymer"]))
-        plt.bar(_X - 0.2, height=augment["num_of_original"], label = "Original", width=0.2)
-        plt.bar(_X, height=augment["num_of_augmented"], label= "Augmented", width=0.2)
-        plt.bar(_X + 0.2, height=augment["num_of_recombined_augmented"], label= "Recombined Augmented", width=0.2)
+        plt.bar(
+            _X - 0.2, height=augment["num_of_original"], label="Original", width=0.2
+        )
+        plt.bar(_X, height=augment["num_of_augmented"], label="Augmented", width=0.2)
+        plt.bar(
+            _X + 0.2,
+            height=augment["num_of_recombined_augmented"],
+            label="Recombined Augmented",
+            width=0.2,
+        )
         plt.xticks(_X, augment["Polymer"])
         plt.legend(loc="upper right")
         plt.xlabel("Polymer")
@@ -195,7 +215,7 @@ class Distribution:
         plt.title("Distribution of Datapoints by Polymers after Data Augmentation")
         plt.tight_layout()
         plt.savefig(AUGMENTED_DISTRIBUTION_PLOT)
-    
+
     def gather_augment_output(self, manual_frag_path: str):
         """Function that creates a new dataframe with the count of augmented polymers in the dataset.
         Args:
@@ -205,49 +225,83 @@ class Distribution:
             augmented_distribution_df: dataframe with distribution of augmented polymers
         """
         manual: pd.DataFrame = pd.read_csv(manual_frag_path)
-        original: dict = {'Polymer': [], 'J_Total_flux_kg_m_2h_1': []}
-        augment: dict = {'Polymer': [], 'J_Total_flux_kg_m_2h_1': []}
-        recombined: dict = {'Polymer': [], 'J_Total_flux_kg_m_2h_1': []}
+        original: dict = {"Polymer": [], "J_Total_flux_kg_m_2h_1": []}
+        augment: dict = {"Polymer": [], "J_Total_flux_kg_m_2h_1": []}
+        recombined: dict = {"Polymer": [], "J_Total_flux_kg_m_2h_1": []}
         for index, row in manual.iterrows():
             original["Polymer"].append(manual.at[index, "Polymer"])
-            original["J_Total_flux_kg_m_2h_1"].append(manual.at[index, "J_Total_flux_kg_m_2h_1"])
+            original["J_Total_flux_kg_m_2h_1"].append(
+                manual.at[index, "J_Total_flux_kg_m_2h_1"]
+            )
             augment_data: list = ast.literal_eval(manual.at[index, "PS_manual_aug"])
             for d in augment_data:
                 augment["Polymer"].append(manual.at[index, "Polymer"])
-                augment["J_Total_flux_kg_m_2h_1"].append(manual.at[index, "J_Total_flux_kg_m_2h_1"])
-            recombined_data: list = ast.literal_eval(manual.at[index, "PS_manual_recombined_aug_SMILES"])
+                augment["J_Total_flux_kg_m_2h_1"].append(
+                    manual.at[index, "J_Total_flux_kg_m_2h_1"]
+                )
+            recombined_data: list = ast.literal_eval(
+                manual.at[index, "PS_manual_recombined_aug_SMILES"]
+            )
             for r in recombined_data:
                 recombined["Polymer"].append(manual.at[index, "Polymer"])
-                recombined["J_Total_flux_kg_m_2h_1"].append(manual.at[index, "J_Total_flux_kg_m_2h_1"])
-        
+                recombined["J_Total_flux_kg_m_2h_1"].append(
+                    manual.at[index, "J_Total_flux_kg_m_2h_1"]
+                )
+
         return original, augment, recombined
 
-    def plot_distribution_of_augmented_outputs(self, original: dict, augment: dict, recombined: dict):
+    def plot_distribution_of_augmented_outputs(
+        self, original: dict, augment: dict, recombined: dict
+    ):
         """
         Function that plots the distribution of augmented data by polymer via shaded histogram.
         Args:
-            
+
 
         Returns:
             Shaded histogram distribution plot!
         """
-        fig, ax = plt.subplots(figsize=(10,5))
+        fig, ax = plt.subplots(figsize=(10, 5))
         # output_dict: dict = {"original": original["J_Total_flux_kg_m_2h_1"], "augmented": augment["J_Total_flux_kg_m_2h_1"], "recombined_augmented": recombined["J_Total_flux_kg_m_2h_1"]}
         # output: pd.DataFrame = pd.DataFrame.from_dict(output_dict)
         # print(output)
-        plt.hist(augment["J_Total_flux_kg_m_2h_1"], bins=60, label="Augmented", alpha=0.4, color="tab:orange")
-        plt.hist(recombined["J_Total_flux_kg_m_2h_1"], bins=60, label="Recombined Augmented", alpha=0.4, color="tab:green")
-        plt.hist(original["J_Total_flux_kg_m_2h_1"], bins=60, label="Original", alpha=0.6, color="tab:blue")
-        handles, labels =  plt.gca().get_legend_handles_labels()
+        plt.hist(
+            augment["J_Total_flux_kg_m_2h_1"],
+            bins=60,
+            label="Augmented",
+            alpha=0.4,
+            color="tab:orange",
+        )
+        plt.hist(
+            recombined["J_Total_flux_kg_m_2h_1"],
+            bins=60,
+            label="Recombined Augmented",
+            alpha=0.4,
+            color="tab:green",
+        )
+        plt.hist(
+            original["J_Total_flux_kg_m_2h_1"],
+            bins=60,
+            label="Original",
+            alpha=0.6,
+            color="tab:blue",
+        )
+        handles, labels = plt.gca().get_legend_handles_labels()
         order_handles = [2, 0, 1]
         order_labels = [2, 0, 1]
-        plt.legend([handles[idx] for idx in order_handles],[labels[idx] for idx in order_labels], loc="upper right")
+        plt.legend(
+            [handles[idx] for idx in order_handles],
+            [labels[idx] for idx in order_labels],
+            loc="upper right",
+        )
         plt.xlabel("J - Total Flux (kg m^(-2) h^(-1))")
         plt.ylabel("Number of Datapoints")
-        plt.title("Distribution of Property of Interest (Total Flux) after Data Augmentation")
+        plt.title(
+            "Distribution of Property of Interest (Total Flux) after Data Augmentation"
+        )
         plt.tight_layout()
         plt.savefig(AUGMENTED_OUTPUT_DISTRIBUTION_PLOT)
-    
+
     def count_polymer(self, polymers_to_count: list) -> float:
         """
         Function that counts number of polymer in dataset out of all of them
@@ -259,8 +313,9 @@ class Distribution:
             if polymer in polymers_to_count:
                 poly_count += 1
             total_count += 1
-        
+
         print(poly_count / total_count)
+
 
 dist = Distribution(PV_DATA)
 

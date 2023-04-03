@@ -31,11 +31,11 @@ AUGMENT_SMILES_DATA = pkg_resources.resource_filename(
     "data/input_representation/PV_Wang/augmentation/train_aug_master.csv",
 )
 
-MASTER_TRAIN_DATA = pkg_resources.resource_filename(
+master_TRAIN_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_exptresults.csv"
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
@@ -364,15 +364,15 @@ for i in range(len(unique_datatype)):
     shuffled = False
     dataset = Dataset()
     if unique_datatype["smiles"] == 1:
-        dataset.prepare_data(MASTER_TRAIN_DATA, "smi")
+        dataset.prepare_data(master_TRAIN_DATA, "smi")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "SMILES"
     elif unique_datatype["bigsmiles"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "bigsmi")
+        dataset.prepare_data(master_MANUAL_DATA, "bigsmi")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "BigSMILES"
     elif unique_datatype["selfies"] == 1:
-        dataset.prepare_data(MASTER_TRAIN_DATA, "selfies")
+        dataset.prepare_data(master_TRAIN_DATA, "selfies")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "SELFIES"
     elif unique_datatype["aug_smiles"] == 1:
@@ -387,11 +387,11 @@ for i in range(len(unique_datatype)):
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "BRICS"
     elif unique_datatype["manual"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "manual")
+        dataset.prepare_data(master_MANUAL_DATA, "manual")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "MANUAL"
     elif unique_datatype["aug_manual"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "manual")
+        dataset.prepare_data(master_MANUAL_DATA, "manual")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "AUG_MANUAL"
     elif unique_datatype["fingerprint"] == 1:
@@ -400,7 +400,7 @@ for i in range(len(unique_datatype)):
         datatype = "FINGERPRINT"
         print("RADIUS: " + str(radius) + " NBITS: " + str(nbits))
     elif unique_datatype["sum_of_frags"] == 1:
-        dataset.prepare_data(MASTER_TRAIN_DATA, "sum_of_frags")
+        dataset.prepare_data(master_TRAIN_DATA, "sum_of_frags")
         x, y, max_target = dataset.setup(descriptor_param, target_predict)
         datatype = "SUM_OF_FRAGS"
 

@@ -28,7 +28,7 @@ BRICS_FRAG_DATA = pkg_resources.resource_filename(
     "data/input_representation/Swelling_Xu/BRICS/master_brics_frag.csv",
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -41,7 +41,7 @@ FP_SWELLING = pkg_resources.resource_filename(
 
 class Dataset:
     """
-    Class that contains functions to prepare the data into a 
+    Class that contains functions to prepare the data into a
     dataframe with the feature variables and the sd, etc.
     """
 
@@ -89,7 +89,7 @@ class Dataset:
     def setup(self):
         """
         NOTE: for SMILES
-        Function that sets up data ready for training 
+        Function that sets up data ready for training
         """
         if self.input == "smi":
             # tokenize data
@@ -168,7 +168,7 @@ class Dataset:
     def setup_aug_smi(self):
         """
         NOTE: for Augmented SMILES
-        Function that sets up data ready for training 
+        Function that sets up data ready for training
         """
         sd_array = self.data["SD"]
         # min-max scaling
@@ -201,4 +201,3 @@ class Dataset:
 #         print("ERROR NO PERIOD")
 # x, y = dataset.setup_fp(2, 512)
 # print(x[1], y[1])
-

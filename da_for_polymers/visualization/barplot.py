@@ -20,7 +20,7 @@ from da_for_polymers.visualization.path_utils import (
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
-### MAIN FUNCTION
+### master FUNCTION
 def wrap_labels(ax, width: int = 10):
     print(ax)
     labels: list = []

@@ -29,7 +29,7 @@ AUGMENT_SMILES_DATA = pkg_resources.resource_filename(
     "data/input_representation/Swelling_Xu/augmentation/train_aug_master.csv",
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -168,17 +168,17 @@ if unique_datatype["fingerprint"] == 1:
 
 shuffled = False
 if unique_datatype["smiles"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 0, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 0, shuffled)
     dataset.prepare_data()
     x, y = dataset.setup()
     datatype = "SMILES"
 elif unique_datatype["bigsmiles"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 1, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 1, shuffled)
     dataset.prepare_data()
     x, y = dataset.setup()
     datatype = "BigSMILES"
 elif unique_datatype["selfies"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 2, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 2, shuffled)
     dataset.prepare_data()
     x, y = dataset.setup()
     datatype = "SELFIES"
@@ -192,11 +192,11 @@ elif unique_datatype["brics"] == 1:
     x, y = dataset.setup_frag_BRICS()
     datatype = "BRICS"
 elif unique_datatype["manual"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 0, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 0, shuffled)
     x, y = dataset.setup_manual_frag()
     datatype = "MANUAL"
 elif unique_datatype["aug_manual"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 0, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 0, shuffled)
     x, y = dataset.setup_manual_frag()
     datatype = "AUG_MANUAL"
 elif unique_datatype["fingerprint"] == 1:
@@ -205,7 +205,7 @@ elif unique_datatype["fingerprint"] == 1:
     datatype = "FINGERPRINT"
     print("RADIUS: " + str(radius) + " NBITS: " + str(nbits))
 elif unique_datatype["sum_of_frags"] == 1:
-    dataset = Dataset(MASTER_MANUAL_DATA, 0, shuffled)
+    dataset = Dataset(master_MANUAL_DATA, 0, shuffled)
     x, y = dataset.setup_sum_of_frags()
     datatype = "SUM_OF_FRAGS"
 

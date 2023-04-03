@@ -29,7 +29,7 @@ BRICS_FRAG_DATA = pkg_resources.resource_filename(
     "data/input_representation/Swelling_Xu/BRICS/master_brics_frag.csv",
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -322,13 +322,13 @@ def get_data(unique_datatype):
     """
     dataset = Dataset()
     if unique_datatype["smiles"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "smi")
+        dataset.prepare_data(master_MANUAL_DATA, "smi")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["bigsmiles"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "bigsmi")
+        dataset.prepare_data(master_MANUAL_DATA, "bigsmi")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["selfies"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "selfies")
+        dataset.prepare_data(master_MANUAL_DATA, "selfies")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["aug_smiles"] == 1:
         dataset.prepare_data(AUGMENT_SMILES_DATA, "smi")
@@ -337,17 +337,17 @@ def get_data(unique_datatype):
         dataset.prepare_data(BRICS_FRAG_DATA, "brics")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["manual"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "manual")
+        dataset.prepare_data(master_MANUAL_DATA, "manual")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["aug_manual"] == 1:
-        dataset.prepare_data(MASTER_MANUAL_DATA, "manual")
+        dataset.prepare_data(master_MANUAL_DATA, "manual")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["fingerprint"] == 1:
         dataset.prepare_data(FP_SWELLING, "fp")
         x, y, max_value, min_value = dataset.setup()
         print("RADIUS: " + str(radius) + " NBITS: " + str(nbits))
     elif unique_datatype["sum_of_frags"] == 1:
-        dataset = Dataset(MASTER_MANUAL_DATA, "sum_of_frags")
+        dataset = Dataset(master_MANUAL_DATA, "sum_of_frags")
         x, y, max_value, min_value = dataset.setup()
 
     # outer cv gives different training and testing sets for inner cv

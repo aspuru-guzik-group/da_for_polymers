@@ -11,7 +11,7 @@ import numpy as np
 import copy
 import ast
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
@@ -195,7 +195,7 @@ class BRIC_FRAGS:
         display(img)
 
 
-b_frag = BRIC_FRAGS(MASTER_MANUAL_DATA)
+b_frag = BRIC_FRAGS(master_MANUAL_DATA)
 b_frag.bric_frag()
 
 # print(frag_dict)

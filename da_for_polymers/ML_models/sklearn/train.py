@@ -205,7 +205,7 @@ def main(config: dict):
             print("Folder already exists.")
         # save model
         model_path: Path = target_dir_path / "model_{}.pkl".format(fold)
-        pickle.dump(model, open(model_path, "wb"))  # difficult to maintain
+        pickle.dump(model, open(model_path, "wb"))  # difficult to mastertain
         # save best hyperparams for the best model from each fold
         if config["hyperparameter_optimization"] == "True":
             hyperparam_path: Path = (

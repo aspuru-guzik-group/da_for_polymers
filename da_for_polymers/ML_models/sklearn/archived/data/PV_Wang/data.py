@@ -19,11 +19,11 @@ BRICS_FRAG_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/PV_Wang/BRICS/master_brics_frag.csv"
 )
 
-MASTER_TRAIN_DATA = pkg_resources.resource_filename(
+master_TRAIN_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_exptresults.csv"
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
@@ -378,19 +378,19 @@ class Dataset:
 
 
 # dataset = Dataset()
-# dataset.prepare_data(MASTER_TRAIN_DATA, "smi")
+# dataset.prepare_data(master_TRAIN_DATA, "smi")
 # x, y, max_target = dataset.setup("gross", "J")
 # print("1")
 # print(x, y, max_target)
-# dataset.prepare_data(MASTER_MANUAL_DATA, "bigsmi")
+# dataset.prepare_data(master_MANUAL_DATA, "bigsmi")
 # x, y, max_target = dataset.setup("gross_only", "a")
 # print("2")
 # print(x, y, max_target)
-# dataset.prepare_data(MASTER_TRAIN_DATA, "selfies")
+# dataset.prepare_data(master_TRAIN_DATA, "selfies")
 # x, y, max_target = dataset.setup("none", "J")
 # print("3")
 # print(x, y, max_target)
-# dataset.prepare_data(MASTER_MANUAL_DATA, "smi")
+# dataset.prepare_data(master_MANUAL_DATA, "smi")
 # x, y, max_target, token_dict = dataset.setup_aug_smi("none", "a")
 # print("4")
 # print(x, y, max_target)
@@ -398,7 +398,7 @@ class Dataset:
 # x, y, max_target = dataset.setup("gross_only", "a")
 # print("5")
 # print(x, y, max_target)
-# dataset.prepare_data(MASTER_MANUAL_DATA, "manual")
+# dataset.prepare_data(master_MANUAL_DATA, "manual")
 # x, y, max_target = dataset.setup("gross", "J")
 # print("6")
 # print(x, y, max_target)

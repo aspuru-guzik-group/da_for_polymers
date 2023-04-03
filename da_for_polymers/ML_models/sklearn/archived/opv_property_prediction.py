@@ -19,25 +19,25 @@ from sklearn.metrics import make_scorer, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import GridSearchCV, KFold, StratifiedKFold
 from skopt import BayesSearchCV
 
-TRAIN_MASTER_DATA = pkg_resources.resource_filename(
+TRAIN_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/OPV_Min/master_ml_for_opvs_from_min.csv"
 )
 
-AUG_SMI_MASTER_DATA = pkg_resources.resource_filename(
+AUG_SMI_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/augmentation/train_aug_master4.csv",
 )
 
-BRICS_MASTER_DATA = pkg_resources.resource_filename(
+BRICS_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/OPV_Min/BRICS/master_brics_frag.csv"
 )
 
-MANUAL_MASTER_DATA = pkg_resources.resource_filename(
+MANUAL_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/manual_frag/master_manual_frag.csv",
 )
 
-FP_MASTER_DATA = pkg_resources.resource_filename(
+FP_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/fingerprint/opv_fingerprint.csv",
 )
@@ -324,35 +324,35 @@ def get_data(unique_datatype):
     dataset = Dataset()
     if unique_datatype["smiles"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(TRAIN_MASTER_DATA, "smi")
+        dataset.prepare_data(TRAIN_master_DATA, "smi")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["bigsmiles"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(TRAIN_MASTER_DATA, "bigsmi")
+        dataset.prepare_data(TRAIN_master_DATA, "bigsmi")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["selfies"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(TRAIN_MASTER_DATA, "selfies")
+        dataset.prepare_data(TRAIN_master_DATA, "selfies")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["aug_smiles"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(TRAIN_MASTER_DATA, "smi")
+        dataset.prepare_data(TRAIN_master_DATA, "smi")
         x, y, max_value, min_value, token_dict = dataset.setup_aug_smi()
     elif unique_datatype["brics"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(BRICS_MASTER_DATA, "brics")
+        dataset.prepare_data(BRICS_master_DATA, "brics")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["manual"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(MANUAL_MASTER_DATA, "manual")
+        dataset.prepare_data(MANUAL_master_DATA, "manual")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["aug_manual"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(MANUAL_MASTER_DATA, "manual")
+        dataset.prepare_data(MANUAL_master_DATA, "manual")
         x, y, max_value, min_value = dataset.setup()
     elif unique_datatype["fingerprint"] == 1:
         dataset = Dataset()
-        dataset.prepare_data(FP_MASTER_DATA, "fp")
+        dataset.prepare_data(FP_master_DATA, "fp")
         x, y, max_value, min_value = dataset.setup()
 
     # outer cv gives different training and testing sets for inner cv

@@ -20,7 +20,7 @@ from da_for_polymers.visualization.path_utils import (
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
-### MAIN FUNCTION
+### master FUNCTION
 def wrap_labels(ax, width: int = 10):
     print(ax)
     labels: list = []
@@ -160,8 +160,7 @@ def boxplot(config: dict):
                     "Recombined Augmented Fingerprints",
                     # "Augmented Fragments",
                 ],
-                linewidth=1
-                
+                linewidth=1,
             )
         else:
             sns.boxplot(
@@ -173,7 +172,6 @@ def boxplot(config: dict):
                     "SMILES",
                     "Augmented_SMILES",
                 ],
-                
             )
 
     elif "comparison" in config["config_name"]:
@@ -195,8 +193,7 @@ def boxplot(config: dict):
                     # "Fragment (SMILES)",
                     # "Augmented Fragment (SMILES)",
                 ],
-                linewidth=1
-                
+                linewidth=1,
             )
         else:
             sns.boxplot(
@@ -208,7 +205,6 @@ def boxplot(config: dict):
                     "SMILES",
                     "Augmented_SMILES",
                 ],
-                
             )
     else:
         ax.set_title(
@@ -229,7 +225,6 @@ def boxplot(config: dict):
                 "Fragment SMILES",
                 "Augmented Fragment SMILES",
             ],
-            
         )
         # Y-axis Limits
         min_yval: float = min(summary[config["metrics"]])
