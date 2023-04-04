@@ -46,9 +46,9 @@ augmented_swell_data: Path = (
 
 dft_data: Path = (
     pathlib.Path(__file__).parent.parent
-    / "raw"
+    / "preprocess"
     / "DFT_Ramprasad"
-    / "dft_exptresults.csv"
+    / "dft_exptresults_Egc.csv"
 )
 
 augmented_dft_data: Path = (
@@ -56,8 +56,10 @@ augmented_dft_data: Path = (
     / "input_representation"
     / "DFT_Ramprasad"
     / "automated_fragment"
-    / "master_automated_fragment.csv"
+    / "master_automated_fragment_Egc.csv"
 )
+
+current_dir: Path = pathlib.Path(__file__).parent
 
 
 def recursively_find_sidechains(
@@ -372,23 +374,119 @@ def fragment_recombined_mol_from_indices(
         # print(f"{mol.GetBondBetweenAtoms(atom_1, atom_2)=}")
         atom_separation_idx.append([atom_1, atom_2])
         bonds_to_fragment.append(mol.GetBondBetweenAtoms(atom_1, atom_2).GetIdx())
+
     new_mol: Chem.Mol = Chem.FragmentOnBonds(mol, bonds_to_fragment, addDummies=False)
-    recombine_mol: Chem.Mol = copy.deepcopy(new_mol)
-    # Add arbitrary atoms for RECOMBINATION
-    atomic_num: int = 64
-    for atom_sep in atom_separation_idx:
-        for atom in recombine_mol.GetAtoms():
-            if atom.GetIdx() in atom_sep:
-                if atom.GetAtomicNum() != atomic_num - 1:
-                    atom.SetAtomicNum(atomic_num)
-                    atomic_num += 1
-
-    recombine_mol.UpdatePropertyCache(strict=False)
-
-    recombined_mol_ordered_fragments: list[str] = reorder_fragments(
-        base_fragments, recombine_mol, recombine=True
+    # reorder fragments
+    reordered_frags: list[str] = reorder_fragments(
+        base_fragments, new_mol, recombine=True
     )
-    return recombined_mol_ordered_fragments
+    # add end connections to atom separation idx
+    if len(reordered_frags) > 2:
+        frag_0: Chem.Mol = Chem.MolFromSmarts(reordered_frags[0])
+        frag_1: Chem.Mol = Chem.MolFromSmarts(reordered_frags[-1])
+        for atom in frag_0.GetAtoms():
+            if atom.GetAtomicNum() == 0:
+                neighbors: tuple[Chem.Atom] = atom.GetNeighbors()
+                atom_0: int = neighbors[0].GetAtomMapNum()
+        for atom in frag_1.GetAtoms():
+            if atom.GetAtomicNum() == 0:
+                neighbors: tuple[Chem.Atom] = atom.GetNeighbors()
+                atom_1: int = neighbors[0].GetAtomMapNum()
+        atom_separation_idx.append([atom_0, atom_1])
+
+    shuffled_reordered_frags: list[list[str]] = iterative_shuffle(reordered_frags)
+    shuffled_atom_separation_idx: list[list[int]] = iterative_shuffle(
+        atom_separation_idx
+    )
+    # print(f"{reordered_frags=}")
+    # Must recombine with RDKiT (cannot do str replacements)
+    # atom_i = 0
+    # atomic_nums: list = list(range(57, 72))
+    # atomic_nums.extend(list(range(89, 104)))
+    # atomic_nums.extend(list(range(104, 119)))
+    mol_fragments: list[Chem.Mol] = []
+    # Recombine by adding a single bond to the atoms via atom map number
+    for shuffled_i in range(len(shuffled_reordered_frags)):
+        print(f"{shuffled_i=}")
+        print(f"{shuffled_reordered_frags[shuffled_i]=}")
+        mol_frag_0: Chem.Mol = Chem.MolFromSmarts(
+            shuffled_reordered_frags[shuffled_i][0]
+        )
+        i = 1
+        shuffle_atom_sep: list = shuffled_atom_separation_idx[shuffled_i]
+        print(f"{shuffle_atom_sep=}")
+        for atom_sep in shuffle_atom_sep[0 : len(shuffle_atom_sep) - 1]:
+            mol_frag_1: Chem.Mol = Chem.MolFromSmarts(
+                shuffled_reordered_frags[shuffled_i][i]
+            )
+            # add bond between mol_frag_0 and mol_frag_1
+            combined_mol: Chem.Mol = Chem.CombineMols(mol_frag_0, mol_frag_1)
+            print(f"{Chem.MolToSmarts(combined_mol)=}")
+            atoms = []
+            for atom in atom_sep:
+                print(f"{atom=}")
+                for c_atom in combined_mol.GetAtoms():
+                    if c_atom.GetAtomMapNum() == atom:
+                        atoms.append(c_atom)
+                        print(f"{c_atom.GetIdx()=}")
+            print(f"{atoms=}")
+            if len(atoms) == 2:
+                print("------------------PASSED------------------")
+                editable_combined_mol: Chem.EditableMol = Chem.EditableMol(combined_mol)
+                editable_combined_mol.AddBond(
+                    atoms[0].GetIdx(), atoms[1].GetIdx(), Chem.BondType.SINGLE
+                )
+                mol_frag_0 = editable_combined_mol.GetMol()
+                i += 1
+
+            print(f"{Chem.MolToSmarts(mol_frag_0)=}, FINISHED")
+        # Remove all dummy atoms
+
+        editable_combined_mol: Chem.EditableMol = Chem.EditableMol(mol_frag_0)
+        dummy_atoms_to_delete: list = []
+        for atom in mol_frag_0.GetAtoms():
+            if atom.GetAtomicNum() == 0:
+                dummy_atoms_to_delete.append(atom.GetIdx())
+        editable_combined_mol.BeginBatchEdit()
+        for atom in dummy_atoms_to_delete:
+            editable_combined_mol.RemoveAtom(atom)
+        editable_combined_mol.CommitBatchEdit()
+        mol_frag_0 = editable_combined_mol.GetMol()
+        # Where dummy atoms should be connected, add them back in
+        dummy_connections: list[int] = shuffle_atom_sep[-1]
+        print(f"{dummy_connections=}")
+        for dummy in dummy_connections:
+            for atom in mol_frag_0.GetAtoms():
+                if atom.GetAtomMapNum() == dummy:
+                    connection_idx = atom.GetIdx()
+            dummy_idx: int = editable_combined_mol.AddAtom(Chem.rdchem.Atom(0))
+            editable_combined_mol.AddBond(
+                connection_idx, dummy_idx, Chem.BondType.SINGLE
+            )
+
+        mol_frag_0 = editable_combined_mol.GetMol()
+        Draw.MolToFile(
+            mol_frag_0,
+            filename=current_dir / "mol_frag_recombined.png",
+            size=(500, 500),
+        )
+        # assert False
+        # Remove atom mapping
+        Chem.SanitizeMol(mol_frag_0)
+        for atom in mol_frag_0.GetAtoms():
+            atom.SetAtomMapNum(0)
+        mol_fragments.append(mol_frag_0)
+
+    # Remove atom mapping and SanitizeMol
+    mol_fragments_smarts: list[str] = [Chem.MolToSmiles(frag) for frag in mol_fragments]
+    # mol_fragments_smarts: list[str] = [Chem.SanitizeMol(frag) for frag in mol_fragments]
+    print(f"{mol_fragments_smarts=}")
+    # Draw.MolToFile(
+    #     mol_fragments[2],
+    #     filename=current_dir / "mol_frag_recombined_final.png",
+    #     size=(500, 500),
+    # )
+    return mol_fragments_smarts
 
 
 def reorder_fragments(
@@ -399,6 +497,7 @@ def reorder_fragments(
         mol_smi: str = Chem.MolToSmarts(mol)
     else:
         mol_smi: str = Chem.MolToSmiles(mol)
+    print(f"{mol_smi=}")
     new_frags: list[str] = mol_smi.split(".")  # split on "." to get fragments
     # Re-order fragments based on base_fragments connections
     ordered_frags: list[str] = []
@@ -425,11 +524,13 @@ def reorder_fragments(
         # print(f"{ordered_frags[i]=}")
         # print(f"{mol_frag=}")
         # Remove atom mapping
-        [a.SetAtomMapNum(0) for a in mol_frag.GetAtoms()]
+        # [a.SetAtomMapNum(0) for a in mol_frag.GetAtoms()]
         # remove dummy atom
-        mol_frag_smi: str = Chem.MolToSmiles(mol_frag)
-        mol_frag_smi: str = Chem.CanonSmiles(mol_frag_smi)
-        mol_frag_smi: str = mol_frag_smi.replace("*", "")
+        if recombine:
+            mol_frag_smi: str = Chem.MolToSmarts(mol_frag)
+        else:
+            mol_frag_smi: str = Chem.MolToSmiles(mol_frag)
+        # mol_frag_smi: str = mol_frag_smi.replace("*", "")
         # edmol_frag: Chem.EditableMol = Chem.EditableMol(mol_frag)
         # for atom in mol_frag.GetAtoms():
         #     if atom.GetSymbol() == "*":
@@ -462,156 +563,168 @@ def iterative_shuffle(fragmented: list[str]) -> list[list[str]]:
     return augmented_polymer_list
 
 
-def recombine_fragments(fragment_smarts: list[list[str]]) -> list[str]:
-    """
-    Function that recombines the rearranged molecule into the appropriate SMILES.
-    """
-    recombined_fragments: list[str] = []
-    for each_shuffle in fragment_smarts:
-        #  Reaction SMARTS
-        curr_mol = each_shuffle[0]
-        print(f"{each_shuffle=}")
-        idx = 2
-        for frag in each_shuffle[1:]:
-            atomic_num: int = 64
-            recombined = False
-            stop_condition = 0
-            while not recombined:
-                if stop_condition == 50:
-                    assert False, f"{each_shuffle=}, {curr_mol=}, {frag=}"
-                elif idx == len(
-                    each_shuffle
-                ):  # if last fragment, complete the C single bonds
-                    try:
-                        # Order matters
-                        rxn = AllChem.ReactionFromSmarts(
-                            "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
-                                atomic_num + 1, atomic_num
-                            )
-                        )
-                        products = rxn.RunReactants(
-                            [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                        )
-                        if products == ():
-                            rxn = AllChem.ReactionFromSmarts(
-                                "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
-                                    atomic_num, atomic_num + 1
-                                )
-                            )
-                            products = rxn.RunReactants(
-                                [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                            )
-                        curr_mol = products[0][0]  # fails if products is ()
-                        curr_mol = Chem.MolToSmarts(curr_mol)
-                        recombined = True
-                    except:
-                        try:  # Handles the end group connection
-                            # Order matters
-                            atomic_num_2: int = 64
-                            rxn = AllChem.ReactionFromSmarts(
-                                "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
-                                    atomic_num_2 + len(each_shuffle) - 1,
-                                    atomic_num_2,
-                                )
-                            )
-                            products = rxn.RunReactants(
-                                [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                            )
-                            print(
-                                f"{atomic_num_2=}, {atomic_num=}, {atomic_num_2 + len(each_shuffle) - 1=}"
-                            )
-                            if products == ():
-                                rxn = AllChem.ReactionFromSmarts(
-                                    "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
-                                        atomic_num_2,
-                                        atomic_num_2 + len(each_shuffle) - 1,
-                                    )
-                                )
-                                products = rxn.RunReactants(
-                                    [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                                )
-                            curr_mol = products[0][0]  # fails if products is ()
-                            curr_mol = Chem.MolToSmarts(curr_mol)
-                            recombined = True
-                        except:
-                            atomic_num += 1
-                            stop_condition += 1
-                else:
-                    try:
-                        # Order matters
-                        rxn = AllChem.ReactionFromSmarts(
-                            "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
-                                atomic_num, atomic_num + 1, atomic_num + 1
-                            )
-                        )
-                        products = rxn.RunReactants(
-                            [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                        )
-                        if products == ():
-                            rxn = AllChem.ReactionFromSmarts(
-                                "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
-                                    atomic_num, atomic_num + 1, atomic_num + 1
-                                )
-                            )
-                            products = rxn.RunReactants(
-                                [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                            )
-                        curr_mol = products[0][0]  # fails if products is ()
-                        curr_mol = Chem.MolToSmarts(curr_mol)
-                        recombined = True
-                    except:
-                        try:  # handles the end group connection
-                            # Order matters
-                            atomic_num_2: int = 64
-                            rxn = AllChem.ReactionFromSmarts(
-                                "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
-                                    atomic_num_2 + len(each_shuffle) - 1,
-                                    atomic_num_2,
-                                    atomic_num_2,
-                                )
-                            )
-                            products = rxn.RunReactants(
-                                [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                            )
-                            if products == ():
-                                rxn = AllChem.ReactionFromSmarts(
-                                    "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
-                                        atomic_num_2,
-                                        atomic_num_2 + len(each_shuffle) - 1,
-                                        atomic_num_2 + len(each_shuffle) - 1,
-                                    )
-                                )
-                                products = rxn.RunReactants(
-                                    [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
-                                )
-                            curr_mol = products[0][0]  # fails if products is ()
-                            curr_mol = Chem.MolToSmarts(curr_mol)
-                            recombined = True
-                        except:
-                            atomic_num += 1
-                            stop_condition += 1
-            idx += 1
+# DEPRECATED
+# def recombine_fragments(fragment_smarts: list[list[str]]) -> list[str]:
+#     """
+#     Function that recombines the rearranged molecule into the appropriate SMILES.
+#     """
+#     recombined_fragments: list[str] = []
+#     for each_shuffle in fragment_smarts:
+#         #  Reaction SMARTS
+#         curr_mol = each_shuffle[0]
+#         # print(f"{each_shuffle=}")
+#         idx = 2
+#         for frag in each_shuffle[1:]:
+#             atomic_nums: list = list(range(57, 72))
+#             atomic_nums.extend(list(range(89, 104)))
+#             atomic_nums.extend(list(range(104, 119)))
+#             i = 0
+#             recombined = False
+#             stop_condition = 0
+#             while not recombined:
+#                 if stop_condition == 50:
+#                     assert False, f"{each_shuffle=}, {curr_mol=}, {frag=}"
+#                 elif idx == len(
+#                     each_shuffle
+#                 ):  # if last fragment, complete the C single bonds
+#                     try:
+#                         # Order matters
+#                         rxn = AllChem.ReactionFromSmarts(
+#                             "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
+#                                 atomic_nums[i + 1], atomic_nums[i]
+#                             )
+#                         )
+#                         products = rxn.RunReactants(
+#                             [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                         )
+#                         if products == ():
+#                             rxn = AllChem.ReactionFromSmarts(
+#                                 "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
+#                                     atomic_nums[i], atomic_nums[i + 1]
+#                                 )
+#                             )
+#                             products = rxn.RunReactants(
+#                                 [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                             )
+#                         curr_mol = products[0][0]  # fails if products is ()
+#                         curr_mol = Chem.MolToSmarts(curr_mol)
+#                         recombined = True
+#                     except:
+#                         try:  # Handles the end group connection
+#                             # Order matters
+#                             atomic_nums_2: list = list(range(57, 72))
+#                             atomic_nums_2.extend(list(range(89, 104)))
+#                             atomic_nums_2.extend(list(range(104, 119)))
+#                             i_2 = 0
+#                             rxn = AllChem.ReactionFromSmarts(
+#                                 "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
+#                                     atomic_nums_2[i + len(each_shuffle) - 1],
+#                                     atomic_nums_2[i],
+#                                 )
+#                             )
+#                             products = rxn.RunReactants(
+#                                 [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                             )
+#                             # print(
+#                             #     f"{atomic_num_2=}, {atomic_num=}, {atomic_num_2 + len(each_shuffle) - 1=}"
+#                             # )
+#                             if products == ():
+#                                 rxn = AllChem.ReactionFromSmarts(
+#                                     "[#{}:1].[#{}:2]>>[C:1]-[C:2]".format(
+#                                         atomic_nums_2[i],
+#                                         atomic_nums_2[i + len(each_shuffle) - 1],
+#                                     )
+#                                 )
+#                                 products = rxn.RunReactants(
+#                                     [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                                 )
+#                             curr_mol = products[0][0]  # fails if products is ()
+#                             curr_mol = Chem.MolToSmarts(curr_mol)
+#                             recombined = True
+#                         except:
+#                             i += 1
+#                             stop_condition += 1
+#                 else:
+#                     try:
+#                         # Order matters
+#                         rxn = AllChem.ReactionFromSmarts(
+#                             "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
+#                                 atomic_nums[i], atomic_nums[i + 1], atomic_nums[i + 1]
+#                             )
+#                         )
+#                         products = rxn.RunReactants(
+#                             [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                         )
+#                         if products == ():
+#                             rxn = AllChem.ReactionFromSmarts(
+#                                 "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
+#                                     atomic_nums[i],
+#                                     atomic_nums[i + 1],
+#                                     atomic_nums[i + 1],
+#                                 )
+#                             )
+#                             products = rxn.RunReactants(
+#                                 [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                             )
+#                         curr_mol = products[0][0]  # fails if products is ()
+#                         curr_mol = Chem.MolToSmarts(curr_mol)
+#                         recombined = True
+#                     except:
+#                         try:  # handles the end group connection
+#                             # Order matters
+#                             atomic_nums_2: list = list(range(57, 72))
+#                             atomic_nums_2.extend(list(range(89, 104)))
+#                             atomic_nums_2.extend(list(range(104, 119)))
+#                             i_2 = 0
+#                             rxn = AllChem.ReactionFromSmarts(
+#                                 "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
+#                                     atomic_nums_2[i + len(each_shuffle) - 1],
+#                                     atomic_nums_2[i],
+#                                     atomic_nums_2[i],
+#                                 )
+#                             )
+#                             products = rxn.RunReactants(
+#                                 [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                             )
+#                             if products == ():
+#                                 rxn = AllChem.ReactionFromSmarts(
+#                                     "[#{}:1].[#{}:2]>>[C:1]-[#{}:2]".format(
+#                                         atomic_nums_2[i],
+#                                         atomic_nums_2[i + len(each_shuffle) - 1],
+#                                         atomic_nums_2[i + len(each_shuffle) - 1],
+#                                     )
+#                                 )
+#                                 products = rxn.RunReactants(
+#                                     [Chem.MolFromSmarts(x) for x in [curr_mol, frag]]
+#                                 )
+#                             curr_mol = products[0][0]  # fails if products is ()
+#                             curr_mol = Chem.MolToSmarts(curr_mol)
+#                             recombined = True
+#                         except:
+#                             i_2 += 1
+#                             stop_condition += 1
+#             idx += 1
 
-        curr_mol = Chem.MolFromSmarts(curr_mol)
-        # for atom in curr_mol.GetAtoms():
-        #     atom.SetAtomMapNum(atom.GetIdx())
-        # drawn = Chem.Draw.MolToFile(
-        #     curr_mol, IMG_PATH + "manual_rearranged.png", size=(700, 700)
-        # )
+#         curr_mol = Chem.MolFromSmarts(curr_mol)
+#         # for atom in curr_mol.GetAtoms():
+#         #     atom.SetAtomMapNum(atom.GetIdx())
+#         # drawn = Chem.Draw.MolToFile(
+#         #     curr_mol, IMG_PATH + "manual_rearranged.png", size=(700, 700)
+#         # )
 
-        Chem.SanitizeMol(curr_mol)
+#         # Chem.SanitizeMol(curr_mol)
 
-        # for atom in curr_mol.GetAtoms():
-        #     atom.SetAtomMapNum(atom.GetIdx())
-        # drawn = Chem.Draw.MolToFile(
-        #     curr_mol, IMG_PATH + "manual_rearranged.png", size=(700, 700)
-        # )
+#         # for atom in curr_mol.GetAtoms():
+#         #     atom.SetAtomMapNum(atom.GetIdx())
+#         # drawn = Chem.Draw.MolToFile(
+#         #     curr_mol, IMG_PATH + "manual_rearranged.png", size=(700, 700)
+#         # )
 
-        # removes atom map numbering
-        [a.SetAtomMapNum(0) for a in curr_mol.GetAtoms() if a.GetAtomicNum() != 0]
-        recombined_fragments.append(curr_mol)
+#         # removes atom map numbering
+#         [a.SetAtomMapNum(0) for a in curr_mol.GetAtoms() if a.GetAtomicNum() != 0]
+#         recombined_fragments.append(curr_mol)
 
-    return recombined_fragments
+#     return recombined_fragments
 
 
 def augment_dataset(dataset: Path, augmented_dataset: Path) -> pd.DataFrame:
@@ -627,18 +740,18 @@ def augment_dataset(dataset: Path, augmented_dataset: Path) -> pd.DataFrame:
     indices: tuple[Chem.Mol, dict] = dataset_df.apply(
         lambda x: get_fragment_indices(x["smiles"]), axis=1
     )
-    fragment_mols = indices.apply(lambda x: fragment_mol_from_indices(x[0], x[1]))
-    dataset_df["polymer_automated_frag"] = fragment_mols.apply(lambda x: x[0])
-    shuffled: list[list[str]] = fragment_mols.apply(lambda x: iterative_shuffle(x))
-    dataset_df["polymer_automated_frag_aug"] = shuffled
-    # recombined_fragment_mols = indices.apply(
-    #     lambda x: fragment_recombined_mol_from_indices(x[0], x[1])
-    # )
-    # r_shuffled: list[list[str]] = recombined_fragment_mols.apply(
-    #     lambda x: iterative_shuffle(x)
-    # )
-    # recombined: list[str] = r_shuffled.apply(lambda x: recombine_fragments(x))
-    # dataset_df["polymer_automated_frag_recombined_str"] = recombined
+    # fragment_mols = indices.apply(lambda x: fragment_mol_from_indices(x[0], x[1]))
+    # dataset_df["polymer_automated_frag"] = fragment_mols.apply(lambda x: x)
+    # shuffled: list[list[str]] = fragment_mols.apply(lambda x: iterative_shuffle(x))
+    # dataset_df["polymer_automated_frag_aug"] = shuffled
+    recombined_fragment_mols = indices.apply(
+        lambda x: fragment_recombined_mol_from_indices(x[0], x[1])
+    )
+    r_shuffled: list[list[str]] = recombined_fragment_mols.apply(
+        lambda x: iterative_shuffle(x)
+    )
+    recombined: list[str] = r_shuffled.apply(lambda x: recombine_fragments(x))
+    dataset_df["polymer_automated_frag_recombined_str"] = recombined
 
     dataset_df.to_csv(augmented_dataset, index=False)
 
@@ -656,11 +769,11 @@ def filter_dataset(dataset: Path, property: str) -> pd.DataFrame:
     pass
 
 
-augment_dataset(dft_data, augmented_dft_data)
+# augment_dataset(dft_data, augmented_dft_data)
 # get_fragment_indices("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1")
 # get_fragment_indices("NC2C(O)C(OC1OC(COCCC)C(O(C))C(O[*])C1N)C(CO)OC2([*])")
-# mol, base_fragments = get_fragment_indices("NC2C(O)C(OC1OC(COC3CCCC3)C(O(C))C(O[*])C1N)C(CO)OC2([*])")
-# fragmented = fragment_mol_from_indices(mol, base_fragments)
+mol, base_fragments = get_fragment_indices("COC(c1cc([*])ccc1)c2ccc([*])cc2CCC")
+fragmented = fragment_recombined_mol_from_indices(mol, base_fragments)
 # shuffled = iterative_shuffle(fragmented)
 # print(Chem.MolFromSmiles("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1"))
 # print(augmented_dft_data)

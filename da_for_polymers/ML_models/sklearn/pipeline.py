@@ -137,8 +137,8 @@ def process_features(
                 token2idx,
             ) = Tokenizer().tokenize_data(augmented_smi_series)
         else:
-            token2idx = {}
-            token_idx = 0
+            token2idx: dict = {"_PAD": 0}
+            token_idx = len(token2idx)
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])
                 for frag in input_value:
@@ -148,8 +148,8 @@ def process_features(
     elif (
         input_instance == "list_of_list"
     ):  # list of list of augmented fragments or augmented fingerprints
-        token2idx: dict = {}
-        token_idx: int = 0
+        token2idx: dict = {"_PAD": 0}
+        token_idx = len(token2idx)
         for index, row in concat_df.iterrows():
             input_value = ast.literal_eval(row[input_representation])
             for aug_value in input_value:
@@ -171,7 +171,7 @@ def process_features(
             )
     else:
         raise TypeError("input_value is neither str or list. Fix it!")
-
+    print(f"{token2idx=}")
     max_input_length = 0  # for padding
     # processing training data
     input_train_list = []
