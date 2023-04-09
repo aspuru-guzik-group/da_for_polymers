@@ -8,6 +8,7 @@ import sys
 from collections import deque
 import numpy as np
 import ast
+import re
 
 sys.setrecursionlimit(100)
 
@@ -174,7 +175,7 @@ def get_fragment_indices(polymer: str) -> list[dict]:
     # visualize molecule
     # Set atom index to be displayed
     for atom in mol.GetAtoms():
-        atom.SetAtomMapNum(atom.GetIdx())
+        atom.SetAtomMapNum(atom.GetIdx(), strict=False)
     # Draw.MolToImageFile(mol, pathlib.Path(__file__).parent / "mol.png", size=(300, 300))
     # find index of astericks
     asterick_idx: list = []
@@ -350,10 +351,10 @@ def fragment_recombined_mol_from_indices(
     Returns:
         A list of polymer molecules with its monomer units fragmented.
     """
+    print(f"{Chem.MolToSmiles(mol)=}, POLYMER")
     if len(base_fragments) == 1:
         [a.SetAtomMapNum(0) for a in mol.GetAtoms()]
         mol_smi: str = Chem.MolToSmiles(mol)
-        mol_smi: str = mol_smi.replace("*", "")
         return [mol_smi]
     # Fragment on connection bonds
     # print(f"{base_fragments=}" )
@@ -374,14 +375,16 @@ def fragment_recombined_mol_from_indices(
         atom_separation_idx.append([atom_1, atom_2])
         bonds_to_fragment.append(mol.GetBondBetweenAtoms(atom_1, atom_2).GetIdx())
     new_mol: Chem.Mol = Chem.FragmentOnBonds(mol, bonds_to_fragment, addDummies=False)
+    # print(f"{Chem.MolToSmiles(new_mol)=}")
     # reorder fragments
+    # NOTE: Must be SMILES because SMARTS loses charge characteristics
     reordered_frags: list[str] = reorder_fragments(
-        base_fragments, new_mol, recombine=True
+        base_fragments, new_mol, recombine=False
     )
     # add end connections to atom separation idx
     if len(reordered_frags) > 1:
-        frag_0: Chem.Mol = Chem.MolFromSmarts(reordered_frags[0])
-        frag_1: Chem.Mol = Chem.MolFromSmarts(reordered_frags[-1])
+        frag_0: Chem.Mol = Chem.MolFromSmiles(reordered_frags[0])
+        frag_1: Chem.Mol = Chem.MolFromSmiles(reordered_frags[-1])
         for atom in frag_0.GetAtoms():
             if atom.GetAtomicNum() == 0:
                 neighbors: tuple[Chem.Atom] = atom.GetNeighbors()
@@ -390,6 +393,8 @@ def fragment_recombined_mol_from_indices(
             if atom.GetAtomicNum() == 0:
                 neighbors: tuple[Chem.Atom] = atom.GetNeighbors()
                 atom_1: int = neighbors[0].GetAtomMapNum()
+        # assert atom_0, print(Chem.MolToSmiles(mol), reordered_frags)
+        # assert atom_1, print(Chem.MolToSmiles(mol), reordered_frags)
         atom_separation_idx.append([atom_0, atom_1])
 
         shuffled_reordered_frags: list[list[str]] = iterative_shuffle(reordered_frags)
@@ -407,20 +412,22 @@ def fragment_recombined_mol_from_indices(
         for shuffled_i in range(len(shuffled_reordered_frags)):
             # print(f"{shuffled_i=}")
             # print(f"{shuffled_reordered_frags[shuffled_i]=}")
-            mol_frag_0: Chem.Mol = Chem.MolFromSmarts(
+            mol_frag_0: Chem.Mol = Chem.MolFromSmiles(
                 shuffled_reordered_frags[shuffled_i][0]
             )
+            # print(f"{Chem.MolToSmiles(mol_frag_0)=}")
             i = 1
             # print(f"{shuffled_atom_separation_idx=}")
             shuffle_atom_sep: list = shuffled_atom_separation_idx[shuffled_i]
             # print(f"{shuffle_atom_sep=}")
-            for atom_sep in shuffle_atom_sep[0 : len(shuffle_atom_sep) - 1]:
-                mol_frag_1: Chem.Mol = Chem.MolFromSmarts(
+            for atom_i in range(0, len(shuffle_atom_sep) - 1):
+                atom_sep = shuffle_atom_sep[atom_i]
+                mol_frag_1: Chem.Mol = Chem.MolFromSmiles(
                     shuffled_reordered_frags[shuffled_i][i]
                 )
                 # add bond between mol_frag_0 and mol_frag_1
                 combined_mol: Chem.Mol = Chem.CombineMols(mol_frag_0, mol_frag_1)
-                # print(f"{Chem.MolToSmarts(combined_mol)=}")
+                # print(f"{Chem.MolToSmiles(combined_mol)=}")
                 atoms = []
                 for atom in atom_sep:
                     # print(f"{atom=}")
@@ -430,6 +437,8 @@ def fragment_recombined_mol_from_indices(
                             # print(f"{c_atom.GetIdx()=}")
                 # print(f"{atoms=}")
                 if len(atoms) == 2:
+                    # combined_mol = Chem.RemoveHs(combined_mol)
+                    # print(f"{Chem.MolToSmiles(combined_mol)=}, REMOVE H")
                     # print("------------------PASSED------------------")
                     editable_combined_mol: Chem.EditableMol = Chem.EditableMol(
                         combined_mol
@@ -440,9 +449,9 @@ def fragment_recombined_mol_from_indices(
                     mol_frag_0 = editable_combined_mol.GetMol()
                     i += 1
 
-                # print(f"{Chem.MolToSmarts(mol_frag_0)=}, FINISHED")
-            # Remove all dummy atoms
+                # print(f"{Chem.MolToSmiles(mol_frag_0)=}, FINISHED")
 
+            # Remove all dummy atoms
             editable_combined_mol: Chem.EditableMol = Chem.EditableMol(mol_frag_0)
             dummy_atoms_to_delete: list = []
             for atom in mol_frag_0.GetAtoms():
@@ -453,20 +462,107 @@ def fragment_recombined_mol_from_indices(
                 editable_combined_mol.RemoveAtom(atom)
             editable_combined_mol.CommitBatchEdit()
             mol_frag_0 = editable_combined_mol.GetMol()
+            # print(f"{Chem.MolToSmiles(mol_frag_0)=}, FINISHED")
             # Where dummy atoms should be connected, add them back in
+            # print(f"{shuffle_atom_sep=}")
             dummy_connections: list[int] = shuffle_atom_sep[-1]
             # print(f"{dummy_connections=}")
+            connection_idxs: list[int] = []
             for atom in mol_frag_0.GetAtoms():
                 if atom.GetAtomMapNum() in dummy_connections:
-                    connection_idx = atom.GetIdx()
-                # else:
-                # print(Chem.MolToSmarts(mol_frag_0))
-            dummy_idx: int = editable_combined_mol.AddAtom(Chem.rdchem.Atom(0))
-            editable_combined_mol.AddBond(
-                connection_idx, dummy_idx, Chem.BondType.SINGLE
-            )
-
+                    connection_idxs.append(atom.GetIdx())
+            editable_combined_mol: Chem.EditableMol = Chem.EditableMol(mol_frag_0)
+            for connection_idx in connection_idxs:
+                dummy_idx: int = editable_combined_mol.AddAtom(Chem.rdchem.Atom(0))
+                editable_combined_mol.AddBond(
+                    connection_idx, dummy_idx, Chem.BondType.SINGLE
+                )
             mol_frag_0 = editable_combined_mol.GetMol()
+            # Fix valency for all atoms that participate in any new connection (dummy or not)
+            # print(f"{Chem.MolToSmiles(mol_frag_0)=}, before fixing valency")
+            # print(f"{shuffle_atom_sep=}")
+            for atom_i in range(0, len(shuffle_atom_sep)):
+                atom_sep = shuffle_atom_sep[atom_i]
+                # print(f"{atom_sep=}, clean up valency")
+                for atom in mol_frag_0.GetAtoms():
+                    if atom.GetAtomMapNum() in atom_sep:
+                        # print(
+                        #     f"{atom.GetIdx()=}, {atom.GetAtomMapNum()=}, {atom.GetAtomicNum()=}"
+                        # )
+                        # print(
+                        #     f"{Chem.MolToSmarts(mol_frag_0)=}, before removing hydrogen"
+                        # )
+                        # Draw.MolToFile(
+                        #     mol_frag_0,
+                        #     filename=current_dir / "mol_frag_recombined.png",
+                        #     size=(500, 500),
+                        # )
+                        # assert False
+                        # Number of allowed Hydrogens
+                        pt = Chem.rdchem.GetPeriodicTable()
+                        # Get neighbour valency from bondtypes
+                        for valence in pt.GetValenceList(atom.GetAtomicNum()):
+                            if atom.GetAtomicNum() == 0:
+                                valence = 1
+                            try:
+                                neighbor_valency: int = 0
+                                for bond in atom.GetBonds():
+                                    bond_type: int = bond.GetBondTypeAsDouble()
+                                    neighbor_valency += bond_type
+                                allowed_Hs: int = (
+                                    valence - neighbor_valency - atom.GetNumExplicitHs()
+                                )
+                                woohoo = neighbor_valency + atom.GetNumExplicitHs()
+                                # print(f"{woohoo=}")
+                                while allowed_Hs > 0:
+                                    # print(f"{allowed_Hs=}, positive")
+                                    # Get number of implicit Hs
+                                    # Reduce that number by 1
+                                    # Set number of implicit Hs
+                                    num_explicit_h: int = atom.GetNumExplicitHs()
+                                    # print(f"{num_explicit_h=}")
+                                    num_explicit_h: int = num_explicit_h + 1
+                                    atom.SetNumExplicitHs(num_explicit_h)
+                                    # Get neighbour valency from bondtypes
+                                    neighbor_valency: int = 0
+                                    for bond in atom.GetBonds():
+                                        bond_type: int = bond.GetBondTypeAsDouble()
+                                        neighbor_valency += bond_type
+                                    allowed_Hs: int = (
+                                        valence
+                                        - neighbor_valency
+                                        - atom.GetNumExplicitHs()
+                                    )
+                                    woohoo = neighbor_valency + atom.GetNumExplicitHs()
+                                    # print(f"{woohoo=}")
+                                while allowed_Hs < 0:
+                                    # print(f"{allowed_Hs=}, negative")
+                                    # Get number of implicit Hs
+                                    # Reduce that number by 1
+                                    # Set number of implicit Hs
+                                    num_explicit_h: int = atom.GetNumExplicitHs()
+                                    # print(f"{num_explicit_h=}")
+                                    # print(f"{num_explicit_h=}")
+                                    num_explicit_h: int = num_explicit_h - 1
+                                    atom.SetNumExplicitHs(num_explicit_h)
+                                    # Get neighbour valency from bondtypes
+                                    neighbor_valency: int = 0
+                                    for bond in atom.GetBonds():
+                                        bond_type: int = bond.GetBondTypeAsDouble()
+                                        neighbor_valency += bond_type
+                                    allowed_Hs: int = (
+                                        valence
+                                        - neighbor_valency
+                                        - atom.GetNumExplicitHs()
+                                    )
+                                    woohoo = neighbor_valency + atom.GetNumExplicitHs()
+                                    # print(f"{woohoo=}")
+                            except:
+                                print("Valency was wrong. Try again.")
+
+            # print(f"{Chem.MolToSmiles(mol_frag_0)=}, delete hydrogen")
+
+            # print(f"{Chem.MolToSmiles(mol_frag_0)=}")
             Draw.MolToFile(
                 mol_frag_0,
                 filename=current_dir / "mol_frag_recombined.png",
@@ -474,10 +570,27 @@ def fragment_recombined_mol_from_indices(
             )
             # assert False
             # Remove atom mapping
+            # print(f"{Chem.MolToSmiles(mol)=}, {Chem.MolToSmiles(mol_frag_0)=}")
+            print(f"{Chem.MolToSmiles(mol_frag_0)=}, before sanitization")
+            # Gets rid of weird radicals on aromatic carbons.
+            mol_frag_0_smi: str = Chem.MolToSmiles(mol_frag_0)
+            mol_frag_0: Chem.Mol = Chem.MolFromSmiles(mol_frag_0_smi)
+            # Draw.MolToFile(
+            #     mol_frag_0,
+            #     filename=current_dir / "mol_frag_recombined.png",
+            #     size=(500, 500),
+            # )
             Chem.SanitizeMol(mol_frag_0)
             for atom in mol_frag_0.GetAtoms():
                 atom.SetAtomMapNum(0)
-            mol_fragments.append(mol_frag_0)
+            if mol_frag_0 not in mol_fragments:
+                mol_fragments.append(mol_frag_0)
+            # Draw.MolToFile(
+            #     mol_frag_0,
+            #     filename=current_dir / "mol_frag_recombined.png",
+            #     size=(500, 500),
+            # )
+            print(f"{Chem.MolToSmiles(mol_frag_0)=}, after sanitization")
 
         # Remove atom mapping and SanitizeMol
         mol_fragments_smiles: list[str] = [
@@ -496,6 +609,15 @@ def fragment_recombined_mol_from_indices(
     return mol_fragments_smiles
 
 
+TOKENIZER_PATTERN = "(\%\([0-9]{3}\)|\[[^\]]+]|Se?|Si?|Br?|Cl?|N|O|S|P|F|I|b|c|n|o|s|p|\||\(|\)|\.|=|#|-|\+|\\|\/|:|~|@|\?|>>?|\*|\$|\%[0-9]{2}|[0-9])"
+TOKENIZER_REGEX = re.compile(TOKENIZER_PATTERN)
+
+
+def tokenize(input):
+    tokens = [t for t in TOKENIZER_REGEX.findall(input)]
+    return ",".join(tokens)
+
+
 def reorder_fragments(
     base_fragments: dict, mol: Chem.Mol, recombine: bool
 ) -> list[str]:
@@ -504,28 +626,50 @@ def reorder_fragments(
         mol_smi: str = Chem.MolToSmarts(mol)
     else:
         mol_smi: str = Chem.MolToSmiles(mol)
-    # print(f"{mol_smi=}")
+    print(f"{mol_smi=}")
     new_frags: list[str] = mol_smi.split(".")  # split on "." to get fragments
     # Re-order fragments based on base_fragments connections
     ordered_frags: list[str] = []
-    # print(f"{new_frags=}")
+    print(f"{new_frags=}, {base_fragments=}")
     for i in range(0, len(base_fragments)):
         for frag in new_frags:
-            matched = True
             # all idx in backbone must be matched
+            matched = True
             for b_idx in base_fragments[i]["backbone"]:
                 str_check: str = ":" + str(b_idx) + "]"
-                if str_check not in frag:
-                    for elementary_atom in range(6, 7):
-                        str_check_0_idx: str = f"[#{elementary_atom}]"
-                        if str_check_0_idx in frag:
-                            continue
+                if b_idx == 0:
+                    first_atom_found = []
+                    tokenized_frag: list = tokenize(frag).split(",")
+                    # print(f"{tokenized_frag=}")
+                    # assert False
+                    for atom_num in [
+                        "C",
+                        "N",
+                        "O",
+                        "S",
+                        "P",
+                        "F",
+                        "I",
+                        "B",
+                        "Br",
+                        "Cl",
+                    ]:
+                        atom_check = str(atom_num)
+                        if atom_check in tokenized_frag:
+                            first_atom_found.append("True")
+                        else:
+                            first_atom_found.append("False")
+                        print(f"{first_atom_found=}")
+                        if "True" in first_atom_found:
+                            matched = True
                         else:
                             matched = False
+                elif str_check not in frag:
+                    matched = False
             if matched and frag not in ordered_frags:
                 ordered_frags.append(frag)
-    # print(f"{ordered_frags=}")
-    # print(f"{ordered_frags=}")
+            # print(f"{ordered_frags=}")
+    print(f"{ordered_frags=}")
     # Remove astericks on fragments
     ordered_fragments_without_astericks: list[str] = []
     for i in range(0, len(ordered_frags)):
@@ -551,7 +695,7 @@ def reorder_fragments(
         # mol_frag = Chem.rdmolops.RemoveHs(mol_frag, implicitOnly=False)
         # Draw.MolToImageFile(mol_frag, pathlib.Path(__file__).parent / "mol_frag.png", size=(300, 300))
         ordered_fragments_without_astericks.append(mol_frag_smi)
-
+    # print(f"{ordered_fragments_without_astericks=}")
     return ordered_fragments_without_astericks
 
 
@@ -609,18 +753,20 @@ def augment_dataset(dataset: Path, augmented_dataset: Path) -> pd.DataFrame:
     indices: tuple[Chem.Mol, dict] = dataset_df.apply(
         lambda x: get_fragment_indices(x["smiles"]), axis=1
     )
-    fragment_mols = indices.apply(lambda x: fragment_mol_from_indices(x[0], x[1]))
-    dataset_df["polymer_automated_frag"] = fragment_mols.apply(lambda x: x)
-    shuffled: list[list[str]] = fragment_mols.apply(lambda x: iterative_shuffle(x))
-    dataset_df["polymer_automated_frag_aug"] = shuffled
+    # fragment_mols = indices.apply(lambda x: fragment_mol_from_indices(x[0], x[1]))
+    # dataset_df["polymer_automated_frag"] = fragment_mols.apply(lambda x: x)
+    # shuffled: list[list[str]] = fragment_mols.apply(lambda x: iterative_shuffle(x))
+    # dataset_df["polymer_automated_frag_aug"] = shuffled
     recombined_fragment_mols = indices.apply(
         lambda x: fragment_recombined_mol_from_indices(x[0], x[1])
     )
-    dataset_df["polymer_automated_frag_recombined_str"] = recombined_fragment_mols
+    dataset_df[
+        "polymer_automated_frag_aug_recombined_SMILES"
+    ] = recombined_fragment_mols
     fingerprint_recombined = recombined_fragment_mols.apply(
         lambda x: fingerprint_recombined_augmented_data(x)
     )
-    dataset_df["polymer_automated_frag_recombined_fp"] = fingerprint_recombined
+    dataset_df["polymer_automated_frag_aug_recombined_fp"] = fingerprint_recombined
     dataset_df.to_csv(augmented_dataset, index=False)
 
 
@@ -640,9 +786,16 @@ def filter_dataset(dataset: Path, property: str) -> pd.DataFrame:
 augment_dataset(dft_data, augmented_dft_data)
 # get_fragment_indices("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1")
 # get_fragment_indices("NC2C(O)C(OC1OC(COCCC)C(O(C))C(O[*])C1N)C(CO)OC2([*])")
-# mol, base_fragments = get_fragment_indices(
-#     "C(=[O:1])([*:2])[c:3]1[cH:4][cH:5][c:6]([C:9](=[O:10])[O:11][c:12]2[cH:13][cH:14][c:15]([C:18]3([c:28]4[cH:29][cH:30][c:31]([O:34][*:35])[cH:32][cH:33]4)[c:19]4[cH:20][cH:21][cH:22][cH:23][c:24]4[C:25](=[O:26])[O:27]3)[cH:16][cH:17]2)[cH:7][cH:8]1"
+# m = Chem.MolFromSmarts(
+#     "C(=[O:1])([*:2])[c:3]1[cH:4][cH:5][c:6]([C:7](=[O:8])[O:9][c:10]2[cH:11][cH:12][c:13]([C:14]3([c:15]4[cH:16][cH:17][c:18]([O:19][*:20])[cH:21][cH:22]4)[c:23]4[cH:24][cH:25][cH:26][cH:27][c:28]4[C:29](=[O:30])[O:31]3)[cH:32][cH:33]2)[cH:34][cH:35]1"
 # )
+# # [a.SetAtomMapNum(0) for a in m.GetAtoms()]
+# for bond in m.GetBonds():
+#     print(bond.GetBondType(), bond.GetBeginAtomIdx(), bond.GetEndAtomIdx())
+# Chem.SanitizeMol(m)
+# print(Chem.MolToSmiles(m))
+
+# mol, base_fragments = get_fragment_indices("[*]C1CC([*])(C#N)C1")
 # print(Chem.MolToSmiles(mol), base_fragments)
 # fragmented = fragment_recombined_mol_from_indices(mol, base_fragments)
 # print(fragmented)
@@ -651,3 +804,10 @@ augment_dataset(dft_data, augmented_dft_data)
 # shuffled = iterative_shuffle(fragmented)
 # print(Chem.MolFromSmiles("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1"))
 # print(augmented_dft_data)
+
+# m = Chem.MolFromSmiles("[CH2:1][CH:2]1[CH2:3][CH2:4][CH:5][CH2:7]1")
+# for atom in m.GetAtoms():
+#     print(f"{atom.GetAtomMapNum()=}, {atom.GetNumRadicalElectrons()=}")
+
+# pt = Chem.rdchem.GetPeriodicTable()
+# print(list(pt.GetValenceList(16)))
