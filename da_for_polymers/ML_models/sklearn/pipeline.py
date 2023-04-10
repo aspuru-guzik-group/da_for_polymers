@@ -171,7 +171,7 @@ def process_features(
             )
     else:
         raise TypeError("input_value is neither str or list. Fix it!")
-    print(f"{token2idx=}")
+    # print(f"{token2idx=}")
     max_input_length = 0  # for padding
     # processing training data
     input_train_list = []

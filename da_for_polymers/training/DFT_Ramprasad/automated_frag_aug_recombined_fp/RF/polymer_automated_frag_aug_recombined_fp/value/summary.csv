@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,polymer_automated_frag_aug_recombined_fp,value,RF,0.8842963576844441,0.006949808738132274,0.7803866433801369,0.013472608885296307,0.7312515533114107,0.01059243631351667,0.46422759731732743,0.006793981288305092,20728,512
