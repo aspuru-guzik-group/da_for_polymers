@@ -335,8 +335,13 @@ def fragment_mol_from_indices(mol: Chem.Mol, base_fragments: list[dict]) -> list
     new_mol_ordered_fragments: list[str] = reorder_fragments(
         base_fragments, new_mol, recombine=False
     )
+    new_mol_smi_no_atom_map: list[str] = []
+    for new_mol_smi in new_mol_ordered_fragments:
+        new_mol_frag: Chem.Mol = Chem.MolFromSmiles(new_mol_smi)
+        [a.SetAtomMapNum(0) for a in new_mol_frag.GetAtoms()]
+        new_mol_smi_no_atom_map.append(Chem.MolToSmiles(new_mol_frag))
 
-    return new_mol_ordered_fragments
+    return new_mol_smi_no_atom_map
 
 
 def fragment_recombined_mol_from_indices(
@@ -583,26 +588,17 @@ def fragment_recombined_mol_from_indices(
             Chem.SanitizeMol(mol_frag_0)
             for atom in mol_frag_0.GetAtoms():
                 atom.SetAtomMapNum(0)
-            if mol_frag_0 not in mol_fragments:
-                mol_fragments.append(mol_frag_0)
+            mol_frag_0_smi: str = Chem.MolToSmiles(mol_frag_0)
+            if mol_frag_0_smi not in mol_fragments:
+                mol_fragments.append(mol_frag_0_smi)
             # Draw.MolToFile(
             #     mol_frag_0,
             #     filename=current_dir / "mol_frag_recombined.png",
             #     size=(500, 500),
             # )
             # print(f"{Chem.MolToSmiles(mol_frag_0)=}, after sanitization")
+            mol_fragments_smiles = mol_fragments
 
-        # Remove atom mapping and SanitizeMol
-        mol_fragments_smiles: list[str] = [
-            Chem.MolToSmiles(frag) for frag in mol_fragments
-        ]
-        # mol_fragments_smarts: list[str] = [Chem.SanitizeMol(frag) for frag in mol_fragments]
-        # print(f"{mol_fragments_smiles=}")
-        # Draw.MolToFile(
-        #     mol_fragments[2],
-        #     filename=current_dir / "mol_frag_recombined_final.png",
-        #     size=(500, 500),
-        # )
     else:
         # return original smiles
         mol_fragments_smiles: list[str] = [Chem.MolToSmiles(mol)]

@@ -152,7 +152,8 @@ def main(config: dict):
             model = SVR(kernel="rbf", degree="3", cache_size=12000, max_iter=10000)
         else:
             raise NameError("Model not found. Please use RF, BRT, LR, KRR")
-
+        print(f"{input_train_array[0]=}")
+        print(f"{target_train_array[0]=}")
         # run hyperparameter optimization
         if config["hyperparameter_optimization"] == "True":
             # setup HPO space
