@@ -2,6 +2,7 @@ import pkg_resources
 import pandas as pd
 import selfies as sf
 import numpy as np
+from sklearn.preprocessing import OneHotEncoder
 
 PS_BAG_OF_FRAGS = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/Swelling_Xu/ps_bagfrags.csv"
@@ -23,11 +24,15 @@ KRR_ERROR_CSV = pkg_resources.resource_filename(
     "da_for_polymers", "ML_models/sklearn/KRR/Swelling_Xu/swell_KRR_error.csv"
 )
 
+PS_OHE_PATH = pkg_resources.resource_filename(
+    "da_for_polymers", "data/input_representation/Swelling_Xu/ohe/master_ohe.csv"
+)
+
 
 class Swelling:
     """
     Class that contains functions for cleaning the Polymer Swelling Dataset.
-    For example: matching Label with appropriate SMILES, 
+    For example: matching Label with appropriate SMILES,
     creating SELFIES from SMILES, Summation of Bag of Frags
     """
 
@@ -57,7 +62,7 @@ class Swelling:
         # create dictionary for polymer/solvent and their indices in the inventory .csv
         inventory_dict = {}
         for index, row in self.ps_inventory.iterrows():
-            species = self.ps_inventory.at[index, "Species"]
+            species = self.ps_inventory.at[index, "Name"]
             if species not in inventory_dict:
                 inventory_dict[species] = index
 
@@ -151,9 +156,34 @@ class Swelling:
         error_df = pd.read_csv(ps_error_path)
         print(np.std(error_df.Test_Error_0))
 
+    def create_master_ohe(self, ps_expt_path: str, ps_ohe_path: str):
+        """
+        Generate a function that will one-hot encode the all of the polymer and solvent molecules. Each unique molecule has a unique number.
+        Create one new column for the polymer and solvent one-hot encoded data.
+        """
+        master_df: pd.DataFrame = self.ps_expt
+        polymer_ohe = OneHotEncoder()
+        solvent_ohe = OneHotEncoder()
+        polymer_ohe.fit(master_df["Polymer"].values.reshape(-1, 1))
+        solvent_ohe.fit(master_df["Solvent"].values.reshape(-1, 1))
+        polymer_ohe_data = polymer_ohe.transform(
+            master_df["Polymer"].values.reshape(-1, 1)
+        )
+        solvent_ohe_data = solvent_ohe.transform(
+            master_df["Solvent"].values.reshape(-1, 1)
+        )
+        # print(f"{polymer_ohe_data=}")
+        master_df["Polymer_ohe"] = polymer_ohe_data.toarray().tolist()
+        master_df["Solvent_ohe"] = solvent_ohe_data.toarray().tolist()
+        # print(f"{master_df.head()}")
+        # combine polymer and solvent ohe data into one column
+        master_df["PS_ohe"] = master_df["Polymer_ohe"] + master_df["Solvent_ohe"]
+        master_df.to_csv(ps_ohe_path, index=False)
+
 
 swelling = Swelling(PS_BAG_OF_FRAGS, PS_INVENTORY, PS_EXPT_RESULT)
 swelling.smi_match(PS_EXPT_RESULT)
 swelling.sum_bag_of_frags(PS_EXPT_RESULT)
 swelling.smi2selfies(PS_EXPT_RESULT)
 swelling.clean_str(PS_EXPT_RESULT)
+swelling.create_master_ohe(PS_EXPT_RESULT, PS_OHE_PATH)

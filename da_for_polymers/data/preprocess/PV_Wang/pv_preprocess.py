@@ -2,6 +2,7 @@ import pkg_resources
 import pandas as pd
 import selfies as sf
 import numpy as np
+from sklearn.preprocessing import OneHotEncoder
 
 PV_INVENTORY = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_inventory.csv"
@@ -9,6 +10,10 @@ PV_INVENTORY = pkg_resources.resource_filename(
 
 PV_EXPT_RESULT = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_exptresults.csv"
+)
+
+PV_OHE_PATH = pkg_resources.resource_filename(
+    "da_for_polymers", "data/input_representation/PV_Wang/ohe/master_ohe.csv"
 )
 
 
@@ -107,12 +112,37 @@ class Pervaporation:
 
         self.data.to_csv(pv_expt_path, index=False)
 
+    def create_master_ohe(self, pv_expt_path: str, pv_ohe_path: str):
+        """
+        Generate a function that will one-hot encode the all of the polymer and solvent molecules. Each unique molecule has a unique number.
+        Create one new column for the polymer and solvent one-hot encoded data.
+        """
+        master_df: pd.DataFrame = self.data
+        polymer_ohe = OneHotEncoder()
+        solvent_ohe = OneHotEncoder()
+        polymer_ohe.fit(master_df["Polymer"].values.reshape(-1, 1))
+        solvent_ohe.fit(master_df["Solvent"].values.reshape(-1, 1))
+        polymer_ohe_data = polymer_ohe.transform(
+            master_df["Polymer"].values.reshape(-1, 1)
+        )
+        solvent_ohe_data = solvent_ohe.transform(
+            master_df["Solvent"].values.reshape(-1, 1)
+        )
+        # print(f"{polymer_ohe_data=}")
+        master_df["Polymer_ohe"] = polymer_ohe_data.toarray().tolist()
+        master_df["Solvent_ohe"] = solvent_ohe_data.toarray().tolist()
+        # print(f"{master_df.head()}")
+        # combine polymer and solvent ohe data into one column
+        master_df["PS_ohe"] = master_df["Polymer_ohe"] + master_df["Solvent_ohe"]
+        master_df.to_csv(pv_ohe_path, index=False)
+
 
 def cli_main():
     pv_data = Pervaporation(PV_INVENTORY, PV_EXPT_RESULT)
     # pv_data.smi_match(PV_EXPT_RESULT)
     # pv_data.sum_of_frags(PV_EXPT_RESULT)
-    pv_data.smi2selfies(PV_EXPT_RESULT)
+    # pv_data.smi2selfies(PV_EXPT_RESULT)
+    pv_data.create_master_ohe(PV_EXPT_RESULT, PV_OHE_PATH)
 
 
 if __name__ == "__main__":
