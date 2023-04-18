@@ -92,6 +92,6 @@ class CO2_Solubility:
 # NOTE: BigSMILES is derived from manual fragments
 
 preprocess = CO2_Solubility(CO2_PREPROCESSED, CO2_INVENTORY)
-# preprocess.smi_match(CO2_PREPROCESSED)
+preprocess.smi_match(CO2_PREPROCESSED)
 # preprocess.smi2selfies(CO2_PREPROCESSED)
 preprocess.create_master_ohe(CO2_PREPROCESSED, CO2_OHE_PATH)

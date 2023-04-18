@@ -12,7 +12,7 @@ SWELLING_master = pkg_resources.resource_filename(
 
 FP_SWELLING = pkg_resources.resource_filename(
     "da_for_polymers",
-    "data/input_representation/Swelling_Xu/fingerprint/swelling_fingerprint.csv",
+    "data/input_representation/Swelling_Xu/fingerprint/ps_fingerprint.csv",
 )
 
 np.set_printoptions(threshold=np.inf)
@@ -60,20 +60,20 @@ class fp_data:
         )
 
         new_column_ps_pair = "PS_FP" + "_radius_" + str(radius) + "_nbits_" + str(nbits)
-        fp_df[new_column_ps_pair] = " "
+        fp_df[new_column_ps_pair] = ""
         for index, row in fp_df.iterrows():
-            ps_pair = (
-                fp_df.at[index, "Polymer_SMILES"]
-                + "."
-                + fp_df.at[index, "Solvent_SMILES"]
+            p_mol = Chem.MolFromSmiles(fp_df.at[index, "Polymer_SMILES"])
+            bitvector_p = AllChem.GetMorganFingerprintAsBitVect(
+                p_mol, radius, nBits=nbits
             )
-            ps_pair_mol = Chem.MolFromSmiles(ps_pair)
-            bitvector_ps = AllChem.GetMorganFingerprintAsBitVect(
-                ps_pair_mol, radius, nBits=nbits
+            fp_p = list(bitvector_p)
+            s_mol = Chem.MolFromSmiles(fp_df.at[index, "Solvent_SMILES"])
+            bitvector_s = AllChem.GetMorganFingerprintAsBitVect(
+                s_mol, radius, nBits=nbits
             )
-            fp_ps_list = list(bitvector_ps.ToBitString())
-            fp_ps_map = map(int, fp_ps_list)
-            fp_ps = list(fp_ps_map)
+            fp_s = list(bitvector_s)
+            fp_p.extend(fp_s)
+            fp_ps = fp_p
 
             fp_df.at[index, new_column_ps_pair] = fp_ps
 

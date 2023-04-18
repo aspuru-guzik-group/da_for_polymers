@@ -184,6 +184,6 @@ class Swelling:
 swelling = Swelling(PS_BAG_OF_FRAGS, PS_INVENTORY, PS_EXPT_RESULT)
 swelling.smi_match(PS_EXPT_RESULT)
 swelling.sum_bag_of_frags(PS_EXPT_RESULT)
-swelling.smi2selfies(PS_EXPT_RESULT)
+# swelling.smi2selfies(PS_EXPT_RESULT)
 swelling.clean_str(PS_EXPT_RESULT)
 swelling.create_master_ohe(PS_EXPT_RESULT, PS_OHE_PATH)

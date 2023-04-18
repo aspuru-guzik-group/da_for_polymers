@@ -84,7 +84,7 @@ class Pervaporation:
         self.data["Sum_of_frags"] = ""
         for index, row in self.data.iterrows():
             polymer = self.data.at[index, "Polymer"]
-            mixture = self.data.at[index, "Solvent_(w/o)"]
+            mixture = self.data.at[index, "Solvent"]
             polymer_frags = pv_dict[polymer]
             mixture_frags = pv_dict[mixture]
             sum_of_frags = [x + y for x, y in zip(polymer_frags, mixture_frags)]
@@ -139,7 +139,7 @@ class Pervaporation:
 
 def cli_main():
     pv_data = Pervaporation(PV_INVENTORY, PV_EXPT_RESULT)
-    # pv_data.smi_match(PV_EXPT_RESULT)
+    pv_data.smi_match(PV_EXPT_RESULT)
     # pv_data.sum_of_frags(PV_EXPT_RESULT)
     # pv_data.smi2selfies(PV_EXPT_RESULT)
     pv_data.create_master_ohe(PV_EXPT_RESULT, PV_OHE_PATH)
