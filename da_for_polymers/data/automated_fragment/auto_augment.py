@@ -13,7 +13,10 @@ import re
 sys.setrecursionlimit(100)
 
 co2_data: Path = (
-    pathlib.Path(__file__).parent.parent / "raw" / "CO2_Soleimani" / "co2_expt_data.csv"
+    pathlib.Path(__file__).parent.parent
+    / "preprocess"
+    / "CO2_Soleimani"
+    / "co2_expt_data.csv"
 )
 augmented_co2_data: Path = (
     pathlib.Path(__file__).parent.parent
@@ -24,7 +27,10 @@ augmented_co2_data: Path = (
 )
 
 pv_data: Path = (
-    pathlib.Path(__file__).parent.parent / "raw" / "PV_Wang" / "pv_exptresults.csv"
+    pathlib.Path(__file__).parent.parent
+    / "preprocess"
+    / "PV_Wang"
+    / "pv_exptresults.csv"
 )
 augmented_pv_data: Path = (
     pathlib.Path(__file__).parent.parent
@@ -35,7 +41,10 @@ augmented_pv_data: Path = (
 )
 
 swell_data: Path = (
-    pathlib.Path(__file__).parent.parent / "raw" / "Swelling_Xu" / "ps_exptresults.csv"
+    pathlib.Path(__file__).parent.parent
+    / "preprocess"
+    / "Swelling_Xu"
+    / "ps_exptresults.csv"
 )
 augmented_swell_data: Path = (
     pathlib.Path(__file__).parent.parent
@@ -763,7 +772,9 @@ def fingerprint_recombined_augmented_data(
     return fps
 
 
-def augment_dataset(dataset: Path, augmented_dataset: Path) -> pd.DataFrame:
+def augment_dataset(
+    dataset: Path, augmented_dataset: Path, name_of_smiles_column: str
+) -> pd.DataFrame:
     """Augment the dataset by iteratively shuffling the fragments of a polymer.
 
     Args:
@@ -774,7 +785,7 @@ def augment_dataset(dataset: Path, augmented_dataset: Path) -> pd.DataFrame:
     """
     dataset_df: pd.DataFrame = pd.read_csv(dataset)
     indices: tuple[Chem.Mol, dict] = dataset_df.apply(
-        lambda x: get_fragment_indices(x["smiles"]), axis=1
+        lambda x: get_fragment_indices(x[name_of_smiles_column]), axis=1
     )
     fragment_mols = indices.apply(lambda x: fragment_mol_from_indices(x[0], x[1]))
     dataset_df["polymer_automated_frag"] = fragment_mols.apply(lambda x: x)
@@ -811,31 +822,12 @@ def filter_dataset(dataset: Path, property: str) -> pd.DataFrame:
     pass
 
 
-augment_dataset(dft_data, augmented_dft_data)
-# get_fragment_indices("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1")
-# get_fragment_indices("NC2C(O)C(OC1OC(COCCC)C(O(C))C(O[*])C1N)C(CO)OC2([*])")
-# m = Chem.MolFromSmarts(
-#     "C(=[O:1])([*:2])[c:3]1[cH:4][cH:5][c:6]([C:7](=[O:8])[O:9][c:10]2[cH:11][cH:12][c:13]([C:14]3([c:15]4[cH:16][cH:17][c:18]([O:19][*:20])[cH:21][cH:22]4)[c:23]4[cH:24][cH:25][cH:26][cH:27][c:28]4[C:29](=[O:30])[O:31]3)[cH:32][cH:33]2)[cH:34][cH:35]1"
-# )
-# # [a.SetAtomMapNum(0) for a in m.GetAtoms()]
-# for bond in m.GetBonds():
-#     print(bond.GetBondType(), bond.GetBeginAtomIdx(), bond.GetEndAtomIdx())
+# augment_dataset(dft_data, augmented_dft_data, "smiles")
+# augment_dataset(co2_data, augmented_co2_data, "Polymer_SMILES")
+augment_dataset(pv_data, augmented_pv_data, "Polymer_SMILES")
+# augment_dataset(swell_data, augmented_swell_data, "Polymer_SMILES")
+
+# m = Chem.MolFromSmiles("[Si](*)(C)(C)O(*)")
 # Chem.SanitizeMol(m)
-# print(Chem.MolToSmiles(m))
-
-# mol, base_fragments = get_fragment_indices("[*]C1CC([*])(C#N)C1")
-# print(Chem.MolToSmiles(mol), base_fragments)
-# fragmented = fragment_recombined_mol_from_indices(mol, base_fragments)
-# print(fragmented)
-# fp = fingerprint_recombined_augmented_data(fragmented)
-# print(len(fp))
-# shuffled = iterative_shuffle(fragmented)
-# print(Chem.MolFromSmiles("*c1ccc(-c2nc3cc4nc(*)oc4cc3o2)cc1"))
-# print(augmented_dft_data)
-
-# m = Chem.MolFromSmiles("[CH2:1][CH:2]1[CH2:3][CH2:4][CH:5][CH2:7]1")
-# for atom in m.GetAtoms():
-#     print(f"{atom.GetAtomMapNum()=}, {atom.GetNumRadicalElectrons()=}")
-
-# pt = Chem.rdchem.GetPeriodicTable()
-# print(list(pt.GetValenceList(16)))
+# smi = Chem.MolToSmiles(m)
+# print(smi)

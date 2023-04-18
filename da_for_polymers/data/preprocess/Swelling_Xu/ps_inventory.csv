@@ -1,6 +1,6 @@
 Name,SMILES,Fragments,Polymer_BigSMILES,Augmented Recombined Fragment SMILES
 PTMSP,C/C(*)=C(*)/[Si](C)(C)C,[''],{[][<]CCC[>][<]}{[>][<]CC[Si](C)(C)C[>][]},['C/C(C)=C(C)\[Si](C)(C)C']
-PDMS,[Si](*)(C)(C)O(*),[''],{[][<]C[Si](C)C[>][<]}{[>][<]CO[>][]},['C[Si](C)(C)OC']
+PDMS,*O[Si](*)(C)C,[''],{[][<]C[Si](C)C[>][<]}{[>][<]CO[>][]},['C[Si](C)(C)OC']
 PEBAX,O=C(CCCCCCCCCCCN[*])OCCCC[*],[''],,"['O=C(OCCCCCOC)CCCCCCCCCCCNC(C)=O','CNCCCCCCCCCCCC(OCCCCCOC(C)=O)=O','CCCCCCCCCCCCC(OCCCCCOC(NC)=O)=O','CC(OCCCCCOC(NCCCCCCCCCCCC)=O)=O','COCCCCCOC(NCCCCCCCCCCCC(C)=O)=O','CCCCCCOC(NCCCCCCCCCCCC(OC)=O)=O','COC(NCCCCCCCCCCCC(OCCCCCC)=O)=O']"
 PAN,[*]CC(C#N)(*),[''],{[][<]CC[>][<]}{[>][<]CCC#N[>][]},['CCC(C)C#N']
 PES,[*]Oc2ccc(S(=O)(=O)c1ccc(*)cc1)cc2,[''],{[][<]CO[>][<]}{[>][<]c1ccccc1[>][<]}{[>][<]O=S=O[>][<]}{[>][<]Cc1ccccc1[>][]},"['COc1ccc(S(=O)(c2ccc(C)cc2)=O)cc1','CS(=O)(c1ccc(Oc2ccc(C)cc2)cc1)=O']"
