@@ -62,7 +62,7 @@ def Nmer_graph(expt_results_path: str, cfp_path: str, N: int) -> pd.DataFrame:
             curr_mol: Chem.rdchem.Mol = ed_mol.GetMol()
         # convert to fingerprint
         Chem.SanitizeMol(curr_mol)
-        curr_mol_fp: np.ndarray = np.array(
+        curr_mol_fp: list = list(
             AllChem.GetMorganFingerprintAsBitVect(curr_mol, 3, nBits=512)
         )
         expt_results.at[index, f"{N}mer_fp"] = curr_mol_fp
@@ -140,7 +140,7 @@ def polymer_graph(expt_results_path: str, cfp_path: str, N: int) -> pd.DataFrame
 
         # convert to fingerprint
         Chem.SanitizeMol(curr_mol)
-        curr_mol_fp: np.ndarray = np.array(
+        curr_mol_fp: list = list(
             AllChem.GetMorganFingerprintAsBitVect(curr_mol, 3, nBits=512)
         )
         expt_results.at[index, f"{N}mer_circular_graph_fp"] = curr_mol_fp
@@ -148,5 +148,6 @@ def polymer_graph(expt_results_path: str, cfp_path: str, N: int) -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    # Nmer_graph(CFP_DFT_RAMPRASAD, CFP_DFT_RAMPRASAD, 3)
-    polymer_graph(CFP_DFT_RAMPRASAD, CFP_DFT_RAMPRASAD, 1)
+    Nmer_graph(DFT_RAMPRASAD, CFP_DFT_RAMPRASAD, 2)
+    Nmer_graph(CFP_DFT_RAMPRASAD, CFP_DFT_RAMPRASAD, 3)
+    polymer_graph(CFP_DFT_RAMPRASAD, CFP_DFT_RAMPRASAD, 3)
