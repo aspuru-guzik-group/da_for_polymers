@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+PV_Wang,6,"3mer_circular_graph_fp,Contact_angle,Thickness_um,Solvent_solubility_parameter_Mpa_sqrt,xw_wt_percent,Temp_C,Permeate_pressure_mbar",J_Total_flux_kg_m_2h_1,NN,0.8065678479837928,0.07474926073615251,0.6152395204954225,0.1116767174378122,0.6555259935334163,0.15997610889621164,0.33527749411093866,0.056422843851813946,681,1030

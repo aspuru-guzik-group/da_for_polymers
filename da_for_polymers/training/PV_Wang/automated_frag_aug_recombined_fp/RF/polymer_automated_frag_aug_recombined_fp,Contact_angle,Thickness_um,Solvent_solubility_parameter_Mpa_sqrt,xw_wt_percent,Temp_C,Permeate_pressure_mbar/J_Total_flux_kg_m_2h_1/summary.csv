@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+PV_Wang,6,"polymer_automated_frag_aug_recombined_fp,Contact_angle,Thickness_um,Solvent_solubility_parameter_Mpa_sqrt,xw_wt_percent,Temp_C,Permeate_pressure_mbar",J_Total_flux_kg_m_2h_1,RF,0.8864479839183051,0.03640616489401304,0.7640760867142463,0.049682056761459106,0.5159627951611175,0.11181110551692242,0.23582988601390578,0.03830666772064827,2550,518

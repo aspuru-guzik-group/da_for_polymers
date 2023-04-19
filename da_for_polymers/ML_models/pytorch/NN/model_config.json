@@ -1,6 +1,6 @@
 {
-    "train_batch_size": 64,
-    "test_batch_size": 64,
+    "train_batch_size": 1,
+    "test_batch_size": 32,
     "embedding_size": 1024,
     "hidden_size": 2048,
     "n_layers": 2,

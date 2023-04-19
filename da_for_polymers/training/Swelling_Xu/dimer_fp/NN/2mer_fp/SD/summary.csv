@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+Swelling_Xu,7,2mer_fp,SD,NN,0.6079372765321952,0.33517263246519075,0.3555390764345308,0.3452279390327731,6.561435791308516,3.719807870967245,4.443475347603413,2.2947279056996774,77,1024
