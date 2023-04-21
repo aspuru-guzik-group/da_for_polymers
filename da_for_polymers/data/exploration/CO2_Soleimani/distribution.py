@@ -19,6 +19,10 @@ CO2_AUG_DATA = pkg_resources.resource_filename(
     "data/input_representation/CO2_Soleimani/manual_frag/master_manual_frag.csv",
 )
 
+AUTO_FRAG = pkg_resources.resource_filename(
+    "da_for_polymers",
+    "data/input_representation/CO2_Soleimani/automated_fragment/master_automated_fragment.csv",
+)
 
 AUGMENTED_DISTRIBUTION_PLOT = pkg_resources.resource_filename(
     "da_for_polymers",
@@ -179,11 +183,11 @@ class Distribution:
                 if manual.at[index, "Polymer"] == polymer:
                     original += 1
                     augmented_polymers: list = ast.literal_eval(
-                        manual.at[index, "Polymer_manual_aug"]
+                        manual.at[index, "polymer_automated_frag_aug"]
                     )
                     augmented += len(augmented_polymers)
                     recombined_polymers: list = ast.literal_eval(
-                        manual.at[index, "Polymer_Augmented_Recombined_Fragment_SMILES"]
+                        manual.at[index, "polymer_automated_frag_aug_recombined_SMILES"]
                     )
                     recombined += len(recombined_polymers)
             augment["Polymer"].append(polymer)
@@ -238,13 +242,13 @@ class Distribution:
             original["Polymer"].append(manual.at[index, "Polymer"])
             original["exp_CO2_sol_g_g"].append(manual.at[index, "exp_CO2_sol_g_g"])
             augment_data: list = ast.literal_eval(
-                manual.at[index, "Polymer_manual_aug"]
+                manual.at[index, "polymer_automated_frag_aug"]
             )
             for d in augment_data:
                 augment["Polymer"].append(manual.at[index, "Polymer"])
                 augment["exp_CO2_sol_g_g"].append(manual.at[index, "exp_CO2_sol_g_g"])
             recombined_data: list = ast.literal_eval(
-                manual.at[index, "Polymer_manual_recombined_aug_SMILES"]
+                manual.at[index, "polymer_automated_frag_aug_recombined_SMILES"]
             )
             for r in recombined_data:
                 recombined["Polymer"].append(manual.at[index, "Polymer"])
@@ -273,21 +277,21 @@ class Distribution:
             augment["exp_CO2_sol_g_g"],
             bins=60,
             label="Augmented",
-            alpha=0.4,
+            alpha=0.7,
             color="tab:orange",
         )
         plt.hist(
             recombined["exp_CO2_sol_g_g"],
             bins=60,
             label="Recombined Augmented",
-            alpha=0.4,
+            alpha=0.5,
             color="tab:green",
         )
         plt.hist(
             original["exp_CO2_sol_g_g"],
             bins=60,
             label="Original",
-            alpha=0.6,
+            alpha=0.5,
             color="tab:blue",
         )
 
@@ -313,9 +317,9 @@ dist = Distribution(CO2_DATA)
 # J, alpha are dependent variable
 # dist.histogram([1, 2, 3, 4])
 
-# augment: dict = dist.gather_augmented_data(CO2_AUG_DATA)
+# augment: dict = dist.gather_augmented_data(AUTO_FRAG)
 # dist.plot_distribution_of_augmented(augment)
 
-original, augment, recombined = dist.gather_augment_output(CO2_AUG_DATA)
+original, augment, recombined = dist.gather_augment_output(AUTO_FRAG)
 
 dist.plot_distribution_of_augmented_outputs(original, augment, recombined)

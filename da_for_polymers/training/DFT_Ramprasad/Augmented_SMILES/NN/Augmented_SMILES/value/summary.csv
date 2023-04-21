@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+,5,Augmented_SMILES,value,NN,0.6916592830065227,0.023455633293457106,0.44305601926779714,0.029754384412357674,1.1657448738178116,0.05093402789757853,0.8732973121090376,0.04395366006095148,14193,123

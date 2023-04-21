@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,Polymer_ohe,value,SVM,,,-0.0014103750723523766,0.0016383475452433328,1.5631891790224848,0.037082024078438205,1.3284460833076526,0.029510636119415002,3380,3380

@@ -467,6 +467,7 @@ def process_features_LM(
         input_instance = "str"
         input_value = concat_df[input_representation][1]
         # print("input_value is a string")
+    print("input_instance:", input_instance)
     if (
         input_instance == "list"
     ):  # could be list of fragments or list of (augmented) SMILES.
@@ -504,14 +505,14 @@ def process_features_LM(
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "SMILES" in input_representation or "manual_str" in input_representation:
+        if "SMILES" in input_representation or "smiles" in input_representation:
             (
                 tokenized_array,
                 max_length,
                 vocab_length,
                 token2idx,
             ) = Tokenizer().tokenize_data(concat_df[input_representation])
-        elif "SELFIES" in input_representation:
+        elif "selfies" in input_representation:
             token2idx, max_length = Tokenizer().tokenize_selfies(
                 concat_df[input_representation]
             )

@@ -3,6 +3,7 @@ import pandas as pd
 import selfies as sf
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
+import ast
 
 PV_INVENTORY = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_inventory.csv"
@@ -14,6 +15,15 @@ PV_EXPT_RESULT = pkg_resources.resource_filename(
 
 PV_OHE_PATH = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/PV_Wang/ohe/master_ohe.csv"
+)
+
+PV_AUTO_FRAG = pkg_resources.resource_filename(
+    "da_for_polymers",
+    "data/input_representation/PV_Wang/automated_fragment/master_automated_fragment.csv",
+)
+
+PV_SMILES = pkg_resources.resource_filename(
+    "da_for_polymers", "data/input_representation/PV_Wang/SMILES/master_smiles.csv"
 )
 
 
@@ -136,13 +146,50 @@ class Pervaporation:
         master_df["PS_ohe"] = master_df["Polymer_ohe"] + master_df["Solvent_ohe"]
         master_df.to_csv(pv_ohe_path, index=False)
 
+    def bigsmiles_from_frag(self, automated_frag: str, smiles: str):
+        """
+        Function that takes ordered fragments (manually by hand) and converts it into BigSMILES representation, specifically block copolymers
+        Args:
+            dft_automated_frag: path to data with automated fragmented polymers
+
+        Returns:
+            concatenates fragments into BigSMILES representation and returns to data
+        """
+        # polymer/mixture BigSMILES
+        data = pd.read_csv(automated_frag)
+        smi_data = pd.read_csv(smiles)
+        smi_data["Polymer_BigSMILES"] = ""
+
+        for index, row in data.iterrows():
+            big_smi = "{[][<]"
+            position = 0
+            if len(ast.literal_eval(data["polymer_automated_frag"][index])) == 1:
+                big_smi = ast.literal_eval(data["polymer_automated_frag"][index])[0]
+            else:
+                for frag in ast.literal_eval(data["polymer_automated_frag"][index]):
+                    big_smi += str(frag)
+                    if (
+                        position
+                        == len(ast.literal_eval(data["polymer_automated_frag"][index]))
+                        - 1
+                    ):
+                        big_smi += "[>][]}"
+                    else:
+                        big_smi += "[>][<]}{[>][<]"
+                    position += 1
+
+            smi_data.at[index, "Polymer_BigSMILES"] = big_smi
+
+        smi_data.to_csv(smiles, index=False)
+
 
 def cli_main():
     pv_data = Pervaporation(PV_INVENTORY, PV_EXPT_RESULT)
-    pv_data.smi_match(PV_EXPT_RESULT)
+    # pv_data.smi_match(PV_EXPT_RESULT)
     # pv_data.sum_of_frags(PV_EXPT_RESULT)
     # pv_data.smi2selfies(PV_EXPT_RESULT)
-    pv_data.create_master_ohe(PV_EXPT_RESULT, PV_OHE_PATH)
+    # pv_data.create_master_ohe(PV_EXPT_RESULT, PV_OHE_PATH)
+    pv_data.bigsmiles_from_frag(PV_AUTO_FRAG, PV_AUTO_FRAG)
 
 
 if __name__ == "__main__":

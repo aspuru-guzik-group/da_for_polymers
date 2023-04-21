@@ -158,14 +158,14 @@ def process_features(
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "SMILES" in input_representation or "manual_str" in input_representation:
+        if "smiles" in input_representation or "SMILES" in input_representation:
             (
                 tokenized_array,
                 max_length,
                 vocab_length,
                 token2idx,
             ) = Tokenizer().tokenize_data(concat_df[input_representation])
-        elif "SELFIES" in input_representation:
+        elif "selfies" in input_representation:
             token2idx, vocab_length = Tokenizer().tokenize_selfies(
                 concat_df[input_representation]
             )

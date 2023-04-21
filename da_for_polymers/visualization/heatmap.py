@@ -49,16 +49,31 @@ def heatmap(config: dict):
             "manual_frag_SMILES": "Fragments (SMILES)",
             "manual_frag_aug_SMILES": "Augmented Fragments \n (SMILES)",
             "BRT": "XGBoost",
+            "automated_frag": "Automated Fragments",
+            "automated_frag_SMILES": "Automated Fragments \n (SMILES)",
+            "automated_frag_aug": "Augmented Automated Fragments",
+            "automated_frag_aug_SMILES": "Augmented Automated Fragments \n (SMILES)",
+            "automated_frag_aug_recombined_fp": "Automated Recombined \n Augmented \n (Fingerprints)",
+            "automated_frag_aug_recombined_SMILES": "Automated Recombined \n Augmented (SMILES)",
+            "dimer_fp": "Dimer (Fingerprints)",
+            "trimer_fp": "Trimer (Fingerprints)",
+            "polymer_graph_fp": "Circular Polymer Graph (Fingerprints)",
+            "ohe": "One Hot Encoding",
         }
     )
 
     # Plot Axis
-    fig, ax = plt.subplots(figsize=(18, 8))
+    fig, ax = plt.subplots(figsize=(30, 8))
 
     # Color Brewer color palette
+    # CO2 Soleimani
     # custom_palette = sns.color_palette("Greens", as_cmap=True)
+    # PV Wang
     # custom_palette = sns.color_palette("Oranges", as_cmap=True)
-    custom_palette = sns.color_palette("Blues", as_cmap=True)
+    # Swelling Xu
+    # custom_palette = sns.color_palette("Blues", as_cmap=True)
+    # DFT Ramprasad
+    custom_palette = sns.color_palette("Purples", as_cmap=True)
     # Heatmap
     mean_metric: str = config["metrics"] + "_mean"
     std_metric: str = config["metrics"] + "_std"
@@ -77,6 +92,16 @@ def heatmap(config: dict):
         "Augmented Fragments \n (SMILES)",
         "Recombined \n Augmented (SMILES)",
         "Recombined \n Augmented \n (Fingerprints)",
+        "Automated Fragments",
+        "Automated Fragments \n (SMILES)",
+        "Augmented Automated Fragments",
+        "Augmented Automated Fragments \n (SMILES)",
+        "Automated Recombined \n Augmented \n (Fingerprints)",
+        "Automated Recombined \n Augmented (SMILES)",
+        "Dimer (Fingerprints)",
+        "Trimer (Fingerprints)",
+        "Circular Polymer Graph (Fingerprints)",
+        "One Hot Encoding",
     ]
     mean_summary: pd.DataFrame = mean_summary.reindex(index=x, columns=y)
 

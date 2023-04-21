@@ -42,26 +42,26 @@ class Distribution:
 
     def histogram(self, column_idx_first, column_idx_last):
         """
-        Function that plots the histogram of all variables in the dataset
-        NOTE: you must know the variable names beforehand
+            Function that plots the histogram of all variables in the dataset
+            NOTE: you must know the variable names beforehand
 
-        Args:
-            column_idx_first: select which columns you want to plot in the histogram
-            column_idx_last: select which columns you want to plot in the histogram
+            Args:
+                column_idx_first: select which columns you want to plot in the histogram
+                column_idx_last: select which columns you want to plot in the histogram
 
-        Returns:
-            Histogram plots of all the variables.
+            Returns:
+        index += 1
+
+            print(columns_dict)
+
+            column_id            Histogram plots of all the variables.
         """
         columns = self.data.columns
         columns_dict = {}
         index = 0
         while index < len(columns):
             columns_dict[columns[index]] = index
-            index += 1
-
-        print(columns_dict)
-
-        column_idx_last += 1
+        x_last += 1
         # prepares the correct number of (x,y) subplots
         num_columns = column_idx_last - column_idx_first
         x_columns = round(np.sqrt(num_columns))

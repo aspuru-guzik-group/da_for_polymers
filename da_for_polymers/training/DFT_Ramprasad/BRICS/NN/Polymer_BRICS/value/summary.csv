@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+,5,Polymer_BRICS,value,NN,0.11406255435045878,0.03560764022749111,-10.202219861223803,5.3046572927938165,5.0951209279478915,1.2319587805962176,3.61284280209435,0.748937971876615,3380,12

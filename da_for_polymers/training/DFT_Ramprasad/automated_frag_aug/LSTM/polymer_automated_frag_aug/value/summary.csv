@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+,5,polymer_automated_frag_aug,value,LSTM,0.7797931777726221,0.027346600018062425,0.5964442938085662,0.05065133742949714,0.9897848084248825,0.05516265691008354,0.6294305637123389,0.04765484954166743,20728,1372

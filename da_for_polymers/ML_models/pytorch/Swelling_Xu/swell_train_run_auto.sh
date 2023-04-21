@@ -1,4 +1,4 @@
-model_types=('NN') #'NN'
+model_types=('NN' 'LSTM') #'NN'
 for model in "${model_types[@]}"
 do
     # SMILES
@@ -23,7 +23,7 @@ do
     # python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/fingerprint/StratifiedKFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/fingerprint/StratifiedKFold/input_test_[0-9].csv --feature_names PS_FP_radius_3_nbits_512 --target_name SD --model_type "$model" --model_config ../"$model"/model_config.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/Swelling_Xu/fingerprint --random_state 22
     
     # BigSMILES
-    # python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_test_[0-9].csv --feature_names PS_BigSMILES --target_name SD --model_type "$model" --model_config ../"$model"/model_config.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/Swelling_Xu/BigSMILES --random_state 22
+    python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_test_[0-9].csv --feature_names PS_BigSMILES --target_name SD --model_type "$model" --model_config ../"$model"/model_config.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/Swelling_Xu/BigSMILES --random_state 22
     
     # SELFIES
     # python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/Swelling_Xu/SMILES/StratifiedKFold/input_test_[0-9].csv --feature_names PS_SELFIES --target_name SD --model_type "$model" --model_config ../"$model"/model_config.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/Swelling_Xu/SELFIES --random_state 22

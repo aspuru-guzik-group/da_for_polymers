@@ -15,16 +15,15 @@
         "target_names": [],
         "metrics": "r2"
     },
-    "OPV_Min": {
+    "DFT_Ramprasad": {
         "datasets": [
-            "OPV_Min"
+            "DFT_Ramprasad"
         ],
         "models": [
             "RF",
             "BRT",
             "SVM",
-            "NN",
-            "LSTM"
+            "NN"
         ],
         "input_representations": [],
         "feature_names": [],

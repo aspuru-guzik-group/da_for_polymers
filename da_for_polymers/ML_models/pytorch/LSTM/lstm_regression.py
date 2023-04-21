@@ -71,5 +71,5 @@ class LSTMModel(nn.Module):
         for i, layer in enumerate(self.linearlayers):
             hidden_state: torch.tensor = layer(hidden_state)
         output: torch.tensor = self.output(hidden_state)
-        output: torch.tensor = torch.squeeze(output, dim=2)
+        output: torch.tensor = torch.squeeze(output, dim=0)
         return output
