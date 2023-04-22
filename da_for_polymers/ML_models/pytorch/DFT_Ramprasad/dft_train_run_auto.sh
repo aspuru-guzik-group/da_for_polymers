@@ -26,7 +26,7 @@ do
     # POLYMER GRAPH FP
     # python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/circular_fingerprint/KFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/circular_fingerprint/KFold/input_test_[0-9].csv --feature_names 3mer_circular_graph_fp --target_name value --model_type "$model" --model_config ../"$model"/model_config_large.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/DFT_Ramprasad/polymer_graph_fp
     # OHE
-    CUDA_LAUNCH_BLOCKING=1
+    # CUDA_LAUNCH_BLOCKING=1
     python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/ohe/KFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/ohe/KFold/input_test_[0-9].csv --feature_names Polymer_ohe --target_name value --model_type "$model" --model_config ../"$model"/model_config_large.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/DFT_Ramprasad/ohe
     # # FINGERPRINT
     # python ../train.py --train_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/fingerprint/KFold/input_train_[0-9].csv --test_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/DFT_Ramprasad/fingerprint/KFold/input_test_[0-9].csv --feature_names DFT_FP_radius_3_nbits_512 --target_name value --model_type "$model" --model_config ../"$model"/model_config_large.json --results_path ~/Research/Repos/da_for_polymers/da_for_polymers/training/DFT_Ramprasad/fingerprint

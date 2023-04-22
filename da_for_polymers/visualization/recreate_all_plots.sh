@@ -28,9 +28,9 @@
 # python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_fingerprint_data_comparison --plot_path ./dataset_comparisons/
 
 # HEATMAP
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name CO2_Soleimani --plot_path ./CO2_Soleimani
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name PV_Wang --plot_path ./PV_Wang
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name Swelling_Xu --plot_path ./Swelling_Xu
+python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name CO2_Soleimani --plot_path ./CO2_Soleimani
+python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name PV_Wang --plot_path ./PV_Wang
+python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name Swelling_Xu --plot_path ./Swelling_Xu
 python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name DFT_Ramprasad --plot_path ./DFT_Ramprasad
 
 # BOX PLOT

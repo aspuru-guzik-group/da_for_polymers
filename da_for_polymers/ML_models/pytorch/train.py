@@ -208,7 +208,7 @@ def main(config: dict):
         # TODO: log activations, lr, loss,
 
         # LOOP by EPOCHS
-        device: torch.device = torch.device("cuda")
+        device: torch.device = torch.device("cuda:0")
         model.to(device)
         running_loss = 0
         n_examples = 0
@@ -231,15 +231,17 @@ def main(config: dict):
             for i, data in enumerate(train_dataloader):
                 inputs, targets = data  # [batch_size, input_size]
                 # convert to cuda
-                inputs, targets = inputs.to(device="cuda"), targets.to(device="cuda")
+                inputs, targets = inputs.to(device="cuda:0"), targets.to(
+                    device="cuda:0"
+                )
                 # convert to float
                 inputs, targets = inputs.float(), targets.float()
                 # Zero your gradients for every batch!
                 optimizer.zero_grad()
                 # Make predictions for this batch
                 CUDA_LAUNCH_BLOCKING = 1
-                print(torch.cuda.is_available())
-                print(f"{inputs.shape=}")
+                # print(torch.cuda.is_available())
+                # print(f"{inputs.shape=}")
                 outputs = model(inputs)
                 # Compute the loss and its gradients
                 loss = loss_fn(outputs, targets)
