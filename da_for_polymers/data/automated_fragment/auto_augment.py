@@ -519,6 +519,9 @@ def fragment_recombined_mol_from_indices(
                             if atom.GetAtomicNum() == 0:
                                 valence = 1
                             try:
+                                # Silicon must be 4 in this dataset.
+                                if atom.GetAtomicNum() == 14:
+                                    valence = 4
                                 neighbor_valency: int = 0
                                 for bond in atom.GetBonds():
                                     bond_type: int = bond.GetBondTypeAsDouble()
@@ -822,9 +825,20 @@ def filter_dataset(dataset: Path, property: str) -> pd.DataFrame:
     pass
 
 
-# augment_dataset(dft_data, augmented_dft_data, "smiles")
+# indices = get_fragment_indices(
+#     "[*]Nc1cccc(NC(=O)c2ccc(NC(=O)c3ccc([Si](C)(C)c4ccc(C(=O)Nc5ccc(C([*])=O)cc5)cc4)cc3)cc2)c1"
+# )
+# mol_frag = fragment_mol_from_indices(indices[0], indices[1])
+# shuffled = iterative_shuffle(mol_frag)
+# shuffled_smiles = shuffled_SMILES(shuffled)
+# recombined = fragment_recombined_mol_from_indices(indices[0], indices[1])
+# print(recombined)
+# pt = Chem.rdchem.GetPeriodicTable()
+# Get neighbour valency from bondtypes
+# print(list(pt.GetValenceList(14)))
+augment_dataset(dft_data, augmented_dft_data, "smiles")
 # augment_dataset(co2_data, augmented_co2_data, "Polymer_SMILES")
-augment_dataset(pv_data, augmented_pv_data, "Polymer_SMILES")
+# augment_dataset(pv_data, augmented_pv_data, "Polymer_SMILES")
 # augment_dataset(swell_data, augmented_swell_data, "Polymer_SMILES")
 
 # m = Chem.MolFromSmiles("[Si](*)(C)(C)O(*)")

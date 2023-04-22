@@ -61,6 +61,9 @@ def heatmap(config: dict):
             "ohe": "One Hot Encoding",
         }
     )
+    # Remove row with r2_mean under 0
+    print(f"{summary=}")
+    # summary = summary[summary["r2_mean"] > -1]
 
     # Plot Axis
     fig, ax = plt.subplots(figsize=(30, 8))

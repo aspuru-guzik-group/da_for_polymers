@@ -64,9 +64,11 @@ class LSTMModel(nn.Module):
         CUDA_LAUNCH_BLOCKING = 1
         x: torch.long = x.long()
         embeds: torch.tensor = self.embeds(x)  # [input_size, embedding_size]
+        embeds: torch.tensor = embeds.to(self.device)
         h_0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).requires_grad_()
         c_0 = torch.zeros(self.num_layers, x.size(0), self.hidden_size).requires_grad_()
         h_0, c_0 = h_0.to(self.device), c_0.to(self.device)
+        print(embeds.shape, h_0.shape, c_0.shape)
         lstm_output, (hidden_state, cell_state) = self.lstm(embeds, (h_0, c_0))
         for i, layer in enumerate(self.linearlayers):
             hidden_state: torch.tensor = layer(hidden_state)

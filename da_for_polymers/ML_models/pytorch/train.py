@@ -123,6 +123,7 @@ def main(config: dict):
                 train_df[config["feature_names"].split(",")],
                 test_df[config["feature_names"].split(",")],
             )
+            print(f"{input_train_array[0].shape=}")
             config["vocab_size"] = max_input_length
             model = LSTMModel(config)
 
@@ -207,7 +208,7 @@ def main(config: dict):
         # TODO: log activations, lr, loss,
 
         # LOOP by EPOCHS
-        device: torch.device = torch.device("cuda:0")
+        device: torch.device = torch.device("cuda")
         model.to(device)
         running_loss = 0
         n_examples = 0
@@ -236,6 +237,9 @@ def main(config: dict):
                 # Zero your gradients for every batch!
                 optimizer.zero_grad()
                 # Make predictions for this batch
+                CUDA_LAUNCH_BLOCKING = 1
+                print(torch.cuda.is_available())
+                print(f"{inputs.shape=}")
                 outputs = model(inputs)
                 # Compute the loss and its gradients
                 loss = loss_fn(outputs, targets)

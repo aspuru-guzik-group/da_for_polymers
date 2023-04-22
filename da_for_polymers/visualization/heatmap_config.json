@@ -23,7 +23,8 @@
             "RF",
             "BRT",
             "SVM",
-            "NN"
+            "NN",
+            "LSTM"
         ],
         "input_representations": [],
         "feature_names": [],
