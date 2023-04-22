@@ -11,7 +11,7 @@ import seaborn as sns
 import pandas as pd
 import textwrap
 import json
-
+from matplotlib.patches import Rectangle
 
 from da_for_polymers.visualization.path_utils import (
     gather_results,
@@ -57,26 +57,30 @@ def heatmap(config: dict):
             "automated_frag_aug_recombined_SMILES": "Automated Recombined \n Augmented (SMILES)",
             "dimer_fp": "Dimer (Fingerprints)",
             "trimer_fp": "Trimer (Fingerprints)",
-            "polymer_graph_fp": "Circular Polymer Graph (Fingerprints)",
-            "ohe": "One Hot Encoding",
+            "polymer_graph_fp": "Circular Polymer \n Graph (Fingerprints)",
+            "ohe": "One-Hot Encoding",
         }
     )
     # Remove row with r2_mean under 0
     print(f"{summary=}")
-    # summary = summary[summary["r2_mean"] > -1]
+    summary = summary[summary["r2_mean"] > -10]
 
     # Plot Axis
     fig, ax = plt.subplots(figsize=(30, 8))
 
     # Color Brewer color palette
     # CO2 Soleimani
-    # custom_palette = sns.color_palette("Greens", as_cmap=True)
+    if config["color"] == "Greens":
+        custom_palette = sns.color_palette("Greens", as_cmap=True)
     # PV Wang
-    # custom_palette = sns.color_palette("Oranges", as_cmap=True)
+    elif config["color"] == "Oranges":
+        custom_palette = sns.color_palette("Oranges", as_cmap=True)
     # Swelling Xu
-    # custom_palette = sns.color_palette("Blues", as_cmap=True)
+    elif config["color"] == "Blues":
+        custom_palette = sns.color_palette("Blues", as_cmap=True)
     # DFT Ramprasad
-    custom_palette = sns.color_palette("Purples", as_cmap=True)
+    elif config["color"] == "Purples":
+        custom_palette = sns.color_palette("Purples", as_cmap=True)
     # Heatmap
     mean_metric: str = config["metrics"] + "_mean"
     std_metric: str = config["metrics"] + "_std"
@@ -84,27 +88,27 @@ def heatmap(config: dict):
     mean_summary: pd.DataFrame = summary.pivot("Model", "Features", mean_metric)
     x = ["SVM", "RF", "XGBoost", "NN", "LSTM"]
     y = [
+        "One-Hot Encoding",
         "SMILES",
+        "Augmented SMILES",
         "SELFIES",
         "BigSMILES",
         "BRICS",
-        "Fragments",
+        # "Fragments",
         "Fingerprints",
-        "Augmented SMILES",
-        "Augmented Fragments",
-        "Augmented Fragments \n (SMILES)",
-        "Recombined \n Augmented (SMILES)",
-        "Recombined \n Augmented \n (Fingerprints)",
+        "Dimer (Fingerprints)",
+        "Trimer (Fingerprints)",
+        "Circular Polymer \n Graph (Fingerprints)",
+        # "Augmented Fragments",
+        # "Augmented Fragments \n (SMILES)",
+        # "Recombined \n Augmented (SMILES)",
+        # "Recombined \n Augmented \n (Fingerprints)",
         "Automated Fragments",
         "Automated Fragments \n (SMILES)",
         "Augmented Automated Fragments",
         "Augmented Automated Fragments \n (SMILES)",
-        "Automated Recombined \n Augmented \n (Fingerprints)",
         "Automated Recombined \n Augmented (SMILES)",
-        "Dimer (Fingerprints)",
-        "Trimer (Fingerprints)",
-        "Circular Polymer Graph (Fingerprints)",
-        "One Hot Encoding",
+        "Automated Recombined \n Augmented \n (Fingerprints)",
     ]
     mean_summary: pd.DataFrame = mean_summary.reindex(index=x, columns=y)
 
@@ -138,6 +142,10 @@ def heatmap(config: dict):
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize=14, rotation=0)
     res.set_ylabel("Models", fontsize=18)
     res.set_xlabel("Input Representations", fontsize=18)
+    # Add highlighted patch
+    res.add_patch(
+        Rectangle((10, 0.03), 5.97, 4.94, fill=False, edgecolor="black", lw=6)
+    )
     # for plotting/saving
     # fig.subplots_adjust(left=0.4)
     plot_path: Path = Path(config["plot_path"])
