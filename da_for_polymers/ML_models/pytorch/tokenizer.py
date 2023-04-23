@@ -27,7 +27,7 @@ class Tokenizer:
         features = np.zeros((len(tokenized_array), seq_len), dtype=int)
         for ii, review in enumerate(tokenized_array):
             if len(review) != 0:
-                features[ii, -len(review) :] = np.array(review)[:seq_len]
+                features[ii, : len(review)] = np.array(review)[:seq_len]
         return features.tolist()
 
     def tokenize_data(self, input_series):

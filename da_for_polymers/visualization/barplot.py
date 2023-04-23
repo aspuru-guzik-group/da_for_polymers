@@ -20,6 +20,7 @@ from da_for_polymers.visualization.path_utils import (
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
+
 ### master FUNCTION
 def wrap_labels(ax, width: int = 10):
     print(ax)
@@ -81,15 +82,30 @@ def barplot(config: dict):
     summary: pd.DataFrame = summary.sort_values(config["hue"])
     summary: pd.DataFrame = summary.replace(
         {
+            "BRICS": "BRICS (OHE)",
             "manual_frag": "Fragments",
             "manual_frag_aug": "Augmented Fragments",
             "manual_frag_str": "Fragment (SMILES)",
             "manual_frag_aug_str": "Augmented Fragment (SMILES)",
-            "manual_recombined_aug_SMILES": "Recombined Augmented (SMILES)",
-            "manual_recombined_aug_fingerprint": "Recombined Augmented Fingerprints",
-            "fingerprint": "Fingerprints",
-            "Augmented_SMILES": "Augmented SMILES",
-            "CO2_Soleimani": r"$CO_2$ Solubility",
+            "manual_recombined_aug_SMILES": "Recombined \n Augmented (SMILES)",
+            "manual_recombined_aug_fingerprint": "Recombined \n Augmented \n (Fingerprints)",
+            "fingerprint": "ECFP6",
+            "Augmented_SMILES": "Non-canonicalized \n Augmented SMILES",
+            "manual_frag_SMILES": "Fragments (SMILES)",
+            "manual_frag_aug_SMILES": "Augmented Fragments \n (SMILES)",
+            "BRT": "XGBoost",
+            "automated_frag": "Fragments (OHE)",
+            "automated_frag_SMILES": "Fragments \n (SMILES)",
+            "automated_frag_aug": "Iteratively Rearranged \n Fragments (OHE)",
+            "automated_frag_aug_SMILES": "Iteratively Rearranged \n Fragments (SMILES)",
+            "automated_frag_aug_recombined_fp": "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
+            "automated_frag_aug_recombined_SMILES": "Iteratively Rearranged \n Recombined Fragments (SMILES)",
+            "dimer_fp": "Dimer (ECFP6)",
+            "trimer_fp": "Trimer (ECFP6)",
+            "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
+            "ohe": "One-Hot Encoding (OHE)",
+            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "DFT_Ramprasad": "Bandgap DFT",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }
@@ -114,7 +130,7 @@ def barplot(config: dict):
     sns.set(font_scale=1.1)
 
     # Color
-    colors = ["#41ab5d", "#f16913", "#4292c6"]
+    colors = ["#238b45", "#6a51a3", "#d94801", "#2171b5"]
     sns.set_palette(sns.color_palette(colors))
     # sns.set_palette(sns.color_palette("husl", 8))
 
@@ -157,8 +173,8 @@ def barplot(config: dict):
                 ax=ax,
                 hue=summary[config["hue"]],
                 order=[
-                    "Fingerprints",
-                    "Recombined Augmented Fingerprints",
+                    "ECFP6",
+                    "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
                     # "Augmented Fragments",
                 ],
                 capsize=0.06,
@@ -192,8 +208,8 @@ def barplot(config: dict):
                 ax=ax,
                 hue=summary[config["hue"]],
                 order=[
-                    "Fragments",
-                    "Augmented Fragments",
+                    "Fragments (OHE)",
+                    "Iteratively Rearranged \n Fragments (OHE)",
                     # "Fragment (SMILES)",
                     # "Augmented Fragment (SMILES)",
                 ],

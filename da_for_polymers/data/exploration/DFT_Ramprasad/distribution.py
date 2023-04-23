@@ -305,22 +305,20 @@ class Distribution:
         )
         plt.xlabel("Experimental DFT Egc (eV)")
         plt.ylabel("Number of Datapoints")
-        plt.title(
-            "Distribution of Property of Interest (DFT Solubility) after Data Augmentation"
-        )
+        plt.title("Distribution of Property of Interest (Egc) after Data Augmentation")
         plt.tight_layout()
         plt.savefig(AUGMENTED_OUTPUT_DISTRIBUTION_PLOT)
 
 
 dist = Distribution(DFT_DATA)
 
-dist.histogram([3])
+# dist.histogram([3])
 # J, alpha are dependent variable
 # dist.histogram([1, 2, 3, 4])
 
 # augment: dict = dist.gather_augmented_data(AUTO_FRAG)
 # dist.plot_distribution_of_augmented(augment)
 
-# original, augment, recombined = dist.gather_augment_output(AUTO_FRAG)
+original, augment, recombined = dist.gather_augment_output(AUTO_FRAG)
 
-# dist.plot_distribution_of_augmented_outputs(original, augment, recombined)
+dist.plot_distribution_of_augmented_outputs(original, augment, recombined)

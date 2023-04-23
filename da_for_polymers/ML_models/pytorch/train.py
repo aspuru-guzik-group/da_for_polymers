@@ -126,7 +126,7 @@ def main(config: dict):
             print(f"{input_train_array[0].shape=}")
             config["vocab_size"] = max_input_length
             model = LSTMModel(config)
-
+        print(input_train_array[0].shape)
         # Create validation set from training set
         # NOTE: Reasoning is because sklearn uses BayesSearchCV on the training set for Hyperparameter Optimization. BayesSearchCV uses 5-Fold Cross-validation on the training set. As a consequence, 80% of the training data is used for validation of hyperparameter optimization. This means only 64% of total data is used for training.
         # NOTE: Solution is to recreate the validation fold from the training data for hyperparameter optimization.
@@ -239,7 +239,6 @@ def main(config: dict):
                 # Zero your gradients for every batch!
                 optimizer.zero_grad()
                 # Make predictions for this batch
-                CUDA_LAUNCH_BLOCKING = 1
                 # print(torch.cuda.is_available())
                 # print(f"{inputs.shape=}")
                 outputs = model(inputs)

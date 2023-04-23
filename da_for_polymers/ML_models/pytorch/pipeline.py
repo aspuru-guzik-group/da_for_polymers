@@ -387,7 +387,6 @@ def process_features(train_feature_df, test_feature_df):
     input_test_array = np.array(input_test_list)
     assert type(input_train_array[0]) == np.ndarray, input_train_array
     assert type(input_test_array[0]) == np.ndarray, input_test_array
-
     return input_train_array, input_test_array, max_input_length
 
 
