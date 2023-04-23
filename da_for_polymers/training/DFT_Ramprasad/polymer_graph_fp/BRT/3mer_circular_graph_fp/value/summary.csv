@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,3mer_circular_graph_fp,value,BRT,0.9189148171468885,0.007846783038835395,0.8432325847864431,0.015376145143193666,0.6176611333615638,0.0315873648958515,0.42460305543769045,0.011126670084162208,3380,512

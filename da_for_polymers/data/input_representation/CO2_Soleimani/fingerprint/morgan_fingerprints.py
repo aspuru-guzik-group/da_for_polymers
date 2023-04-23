@@ -26,7 +26,7 @@ class fp_data:
     def __init__(self, master_data):
         """
         Inits fp_data with preprocessed data
-        
+
         Args:
             master_data: path to preprocessed data
         """
@@ -66,5 +66,5 @@ class fp_data:
         # fp_df.to_pickle(fp_path)
 
 
-fp_main = fp_data(MASTER_CO2_DATA)  # replace with FP_PV after first run
-fp_main.create_master_fp(FP_CO2, 3, 512)
+fp_master = fp_data(MASTER_CO2_DATA)  # replace with FP_PV after first run
+fp_master.create_master_fp(FP_CO2, 3, 512)

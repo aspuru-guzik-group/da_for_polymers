@@ -27,7 +27,7 @@ DATA_DIR = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/OPV_Min/master_ml_for_opvs_from_min.csv"
 )
 
-FRAG_MASTER_DATA = pkg_resources.resource_filename(
+FRAG_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/OPV_Min/hw_frag/train_frag_master.csv"
 )
 
@@ -36,16 +36,16 @@ AUGMENT_SMILES_DATA = pkg_resources.resource_filename(
     "data/input_representation/OPV_Min/augmentation/train_aug_master15.csv",
 )
 
-BRICS_MASTER_DATA = pkg_resources.resource_filename(
+BRICS_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers", "data/input_representation/OPV_Min/BRICS/master_brics_frag.csv"
 )
 
-MANUAL_MASTER_DATA = pkg_resources.resource_filename(
+MANUAL_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/manual_frag/master_manual_frag.csv",
 )
 
-FP_MASTER_DATA = pkg_resources.resource_filename(
+FP_master_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/OPV_Min/fingerprint/opv_fingerprint.csv",
 )
@@ -256,7 +256,7 @@ class OPVDataModule(pl.LightningDataModule):
                     + row["Acceptor_{}".format(representation)]
                 )
         elif input_representation == "bigsmiles":
-            self.data = pd.read_csv(MANUAL_MASTER_DATA)
+            self.data = pd.read_csv(MANUAL_master_DATA)
             representation = "BigSMILES"
             for index, row in self.data.iterrows():
                 self.data.at[index, "DA_pair"] = (
@@ -369,7 +369,7 @@ class OPVDataModule(pl.LightningDataModule):
                 print("LEN: ", len(da_pair_list))
 
             elif self.input_representation == "brics":
-                self.data = pd.read_csv(BRICS_MASTER_DATA)
+                self.data = pd.read_csv(BRICS_master_DATA)
                 da_pair_list = []
                 print("BRICS: ", len(self.data["DA_tokenized_BRICS"]))
                 for i in range(len(self.data["DA_tokenized_BRICS"])):
@@ -380,7 +380,7 @@ class OPVDataModule(pl.LightningDataModule):
                 self.max_seq_length = len(da_pair_list[0])
 
             elif self.input_representation == "manual":
-                self.data = pd.read_csv(MANUAL_MASTER_DATA)
+                self.data = pd.read_csv(MANUAL_master_DATA)
                 da_pair_list = []
                 print("MANUAL: ", len(self.data["DA_manual_tokenized"]))
                 for i in range(len(self.data["DA_manual_tokenized"])):
@@ -391,7 +391,7 @@ class OPVDataModule(pl.LightningDataModule):
                 self.max_seq_length = len(da_pair_list[0])
 
             elif self.input_representation == "aug_manual":
-                self.data = pd.read_csv(MANUAL_MASTER_DATA)
+                self.data = pd.read_csv(MANUAL_master_DATA)
                 da_aug_list = []
                 for i in range(len(self.data["DA_manual_tokenized_aug"])):
                     da_aug_list.append(
@@ -410,7 +410,7 @@ class OPVDataModule(pl.LightningDataModule):
                 self.max_seq_length = len(da_pair_list[0])
 
             elif self.input_representation == "fingerprint":
-                self.data = pd.read_csv(FP_MASTER_DATA)
+                self.data = pd.read_csv(FP_master_DATA)
                 da_pair_list = []
                 column_da_pair = (
                     "DA_FP" + "_radius_" + str(fp_radius) + "_nbits_" + str(fp_bits)

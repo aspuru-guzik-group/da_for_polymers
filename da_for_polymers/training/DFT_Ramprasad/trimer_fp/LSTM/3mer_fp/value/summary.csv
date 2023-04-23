@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,3mer_fp,value,LSTM,0.5846613757749891,0.014535387518208978,0.2911169587634526,0.056325706446272855,1.3144384839420098,0.06496663022696046,0.9822205563698599,0.057515203143444986,3380,93

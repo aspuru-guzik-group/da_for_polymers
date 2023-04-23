@@ -11,7 +11,7 @@ import seaborn as sns
 import pandas as pd
 import textwrap
 import json
-
+from matplotlib.patches import Rectangle
 
 from da_for_polymers.visualization.path_utils import (
     gather_results,
@@ -38,38 +38,54 @@ def heatmap(config: dict):
     summary: pd.DataFrame = gather_results(summary_paths)
     summary: pd.DataFrame = summary.replace(
         {
+            "BRICS": "BRICS (OHE)",
             "manual_frag": "Fragments",
             "manual_frag_aug": "Augmented Fragments",
             "manual_frag_str": "Fragment (SMILES)",
             "manual_frag_aug_str": "Augmented Fragment (SMILES)",
             "manual_recombined_aug_SMILES": "Recombined \n Augmented (SMILES)",
             "manual_recombined_aug_fingerprint": "Recombined \n Augmented \n (Fingerprints)",
-            "fingerprint": "Fingerprints",
-            "Augmented_SMILES": "Augmented SMILES",
+            "fingerprint": "ECFP6",
+            "Augmented_SMILES": "Non-canonicalized \n Augmented SMILES",
             "manual_frag_SMILES": "Fragments (SMILES)",
             "manual_frag_aug_SMILES": "Augmented Fragments \n (SMILES)",
             "BRT": "XGBoost",
+            "automated_frag": "Fragments (OHE)",
+            "automated_frag_SMILES": "Fragments \n (SMILES)",
+            "automated_frag_aug": "Iteratively Rearranged \n Fragments (OHE)",
+            "automated_frag_aug_SMILES": "Iteratively Rearranged \n Fragments (SMILES)",
+            "automated_frag_aug_recombined_fp": "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
+            "automated_frag_aug_recombined_SMILES": "Iteratively Rearranged \n Recombined Fragments (SMILES)",
+            "dimer_fp": "Dimer (ECFP6)",
+            "trimer_fp": "Trimer (ECFP6)",
+            "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
+            "ohe": "One-Hot Encoding (OHE)",
+            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "DFT_Ramprasad": "Bandgap DFT",
+            "PV_Wang": "Pervaporation",
+            "Swelling_Xu": "Swelling",
         }
     )
+    # Remove row with r2_mean under 0
+    print(f"{summary=}")
+    summary = summary[summary["r2_mean"] > -1]
 
     # Plot Axis
-    fig, ax = plt.subplots(figsize=(18, 8))
-    # Title
-    # ax.set_title(
-    #     "Heatmap of CO2 Solubility in Polymers".format(config["datasets"][0]),
-    #     fontsize=18,
-    # )
-    # ax.set_title(
-    #     "Heatmap of Polymer Pervaporation".format(config["datasets"][0]), fontsize=18
-    # )
-    ax.set_title(
-        "Heatmap of Polymer Swelling".format(config["datasets"][0]), fontsize=18
-    )
+    fig, ax = plt.subplots(figsize=(24, 10))
 
     # Color Brewer color palette
-    # custom_palette = sns.color_palette("Greens", as_cmap=True)
-    # custom_palette = sns.color_palette("Oranges", as_cmap=True)
-    custom_palette = sns.color_palette("Blues", as_cmap=True)
+    # CO2 Soleimani
+    if config["color"] == "Greens":
+        custom_palette = sns.color_palette("Greens", as_cmap=True)
+    # PV Wang
+    elif config["color"] == "Oranges":
+        custom_palette = sns.color_palette("Oranges", as_cmap=True)
+    # Swelling Xu
+    elif config["color"] == "Blues":
+        custom_palette = sns.color_palette("Blues", as_cmap=True)
+    # DFT Ramprasad
+    elif config["color"] == "Purples":
+        custom_palette = sns.color_palette("Purples", as_cmap=True)
     # Heatmap
     mean_metric: str = config["metrics"] + "_mean"
     std_metric: str = config["metrics"] + "_std"
@@ -77,17 +93,27 @@ def heatmap(config: dict):
     mean_summary: pd.DataFrame = summary.pivot("Model", "Features", mean_metric)
     x = ["SVM", "RF", "XGBoost", "NN", "LSTM"]
     y = [
+        "One-Hot Encoding (OHE)",
         "SMILES",
+        "Non-canonicalized \n Augmented SMILES",
         "SELFIES",
-        "BigSMILES",
-        "BRICS",
-        "Fragments",
-        "Fingerprints",
-        "Augmented SMILES",
-        "Augmented Fragments",
-        "Augmented Fragments \n (SMILES)",
-        "Recombined \n Augmented (SMILES)",
-        "Recombined \n Augmented \n (Fingerprints)",
+        # "BigSMILES",
+        "BRICS (OHE)",
+        # "Fragments",
+        "ECFP6",
+        "Dimer (ECFP6)",
+        "Trimer (ECFP6)",
+        "Circular Polymer \n Graph (ECFP6)",
+        # "Augmented Fragments",
+        # "Augmented Fragments \n (SMILES)",
+        # "Recombined \n Augmented (SMILES)",
+        # "Recombined \n Augmented \n (Fingerprints)",
+        "Fragments (OHE)",
+        "Fragments \n (SMILES)",
+        "Iteratively Rearranged \n Fragments (OHE)",
+        "Iteratively Rearranged \n Fragments (SMILES)",
+        "Iteratively Rearranged \n Recombined Fragments (SMILES)",
+        "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
     ]
     mean_summary: pd.DataFrame = mean_summary.reindex(index=x, columns=y)
 
@@ -111,14 +137,20 @@ def heatmap(config: dict):
         cmap=custom_palette,
         fmt="",
         cbar_kws={
-            "label": "$Avg.\;R^2$ \n ($±\;StDev.\;R^2$)".format(mean_metric, std_metric)
+            "label": "Average of $\;R^2$ \n ($±\;$Standard Deviation of $\;R^2$)".format(
+                mean_metric, std_metric
+            ),
+            "use_gridspec": False,
+            "location": "top",
         },
     )
 
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize=14)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize=14, rotation=0)
     res.set_ylabel("Models", fontsize=18)
-    res.set_xlabel("Input Representation", fontsize=18)
+    res.set_xlabel("Input Representations", fontsize=18)
+    # Add highlighted patch
+    res.add_patch(Rectangle((9, 0.03), 5.97, 4.94, fill=False, edgecolor="black", lw=6))
     # for plotting/saving
     # fig.subplots_adjust(left=0.4)
     plot_path: Path = Path(config["plot_path"])
@@ -126,6 +158,7 @@ def heatmap(config: dict):
         config["config_name"], config["metrics"]
     )
     plt.savefig(plot_path, dpi=500, bbox_inches="tight")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

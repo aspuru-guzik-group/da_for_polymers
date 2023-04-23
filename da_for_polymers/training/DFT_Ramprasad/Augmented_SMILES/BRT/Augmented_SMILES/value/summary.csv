@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,Augmented_SMILES,value,BRT,0.8517853763965542,0.009489077511623775,0.7238010811882234,0.01628889867775298,0.8207020233302819,0.034345196987136256,0.5850279033546759,0.023753859664834093,14193,123

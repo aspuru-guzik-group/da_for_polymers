@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,Polymer_BRICS,value,SVM,0.24789072923497385,0.028406288747428562,-0.03980491341480261,0.032574465802108425,1.5923420681555231,0.03171254923397752,1.291614399769051,0.029293530447089013,3380,12

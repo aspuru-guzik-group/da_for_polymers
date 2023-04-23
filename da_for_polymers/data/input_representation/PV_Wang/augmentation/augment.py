@@ -7,7 +7,7 @@ from rdkit import Chem
 
 from da_for_polymers.ML_models.sklearn.tokenizer import Tokenizer
 
-PV_MASTER = pkg_resources.resource_filename(
+PV_master = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
@@ -226,8 +226,13 @@ class Augment:
         aug_smi_data.to_csv(train_aug_data, index=False)
 
 
+<<<<<<< HEAD
+augmenter = Augment(PV_master)
+augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5)
+=======
 augmenter = Augment(PV_MASTER)
 augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5) # 5 = number of random SMILES to generate
+>>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006
 # augmenter.aug_smi_tokenize(AUGMENT_SMILES_DATA)
 
 # from rdkit.Chem import Descriptors

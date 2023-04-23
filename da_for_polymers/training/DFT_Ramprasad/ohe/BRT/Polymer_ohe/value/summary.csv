@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,Polymer_ohe,value,BRT,,,-0.0008745126266784364,0.0008399580474286555,1.5627701308818662,0.036986533252043756,1.326710320511316,0.0293828101682519,3380,3380

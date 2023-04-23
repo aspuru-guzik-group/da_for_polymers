@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+Swelling_Xu,7,polymer_automated_frag_aug,SD,BRT,0.43282534092353847,0.2847898012794997,0.0756123922708394,0.2641697102359708,7.591630400592976,2.5327692426960837,5.685902819571557,1.5132936253146128,411,18

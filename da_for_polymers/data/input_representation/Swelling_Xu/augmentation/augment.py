@@ -7,7 +7,7 @@ from rdkit import Chem
 
 from da_for_polymers.ML_models.sklearn.tokenizer import Tokenizer
 
-SWELLING_MASTER = pkg_resources.resource_filename(
+SWELLING_master = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/Swelling_Xu/manual_frag/master_manual_frag.csv",
 )
@@ -197,7 +197,7 @@ class Augment:
         aug_smi_data.to_csv(train_aug_data, index=False)
 
 
-augmenter = Augment(SWELLING_MASTER)
+augmenter = Augment(SWELLING_master)
 augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 8)
 # augmenter.aug_smi_tokenize(AUGMENT_SMILES_DATA)
 

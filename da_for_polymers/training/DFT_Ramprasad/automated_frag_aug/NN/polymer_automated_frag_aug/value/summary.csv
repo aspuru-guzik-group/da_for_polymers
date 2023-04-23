@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+,5,polymer_automated_frag_aug,value,NN,0.4885716169230113,0.016588896524884485,0.10826881259821992,0.08636558893051623,1.4734736569866143,0.07773086383082675,1.0975652212699416,0.05787248752843645,20728,36

@@ -60,7 +60,7 @@ class Tokenizer:
         input_dict = sorted(input_dict, key=input_dict.get, reverse=True)
         # Adding padding and unknown to our vocabulary so that they will be assigned an index
         input_dict = ["_UNK", "_PAD", "\\", "/"] + input_dict
-        print(input_dict)
+        # print(input_dict)
 
         # Dictionaries to store the token to index mappings and vice versa
         token2idx = {j: i for i, j in enumerate(input_dict)}
@@ -75,7 +75,7 @@ class Tokenizer:
         for input_array in tokenized_array:
             if len(input_array) > max_length:
                 max_length = len(input_array)
-        print("Max sequence length: ", max_length)
+        # print("Max sequence length: ", max_length)
         tokenized_array = self.pad_input(tokenized_array, max_length)
         vocab_length = len(input_dict)
 

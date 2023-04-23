@@ -17,7 +17,7 @@ PV_EXPT_RESULT = pkg_resources.resource_filename(
     "da_for_polymers", "data/preprocess/PV_Wang/pv_exptresults.csv"
 )
 
-MASTER_MANUAL_DATA = pkg_resources.resource_filename(
+master_MANUAL_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
     "data/input_representation/PV_Wang/manual_frag/master_manual_frag.csv",
 )
@@ -45,7 +45,7 @@ class manual_frag:
         self.pv_inventory = pd.read_csv(pv_inventory_path)
 
     # pipeline
-    # 1 iterate with index (main)
+    # 1 iterate with index (master)
     # 2 show molecule with atom.index
     # 3 ask for begin/end atom index OR bond index
     # 4 fragment
@@ -726,10 +726,17 @@ def cli_main():
     frag_dict = manual.return_frag_dict()
     # print(len(frag_dict))
     # manual.frag_visualization(frag_dict)
+<<<<<<< HEAD
+    # manual.bigsmiles_from_frag(PV_INVENTORY)
+    # manual.create_manual_csv(frag_dict, PV_EXPT_RESULT, master_MANUAL_DATA)
+    manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, master_MANUAL_DATA)
+    manual.fingerprint_from_frag(master_MANUAL_DATA)
+=======
     manual.bigsmiles_from_frag(PV_INVENTORY)
     manual.create_manual_csv(frag_dict, PV_EXPT_RESULT, MASTER_MANUAL_DATA)
     manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, MASTER_MANUAL_DATA)
     manual.fingerprint_from_frag(MASTER_MANUAL_DATA)
+>>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006
 
 
 if __name__ == "__main__":

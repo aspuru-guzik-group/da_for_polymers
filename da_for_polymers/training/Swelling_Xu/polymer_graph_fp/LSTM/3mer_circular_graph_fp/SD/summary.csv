@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+Swelling_Xu,7,3mer_circular_graph_fp,SD,LSTM,0.3349478699656642,0.21010347070889002,0.005602535898409565,0.15745553719473468,7.969670210807975,2.794984524755872,6.014155023683318,1.35448444219111,77,93

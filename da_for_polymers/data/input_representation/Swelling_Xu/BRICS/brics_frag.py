@@ -30,7 +30,7 @@ class BRIC_FRAGS:
     def __init__(self, datapath):
         """
         Inits BRIC_FRAGS with preprocessed data
-        
+
         Args:
             datapath: path to preprocessed polymer-solvent data
         """
@@ -159,7 +159,7 @@ class BRIC_FRAGS:
 
         Args:
             dictionary of unique fragments from polymer and solvent molecules
-        
+
         Returns:
             img: image of all the unique fragments
         """
