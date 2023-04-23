@@ -693,42 +693,50 @@ class manual_frag:
 def cli_main():
     manual = manual_frag(PV_INVENTORY)
 
-    # # iterate through donor and acceptor files
-    # manual_df = pd.read_csv(PV_INVENTORY)
-    # for idx, row in manual_df.iterrows():
-    #     if pd.isnull(row["Fragments"]):
-    #         print(row["Name"])
-    #         smi = row["SMILES"]
-    #         # Fragment
-    #         frag_list = manual.fragmenter(smi)
-    #         manual_df.at[idx, "Fragments"] = str(frag_list)
-    #         # Shuffle (Augment) and Recombine!
-    #         aug_frag_list: list[str] = manual.shuffle_augment(frag_list)
-    #         recombined_smi_list: list[str] = []
-    #         for aug_frag in aug_frag_list:
-    #             recombined_smi: str = manual.recombine(aug_frag)
-    #             if recombined_smi not in recombined_smi_list:
-    #                 recombined_smi_list.append(recombined_smi)
-    #         # visualize rearranged structures
-    #         recombined_smi_list = manual.visualize_rearranged_with_replace(
-    #             recombined_smi_list
-    #         )
-    #         manual_df.at[idx, "Augmented Recombined Fragment SMILES"] = str(
-    #             recombined_smi_list
-    #         )
-    #         print(recombined_smi_list)
+    # ATTENTION: Fragmenting and Order for Data Augmentation
+    # iterate through donor and acceptor files
+    manual_df = pd.read_csv(PV_INVENTORY)
+    for idx, row in manual_df.iterrows():
+        if pd.isnull(row["Fragments"]):
+            print(row["Name"])
+            smi = row["SMILES"]
+            # Fragment
+            frag_list = manual.fragmenter(smi)
+            manual_df.at[idx, "Fragments"] = str(frag_list)
+            # Shuffle (Augment) and Recombine!
+            aug_frag_list: list[str] = manual.shuffle_augment(frag_list)
+            recombined_smi_list: list[str] = []
+            for aug_frag in aug_frag_list:
+                recombined_smi: str = manual.recombine(aug_frag)
+                if recombined_smi not in recombined_smi_list:
+                    recombined_smi_list.append(recombined_smi)
+            # visualize rearranged structures
+            recombined_smi_list = manual.visualize_rearranged_with_replace(
+                recombined_smi_list
+            )
+            manual_df.at[idx, "Augmented Recombined Fragment SMILES"] = str(
+                recombined_smi_list
+            )
+            print(recombined_smi_list)
 
-    #     manual_df.to_csv(PV_INVENTORY, index=False)
+        manual_df.to_csv(PV_INVENTORY, index=False)
 
-    # prepare manual frag data
-    # manual = manual_frag(PV_INVENTORY)
-    # frag_dict = manual.return_frag_dict()
+    # ATTENTION: prepare manual frag data after data augmentation
+    manual = manual_frag(PV_INVENTORY)
+    frag_dict = manual.return_frag_dict()
     # print(len(frag_dict))
     # manual.frag_visualization(frag_dict)
+<<<<<<< HEAD
     # manual.bigsmiles_from_frag(PV_INVENTORY)
     # manual.create_manual_csv(frag_dict, PV_EXPT_RESULT, master_MANUAL_DATA)
     manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, master_MANUAL_DATA)
     manual.fingerprint_from_frag(master_MANUAL_DATA)
+=======
+    manual.bigsmiles_from_frag(PV_INVENTORY)
+    manual.create_manual_csv(frag_dict, PV_EXPT_RESULT, MASTER_MANUAL_DATA)
+    manual.add_recombined_manual_and_check_smi_selfies(PV_INVENTORY, MASTER_MANUAL_DATA)
+    manual.fingerprint_from_frag(MASTER_MANUAL_DATA)
+>>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006
 
 
 if __name__ == "__main__":

@@ -226,8 +226,13 @@ class Augment:
         aug_smi_data.to_csv(train_aug_data, index=False)
 
 
+<<<<<<< HEAD
 augmenter = Augment(PV_master)
 augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5)
+=======
+augmenter = Augment(PV_MASTER)
+augmenter.aug_smi_doRandom(AUGMENT_SMILES_DATA, 5) # 5 = number of random SMILES to generate
+>>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006
 # augmenter.aug_smi_tokenize(AUGMENT_SMILES_DATA)
 
 # from rdkit.Chem import Descriptors

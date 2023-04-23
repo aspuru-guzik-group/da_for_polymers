@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 model_types=('RF' 'BRT' 'SVM') # 'RF'
+=======
+model_types=('RF' 'BRT' 'SVM' 'KRR') #'KRR'
+>>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006
 for model in "${model_types[@]}"
 do
     # AUGMENTED SMILES
