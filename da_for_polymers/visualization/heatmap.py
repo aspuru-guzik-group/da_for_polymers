@@ -143,6 +143,7 @@ def heatmap(config: dict):
             "use_gridspec": False,
             "location": "top",
         },
+        vmin=0,
     )
 
     res.set_xticklabels(res.get_xmajorticklabels(), fontsize=14)
