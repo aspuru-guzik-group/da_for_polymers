@@ -136,45 +136,6 @@
         "target_names": [],
         "metrics": "r2"
     },
-    "Swelling_Xu": {
-        "datasets": [
-            "Swelling_Xu"
-        ],
-        "models": [
-            "RF",
-            "BRT",
-            "NN",
-            "LSTM"
-        ],
-        "input_representations": [],
-        "x": "Model",
-        "hue": "Features",
-        "feature_names": [],
-        "target_names": [],
-        "metrics": "r2"
-    },
-    "Swelling_Xu_augment": {
-        "datasets": [
-            "Swelling_Xu"
-        ],
-        "models": [
-            "RF",
-            "BRT",
-            "NN",
-            "LSTM"
-        ],
-        "input_representations": [
-            "manual_frag",
-            "manual_frag_SMILES",
-            "manual_frag_aug",
-            "manual_frag_aug_SMILES"
-        ],
-        "x": "Model",
-        "hue": "Features",
-        "feature_names": [],
-        "target_names": [],
-        "metrics": "r2"
-    },
     "augment_smiles_comparison": {
         "datasets": [],
         "models": [
