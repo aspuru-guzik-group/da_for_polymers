@@ -98,5 +98,5 @@ if __name__ == "__main__":
 """
 python ../../cross_validation.py --dataset_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/PV_Wang/SMILES/MASTER_Smiles.csv --num_of_folds 5 --type_of_crossval StratifiedKFold --stratified_label Solvent
 
-python ../../cross_validation.py --dataset_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/CO2_Soleimani/augmentation/train_aug_master.csv --num_of_folds 7 --type_of_crossval StratifiedKFold --stratified_label Polymer
+python ../../cross_validation.py --dataset_path ~/Research/Repos/da_for_polymers/da_for_polymers/data/input_representation/CO2_Soleimani/augmented_SMILES/train_aug_master.csv --num_of_folds 7 --type_of_crossval StratifiedKFold --stratified_label Polymer
 """

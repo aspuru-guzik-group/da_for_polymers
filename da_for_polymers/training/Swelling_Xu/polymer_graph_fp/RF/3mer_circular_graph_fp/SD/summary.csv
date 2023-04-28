@@ -1,2 +1,0 @@
-Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
-Swelling_Xu,7,3mer_circular_graph_fp,SD,RF,0.3994150420254058,0.43902284791234375,0.14547980359989973,0.3961401740871541,7.479414670997596,3.82961970595684,4.995984415584416,2.3717640490888865,77,1024

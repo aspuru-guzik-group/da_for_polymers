@@ -72,8 +72,11 @@ def main(config: dict):
     #     config[param] = train_param[param]
 
     # process multiple data files
-    train_paths: str = config["train_paths"]
-    test_paths: str = config["test_paths"]
+    train_paths: list[str] = config["train_paths"]
+    test_paths: list[str] = config["test_paths"]
+    token2idx_path: str = (
+        Path(config["train_paths"][0]).parent.parent / "token2idx.json"
+    )
 
     # if multiple train and test paths, X-Fold Cross-test occurs here.
     outer_r: list = []
@@ -97,6 +100,7 @@ def main(config: dict):
         ) = process_features(  # additional features are added at the end of array
             train_df[config["feature_names"].split(",")],
             test_df[config["feature_names"].split(",")],
+            token2idx_path,
         )
         # process target values
         target_df_columns = config["target_name"].split(",")

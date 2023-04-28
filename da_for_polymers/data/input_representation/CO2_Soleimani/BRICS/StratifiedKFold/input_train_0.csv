@@ -17,8 +17,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 17,PBS,COCCCCOC(=O)CCC(C)=O,393.15,12.606,0.1146,0.11457,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 18,PBS,COCCCCOC(=O)CCC(C)=O,393.15,16.544,0.1481,0.14815,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 19,PBS,COCCCCOC(=O)CCC(C)=O,393.15,19.987,0.1761,0.17605,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
-20,PBS,COCCCCOC(=O)CCC(C)=O,423.15,2.221,0.01501,0.01509,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
-21,PBS,COCCCCOC(=O)CCC(C)=O,423.15,2.935,0.01993,0.01994,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 22,PBS,COCCCCOC(=O)CCC(C)=O,423.15,4.705,0.03216,0.03214,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 23,PBS,COCCCCOC(=O)CCC(C)=O,423.15,6.035,0.04145,0.04139,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 26,PBS,COCCCCOC(=O)CCC(C)=O,423.15,8.696,0.06041,0.06036,train,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
@@ -52,18 +50,15 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 60,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,2.676,0.01851,0.0185,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 61,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,4.118,0.02863,0.02863,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 62,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,4.684,0.03263,0.03264,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
-63,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,6.098,0.04264,0.04262,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 64,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,6.7,0.04692,0.04693,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 65,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,8.177,0.05749,0.0575,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 66,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,8.699,0.06117,0.06118,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 67,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,12.314,0.08649,0.08649,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 68,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,16.027,0.1115,0.11146,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 69,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,423.15,16.572,0.115,0.11502,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
-70,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,4.126,0.02357,0.02359,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 72,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,6.07,0.03485,0.03485,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 73,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,8.259,0.04763,0.04761,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 74,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,8.973,0.0515,0.05149,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
-75,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,12.009,0.0692,0.06922,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 76,PBSA,COCCCCOC(=O)CCCCC(=O)OCCCCOC(=O)CCC(C)=O,453.15,12.766,0.07349,0.07349,train,"['CC(=O)CCC=O', 'O=CCCCCC=O', 'O', 'CO', 'CCCC']"
 78,HDPE,CCCC,433.2,11.066,0.0747,0.07469,train,['CCCC']
 79,HDPE,CCCC,433.2,13.644,0.0975,0.09751,train,['CCCC']
@@ -79,7 +74,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 90,HDPE,CCCC,473.2,15.034,0.0873,0.0873,train,['CCCC']
 91,PBS,COCCCCOC(=O)CCC(C)=O,353.15,10.451,0.0725,0.09054,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 92,PBS,COCCCCOC(=O)CCC(C)=O,393.15,2.351,0.02174,0.02088,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
-93,PBS,COCCCCOC(=O)CCC(C)=O,393.15,2.947,0.02708,0.02719,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 94,PBS,COCCCCOC(=O)CCC(C)=O,393.15,4.725,0.04308,0.03993,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 95,PBS,COCCCCOC(=O)CCC(C)=O,393.15,6.06,0.05521,0.04903,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
 96,PBS,COCCCCOC(=O)CCC(C)=O,393.15,6.599,0.06014,0.05455,test,"['CC(=O)CCC=O', 'O', 'CO', 'CCCC']"
@@ -101,7 +95,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 116,PLGA,COC(=O)COC(=O)C(C)C,313.0,10.22,0.0945,0.14775,test,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 117,PLGA,COC(=O)COC(=O)C(C)C,313.0,22.99,0.2636,0.25098,test,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 119,PLLA,COC(=O)[C@H](C)C,308.0,12.12,0.3575,0.33174,test,"['CO', 'CC(C)C=O']"
-120,PLLA,COC(=O)[C@H](C)C,308.0,20.92,0.4139,0.40167,test,"['CO', 'CC(C)C=O']"
 121,PLLA,COC(=O)[C@H](C)C,313.0,10.44,0.245,0.2366,test,"['CO', 'CC(C)C=O']"
 122,PLLA,COC(=O)[C@H](C)C,313.0,22.98,0.4051,0.40961,test,"['CO', 'CC(C)C=O']"
 123,PLLA,COC(=O)[C@H](C)C,323.0,17.84,0.3538,0.36054,test,"['CO', 'CC(C)C=O']"
@@ -109,14 +102,12 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 126,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.0,31.02,0.6366,0.6155,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 127,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,0.18,0.0191,0.01619,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 128,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,2.41,0.0385,0.04658,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
-130,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,4.09,0.0498,0.04539,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 132,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,10.15,0.1509,0.20559,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 133,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,25.26,0.5467,0.55336,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 134,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,344.0,15.19,0.2184,0.29166,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 135,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,344.0,20.11,0.3652,0.39427,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 136,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,309.2,0.13,0.0049,0.00999,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 137,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,309.2,0.6,0.0093,0.01199,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
-138,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,309.2,10.38,0.1281,0.17697,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 140,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,309.2,31.0,0.5895,0.58258,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 141,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,28.14,0.4444,0.45435,test,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 143,PPO(H),COc1c(C)cc(C)cc1C,373.15,11.965,0.10601,0.08541,test,"['CO', 'Cc1cc(C)cc(C)c1']"
@@ -128,7 +119,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 151,PPO(L),COc1c(C)cc(C)cc1C,473.15,12.122,0.05048,0.06355,test,"['CO', 'Cc1cc(C)cc(C)c1']"
 152,PS,CCC(C)c1ccccc1,373.2,14.348,0.0929,0.07713,test,"['CCCC', 'c1ccccc1']"
 153,PS,CCC(C)c1ccccc1,373.2,17.476,0.1104,0.10221,test,"['CCCC', 'c1ccccc1']"
-154,PS,CCC(C)c1ccccc1,413.2,10.721,0.0526,0.05884,test,"['CCCC', 'c1ccccc1']"
 155,PS,CCC(C)c1ccccc1,413.2,14.738,0.0713,0.07317,test,"['CCCC', 'c1ccccc1']"
 156,PS,CCC(C)c1ccccc1,413.2,20.036,0.1012,0.1038,test,"['CCCC', 'c1ccccc1']"
 157,PS,CCC(C)c1ccccc1,453.2,2.472,0.0094,0.00824,test,"['CCCC', 'c1ccccc1']"
@@ -146,7 +136,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 171,PVAc,CCC(C)OC(C)=O,313.15,0.459,0.01465,0.00552,test,"['CC=O', 'O', 'CCCC']"
 173,PVAc,CCC(C)OC(C)=O,313.15,5.916,0.27235,0.30903,test,"['CC=O', 'O', 'CCCC']"
 174,PVAc,CCC(C)OC(C)=O,353.15,2.211,0.03992,0.0368,test,"['CC=O', 'O', 'CCCC']"
-176,PVAc,CCC(C)OC(C)=O,373.15,17.449,0.29925,0.23766,test,"['CC=O', 'O', 'CCCC']"
 177,PP,CCC(C)C,433.2,17.529,0.1587,0.14537,test,['CCC(C)C']
 178,PP,CCC(C)C,453.2,14.889,0.1158,0.12753,test,['CCC(C)C']
 179,PP,CCC(C)C,453.2,16.037,0.1324,0.13144,test,['CCC(C)C']
@@ -166,14 +155,12 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 196,PLGA,COC(=O)COC(=O)C(C)C,308.0,18.4,0.2577,0.2577,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 197,PLGA,COC(=O)COC(=O)C(C)C,308.0,23.11,0.2794,0.2794,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 198,PLGA,COC(=O)COC(=O)C(C)C,308.0,26.21,0.288,0.288,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
-199,PLGA,COC(=O)COC(=O)C(C)C,308.0,29.49,0.2929,0.2929,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 200,PLGA,COC(=O)COC(=O)C(C)C,308.0,31.47,0.2963,0.2963,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 201,PLGA,COC(=O)COC(=O)C(C)C,313.0,12.09,0.1666,0.1666,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 202,PLGA,COC(=O)COC(=O)C(C)C,313.0,15.3,0.2188,0.2188,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 203,PLGA,COC(=O)COC(=O)C(C)C,313.0,18.19,0.2407,0.2407,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 204,PLGA,COC(=O)COC(=O)C(C)C,313.0,20.61,0.2555,0.2555,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 205,PLGA,COC(=O)COC(=O)C(C)C,313.0,25.59,0.273,0.273,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
-206,PLGA,COC(=O)COC(=O)C(C)C,313.0,28.46,0.2823,0.2823,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 207,PLGA,COC(=O)COC(=O)C(C)C,313.0,30.7,0.2876,0.2876,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 209,PLGA,COC(=O)COC(=O)C(C)C,323.0,15.06,0.1793,0.1793,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 210,PLGA,COC(=O)COC(=O)C(C)C,323.0,19.3,0.2236,0.2236,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
@@ -181,7 +168,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 213,PLGA,COC(=O)COC(=O)C(C)C,323.0,26.44,0.2588,0.2588,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 214,PLGA,COC(=O)COC(=O)C(C)C,323.0,28.1,0.2638,0.2638,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
 215,PLGA,COC(=O)COC(=O)C(C)C,323.0,30.29,0.2702,0.2702,train,"['CO', 'CC(C)C=O', 'O', 'CC=O']"
-216,PLLA,COC(=O)[C@H](C)C,308.0,9.62,0.2851,0.28509,train,"['CO', 'CC(C)C=O']"
 217,PLLA,COC(=O)[C@H](C)C,308.0,15.14,0.3874,0.38741,train,"['CO', 'CC(C)C=O']"
 218,PLLA,COC(=O)[C@H](C)C,308.0,18.53,0.4062,0.40621,train,"['CO', 'CC(C)C=O']"
 219,PLLA,COC(=O)[C@H](C)C,308.0,22.92,0.4199,0.41991,train,"['CO', 'CC(C)C=O']"
@@ -210,7 +196,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 246,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.0,21.24,0.5037,0.50373,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 247,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.0,22.15,0.5345,0.53445,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 248,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.0,25.34,0.5878,0.58781,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
-250,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,0.69,0.0237,0.02359,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 251,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,1.3,0.0299,0.02996,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 252,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,4.76,0.0553,0.05532,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 253,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,10.37,0.0984,0.09831,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
@@ -221,7 +206,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 259,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,25.98,0.4189,0.41887,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 260,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,29.05,0.4461,0.44614,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 261,CPE55,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.0,31.02,0.4636,0.46357,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
-262,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,0.14,0.0023,0.00236,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 263,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,0.5,0.004,0.00415,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 265,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,1.99,0.0272,0.02712,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 266,CPE60,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.CC(C)(CO)CO.CCC(CO)(CO)CO,306.2,12.04,0.2723,0.27217,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
@@ -254,7 +238,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 295,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,309.2,28.73,0.5812,0.5812,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 297,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,0.62,0.0031,0.0031,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 298,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,1.3,0.0093,0.0093,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
-299,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,1.96,0.0138,0.0138,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 301,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,11.62,0.1296,0.1296,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 302,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,14.8,0.2071,0.2071,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
 304,CPE67,C1=CC(=CC(=C1)C(=O)O)C(=O)O.C1=CC(=CC=C1C(=O)O)C(=O)O.C(CCC(=O)O)CC(=O)O.C(CO)O.CC(C)(CO)CO.CCC(CO)(CO)CO,343.3,18.43,0.3163,0.3163,train,"['O=CO', 'c1ccccc1', 'c1ccccc1']"
@@ -280,8 +263,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 325,PPO(H),COc1c(C)cc(C)cc1C,473.15,2.179,0.00704,0.00665,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 327,PPO(H),COc1c(C)cc(C)cc1C,473.15,6.174,0.02525,0.02587,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 328,PPO(H),COc1c(C)cc(C)cc1C,473.15,10.082,0.04312,0.04357,train,"['CO', 'Cc1cc(C)cc(C)c1']"
-329,PPO(H),COc1c(C)cc(C)cc1C,473.15,14.063,0.06182,0.06084,train,"['CO', 'Cc1cc(C)cc(C)c1']"
-330,PPO(H),COc1c(C)cc(C)cc1C,473.15,16.032,0.07073,0.07065,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 331,PPO(H),COc1c(C)cc(C)cc1C,473.15,18.106,0.08111,0.0819,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 332,PPO(H),COc1c(C)cc(C)cc1C,473.15,20.208,0.09038,0.0911,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 333,PPO(L),COc1c(C)cc(C)cc1C,373.15,2.125,0.0298,0.0298,train,"['CO', 'Cc1cc(C)cc(C)c1']"
@@ -290,7 +271,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 336,PPO(L),COc1c(C)cc(C)cc1C,373.15,12.043,0.11084,0.11084,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 337,PPO(L),COc1c(C)cc(C)cc1C,373.15,16.023,0.14338,0.14338,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 339,PPO(L),COc1c(C)cc(C)cc1C,423.15,2.15,0.01459,0.01459,train,"['CO', 'Cc1cc(C)cc(C)c1']"
-340,PPO(L),COc1c(C)cc(C)cc1C,423.15,4.15,0.02612,0.02612,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 341,PPO(L),COc1c(C)cc(C)cc1C,423.15,6.04,0.0354,0.0354,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 342,PPO(L),COc1c(C)cc(C)cc1C,423.15,12.121,0.06753,0.06753,train,"['CO', 'Cc1cc(C)cc(C)c1']"
 343,PPO(L),COc1c(C)cc(C)cc1C,423.15,16.077,0.09072,0.09072,train,"['CO', 'Cc1cc(C)cc(C)c1']"
@@ -317,7 +297,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 369,PS,CCC(C)c1ccccc1,413.2,18.097,0.0931,0.0931,train,"['CCCC', 'c1ccccc1']"
 370,PS,CCC(C)c1ccccc1,413.2,19.739,0.1048,0.1048,train,"['CCCC', 'c1ccccc1']"
 373,PS,CCC(C)c1ccccc1,453.2,14.379,0.057,0.057,train,"['CCCC', 'c1ccccc1']"
-375,PS,CCC(C)c1ccccc1,338.22,3.71,0.03714,0.03714,train,"['CCCC', 'c1ccccc1']"
 377,PS,CCC(C)c1ccccc1,338.22,10.25,0.0951,0.0951,train,"['CCCC', 'c1ccccc1']"
 378,PS,CCC(C)c1ccccc1,338.22,18.33,0.14661,0.14661,train,"['CCCC', 'c1ccccc1']"
 379,PS,CCC(C)c1ccccc1,338.22,24.52,0.1562,0.1562,train,"['CCCC', 'c1ccccc1']"
@@ -328,7 +307,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 385,PS,CCC(C)c1ccccc1,362.5,24.65,0.14535,0.14535,train,"['CCCC', 'c1ccccc1']"
 386,PS,CCC(C)c1ccccc1,383.22,11.04,0.05807,0.05807,train,"['CCCC', 'c1ccccc1']"
 387,PS,CCC(C)c1ccccc1,383.22,14.51,0.0742,0.0742,train,"['CCCC', 'c1ccccc1']"
-388,PS,CCC(C)c1ccccc1,383.22,17.66,0.09269,0.09269,train,"['CCCC', 'c1ccccc1']"
 389,PS,CCC(C)c1ccccc1,383.22,23.55,0.11636,0.11636,train,"['CCCC', 'c1ccccc1']"
 390,PS,CCC(C)c1ccccc1,383.22,27.03,0.12311,0.12311,train,"['CCCC', 'c1ccccc1']"
 391,PS,CCC(C)c1ccccc1,383.22,30.61,0.13814,0.13814,train,"['CCCC', 'c1ccccc1']"
@@ -340,7 +318,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 397,PS,CCC(C)c1ccccc1,402.51,21.48,0.096,0.096,train,"['CCCC', 'c1ccccc1']"
 398,PS,CCC(C)c1ccccc1,402.51,44.41,0.14829,0.14829,train,"['CCCC', 'c1ccccc1']"
 399,PS,CCC(C)c1ccccc1,373.15,2.068,0.01274,0.01274,train,"['CCCC', 'c1ccccc1']"
-400,PS,CCC(C)c1ccccc1,373.15,4.093,0.02529,0.02529,train,"['CCCC', 'c1ccccc1']"
 401,PS,CCC(C)c1ccccc1,373.15,4.629,0.02871,0.02871,train,"['CCCC', 'c1ccccc1']"
 402,PS,CCC(C)c1ccccc1,373.15,6.038,0.03753,0.03753,train,"['CCCC', 'c1ccccc1']"
 405,PS,CCC(C)c1ccccc1,373.15,12.105,0.07416,0.07416,train,"['CCCC', 'c1ccccc1']"
@@ -353,7 +330,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 412,PS,CCC(C)c1ccccc1,423.15,8.566,0.03588,0.03588,train,"['CCCC', 'c1ccccc1']"
 413,PS,CCC(C)c1ccccc1,473.15,2.167,0.00714,0.00714,train,"['CCCC', 'c1ccccc1']"
 414,PS,CCC(C)c1ccccc1,473.15,4.232,0.0139,0.0139,train,"['CCCC', 'c1ccccc1']"
-415,PS,CCC(C)c1ccccc1,473.15,6.108,0.02009,0.02009,train,"['CCCC', 'c1ccccc1']"
 416,PS,CCC(C)c1ccccc1,473.15,6.685,0.02199,0.02199,train,"['CCCC', 'c1ccccc1']"
 417,PS,CCC(C)c1ccccc1,473.15,8.027,0.02641,0.02641,train,"['CCCC', 'c1ccccc1']"
 418,PS,CCC(C)c1ccccc1,473.15,12.165,0.0396,0.0396,train,"['CCCC', 'c1ccccc1']"
@@ -385,15 +361,12 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 448,PP,CCC(C)C,433.2,14.558,0.1253,0.12493,train,['CCC(C)C']
 449,PP,CCC(C)C,433.2,16.355,0.1451,0.14537,train,['CCC(C)C']
 450,PP,CCC(C)C,453.2,5.419,0.0323,0.03084,train,['CCC(C)C']
-451,PP,CCC(C)C,453.2,7.16,0.0441,0.04228,train,['CCC(C)C']
 452,PP,CCC(C)C,453.2,8.797,0.0594,0.06081,train,['CCC(C)C']
 454,PP,CCC(C)C,453.2,11.558,0.0846,0.08177,train,['CCC(C)C']
 455,PP,CCC(C)C,453.2,12.352,0.0917,0.09533,train,['CCC(C)C']
 456,PP,CCC(C)C,453.2,14.342,0.1119,0.11364,train,['CCC(C)C']
 457,PP,CCC(C)C,453.2,16.17,0.1306,0.13144,train,['CCC(C)C']
 458,PP,CCC(C)C,453.2,17.376,0.1418,0.14283,train,['CCC(C)C']
-459,PP,CCC(C)C,453.2,7.083,0.0417,0.04186,train,['CCC(C)C']
-460,PP,CCC(C)C,453.2,11.443,0.0798,0.08021,train,['CCC(C)C']
 461,PP,CCC(C)C,453.2,14.212,0.111,0.11364,train,['CCC(C)C']
 464,PP,CCC(C)C,473.2,10.113,0.0601,0.06264,train,['CCC(C)C']
 469,PP,CCC(C)C,313.2,10.02,0.0542,0.05441,train,['CCC(C)C']
@@ -408,7 +381,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 478,PP,CCC(C)C,443.7,9.94,0.0851,0.08408,train,['CCC(C)C']
 479,PP,CCC(C)C,443.7,14.94,0.1363,0.13274,train,['CCC(C)C']
 481,PP,CCC(C)C,464.2,9.96,0.0807,0.08126,train,['CCC(C)C']
-482,PP,CCC(C)C,464.2,14.94,0.1301,0.12812,train,['CCC(C)C']
 483,PP,CCC(C)C,464.2,19.93,0.185,0.1901,train,['CCC(C)C']
 484,PP,CCC(C)C,464.2,24.91,0.2552,0.25263,train,['CCC(C)C']
 485,PP,CCC(C)C,483.7,4.97,0.038,0.03992,train,['CCC(C)C']
@@ -418,7 +390,6 @@ Unnamed: 0,Polymer,Polymer_SMILES,T_K,P_Mpa,exp_CO2_sol_g_g,pred_CO2_sol_g_g,tra
 490,PP,CCC(C)C,373.15,5.52,0.05674,0.05541,train,['CCC(C)C']
 491,PP,CCC(C)C,373.15,7.44,0.0744,0.07656,train,['CCC(C)C']
 492,PP,CCC(C)C,373.15,8.48,0.08489,0.0847,train,['CCC(C)C']
-493,PP,CCC(C)C,373.15,9.57,0.09842,0.09787,train,['CCC(C)C']
 494,PP,CCC(C)C,373.15,10.06,0.10655,0.10451,train,['CCC(C)C']
 495,PP,CCC(C)C,373.15,10.73,0.11347,0.11308,train,['CCC(C)C']
 496,PP,CCC(C)C,373.15,12.55,0.13699,0.13341,train,['CCC(C)C']

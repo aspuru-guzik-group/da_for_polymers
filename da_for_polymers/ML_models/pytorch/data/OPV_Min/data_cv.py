@@ -33,7 +33,7 @@ FRAG_master_DATA = pkg_resources.resource_filename(
 
 AUGMENT_SMILES_DATA = pkg_resources.resource_filename(
     "da_for_polymers",
-    "data/input_representation/OPV_Min/augmentation/train_aug_master15.csv",
+    "data/input_representation/OPV_Min/augmented_SMILES/train_aug_master15.csv",
 )
 
 BRICS_master_DATA = pkg_resources.resource_filename(
@@ -65,6 +65,7 @@ TROUBLESHOOT = pkg_resources.resource_filename(
 SEED_VAL = 22
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 
 # dataset definition
 class OPVDataset(Dataset):
@@ -438,7 +439,7 @@ class OPVDataModule(pl.LightningDataModule):
                 # because we don't want to augment test set nor include any augmented test set in training set,
                 # but also have the original dataset have the correct order (for polymers)
                 # expected number of total training set: 2055 = (444*0.75) + (333*(number_of_augmented_frags)=1722)
-                # expected number can change due to different d-a pairs having different number of augmentation frags
+                # expected number can change due to different d-a pairs having different number of augmented_SMILES frags
             da_pair_array = np.array(da_pair_list)
             pce_dataset = OPVDataset(da_pair_array, pce_array)
             if (
@@ -580,7 +581,11 @@ class OPVDataModule(pl.LightningDataModule):
                 )  # PROBLEM: different lengths, therefore cannot np.array nicely
             da_pair_array = np.array(da_pair_list)
             pce_dataset = OPVDataset(da_pair_array, pce_array)
-            (self.pce_train, self.pce_val, self.pce_test,) = pce_dataset.get_splits_aug(
+            (
+                self.pce_train,
+                self.pce_val,
+                self.pce_test,
+            ) = pce_dataset.get_splits_aug(
                 da_aug_tokenized, ad_aug_tokenized, pce_array, seed_val=self.seed_val
             )
 

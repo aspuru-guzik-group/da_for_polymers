@@ -119,7 +119,7 @@ def barplot(config: dict):
             "Augmented_SMILES": "Augmented SMILES",
             "BigSMILES": "Non-Augmented Data",
             "CO2_Soleimani": r"$CO_2 Solubility$",
-            "DFT_Ramprasad": "Bandgap DFT",
+            "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }
@@ -143,7 +143,11 @@ def barplot(config: dict):
     sns.set(font_scale=1)
 
     # Color
-    colors = ["#41ab5d", "#f16913", "#4292c6"]
+    colors = [
+        "#238b45",
+        "#d94801",
+        "#6a51a3",
+    ]
     sns.set_palette(sns.color_palette(colors))
 
     # Font
@@ -193,6 +197,7 @@ def barplot(config: dict):
                 ],
                 ax=ax,
                 hue=summary[config["hue"]],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
             )
             for container in ax.containers:
                 ax.bar_label(container)

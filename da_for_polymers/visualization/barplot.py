@@ -105,7 +105,7 @@ def barplot(config: dict):
             "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
             "ohe": "One-Hot Encoding (OHE)",
             "CO2_Soleimani": r"$CO_2 Solubility$",
-            "DFT_Ramprasad": "Bandgap DFT",
+            "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }
@@ -130,7 +130,11 @@ def barplot(config: dict):
     sns.set(font_scale=1.1)
 
     # Color
-    colors = ["#238b45", "#6a51a3", "#d94801", "#2171b5"]
+    colors = [
+        "#238b45",
+        "#d94801",
+        "#6a51a3",
+    ]
     sns.set_palette(sns.color_palette(colors))
     # sns.set_palette(sns.color_palette("husl", 8))
 
@@ -160,10 +164,10 @@ def barplot(config: dict):
         "comparison" in config["config_name"] and "recombined" in config["config_name"]
     ):
         ax.set_title(
-            "Property Prediction Performance using a Neural Network and Recombined Augmented Fingerprints".format(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Recombined Fragments (ECFP6)".format(
                 config["models"][0]
             ),
-            fontsize=12,
+            fontsize=14,
         )  # config["models"][0])
         if "fingerprint" in config["config_name"]:
             sns.barplot(
@@ -177,6 +181,7 @@ def barplot(config: dict):
                     "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
                     # "Augmented Fragments",
                 ],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:
@@ -195,10 +200,10 @@ def barplot(config: dict):
 
     elif "comparison" in config["config_name"]:
         ax.set_title(
-            "Property Prediction Performance using a Neural Network and Augmented Fragments".format(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Fragments".format(
                 config["models"][0]
             ),
-            fontsize=12,
+            fontsize=14,
         )  # config["models"][0])
         if "frag" in config["config_name"]:
             sns.barplot(
@@ -213,6 +218,7 @@ def barplot(config: dict):
                     # "Fragment (SMILES)",
                     # "Augmented Fragment (SMILES)",
                 ],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:
