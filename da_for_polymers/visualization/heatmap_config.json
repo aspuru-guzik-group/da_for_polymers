@@ -13,11 +13,12 @@
         "input_representations": [],
         "feature_names": [],
         "target_names": [],
-        "metrics": "r2"
+        "metrics": "r2",
+        "color": "Greens"
     },
-    "OPV_Min": {
+    "DFT_Ramprasad": {
         "datasets": [
-            "OPV_Min"
+            "DFT_Ramprasad"
         ],
         "models": [
             "RF",
@@ -29,7 +30,8 @@
         "input_representations": [],
         "feature_names": [],
         "target_names": [],
-        "metrics": "r2"
+        "metrics": "r2",
+        "color": "Purples"
     },
     "PV_Wang": {
         "datasets": [
@@ -45,23 +47,7 @@
         "input_representations": [],
         "feature_names": [],
         "target_names": [],
-        "metrics": "r2"
-    },
-    "Swelling_Xu": {
-        "datasets": [
-            "Swelling_Xu"
-        ],
-        "models": [
-            "RF",
-            "BRT",
-            "SVM",
-            "KRR",
-            "NN",
-            "LSTM"
-        ],
-        "input_representations": [],
-        "feature_names": [],
-        "target_names": [],
-        "metrics": "r2"
+        "metrics": "r2",
+        "color": "Oranges"
     }
 }

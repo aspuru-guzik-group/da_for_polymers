@@ -136,45 +136,6 @@
         "target_names": [],
         "metrics": "r2"
     },
-    "Swelling_Xu": {
-        "datasets": [
-            "Swelling_Xu"
-        ],
-        "models": [
-            "RF",
-            "BRT",
-            "NN",
-            "LSTM"
-        ],
-        "input_representations": [],
-        "x": "Model",
-        "hue": "Features",
-        "feature_names": [],
-        "target_names": [],
-        "metrics": "r2"
-    },
-    "Swelling_Xu_augment": {
-        "datasets": [
-            "Swelling_Xu"
-        ],
-        "models": [
-            "RF",
-            "BRT",
-            "NN",
-            "LSTM"
-        ],
-        "input_representations": [
-            "manual_frag",
-            "manual_frag_SMILES",
-            "manual_frag_aug",
-            "manual_frag_aug_SMILES"
-        ],
-        "x": "Model",
-        "hue": "Features",
-        "feature_names": [],
-        "target_names": [],
-        "metrics": "r2"
-    },
     "augment_smiles_comparison": {
         "datasets": [],
         "models": [
@@ -211,8 +172,8 @@
             "NN"
         ],
         "input_representations": [
-            "manual_frag",
-            "manual_frag_aug"
+            "automated_frag",
+            "automated_frag_aug"
         ],
         "x": "Features",
         "hue": "Dataset",
@@ -226,11 +187,11 @@
             "NN"
         ],
         "input_representations": [
-            "SMILES",
+            "BigSMILES",
             "Augmented_SMILES",
-            "manual_frag",
-            "manual_frag_aug",
-            "manual_recombined_aug_fingerprint"
+            "automated_frag",
+            "automated_frag_aug",
+            "automated_frag_aug_recombined_fp"
         ],
         "x": "Features",
         "hue": "Dataset",
@@ -389,7 +350,7 @@
             "NN"
         ],
         "input_representations": [
-            "manual_recombined_aug_fingerprint",
+            "automated_frag_aug_recombined_fp",
             "fingerprint"
         ],
         "x": "Features",

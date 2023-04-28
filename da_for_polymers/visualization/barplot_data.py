@@ -20,7 +20,8 @@ from da_for_polymers.visualization.path_utils import (
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
-### MAIN FUNCTION
+
+### master FUNCTION
 def wrap_labels(ax, width: int = 10):
     print(ax)
     labels: list = []
@@ -108,15 +109,19 @@ def barplot(config: dict):
     summary: pd.DataFrame = summary.sort_values(config["hue"])
     summary: pd.DataFrame = summary.replace(
         {
-            "manual_frag": "Fragments",
-            "manual_frag_aug": "Augmented Fragments",
-            "manual_frag_str": "Fragment (SMILES)",
-            "manual_frag_aug_str": "Augmented Fragment (SMILES)",
-            "manual_recombined_aug_SMILES": "Augmented Recombined (SMILES)",
-            "manual_recombined_aug_fingerprint": "Recombined \n Augmented Fingerprints",
+            "automated_frag": "Fragments",
+            "automated_frag_aug": "Augmented Fragments",
+            "automated_frag_SMILES": "Fragment (SMILES)",
+            "automated_frag_aug_SMILES": "Augmented Fragment (SMILES)",
+            "automated_frag_aug_recombined_SMILES": "Augmented Recombined (SMILES)",
+            "automated_frag_aug_recombined_fp": "Recombined \n Augmented Fingerprints",
             "fingerprint": "Fingerprints",
             "Augmented_SMILES": "Augmented SMILES",
-            "SMILES": "Non-Augmented Data",
+            "BigSMILES": "Non-Augmented Data",
+            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "DFT_Ramprasad": "DFT Bandgap",
+            "PV_Wang": "Pervaporation",
+            "Swelling_Xu": "Swelling",
         }
     )
 
@@ -138,7 +143,11 @@ def barplot(config: dict):
     sns.set(font_scale=1)
 
     # Color
-    colors = ["#41ab5d", "#f16913", "#4292c6"]
+    colors = [
+        "#238b45",
+        "#d94801",
+        "#6a51a3",
+    ]
     sns.set_palette(sns.color_palette(colors))
 
     # Font
@@ -188,6 +197,7 @@ def barplot(config: dict):
                 ],
                 ax=ax,
                 hue=summary[config["hue"]],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
             )
             for container in ax.containers:
                 ax.bar_label(container)

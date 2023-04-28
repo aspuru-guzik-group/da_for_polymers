@@ -129,10 +129,7 @@ def process_features(train_feature_df, test_feature_df):
         input_instance == "list"
     ):  # could be list of fragments or list of (augmented) SMILES or list of (augmented) manual frag strings.
         # check if list of: 1) fragments or 2) SMILES
-        if (
-            "Augmented" in input_representation
-            or "aug_SMILES" in input_representation
-        ):
+        if "Augmented" in input_representation or "aug_SMILES" in input_representation:
             augmented_smi_list: list = []
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])
@@ -165,14 +162,14 @@ def process_features(train_feature_df, test_feature_df):
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "SMILES" in input_representation or "manual_str" in input_representation:
+        if "SMILES" in input_representation or "smiles" in input_representation:
             (
                 tokenized_array,
                 max_length,
                 vocab_length,
                 token2idx,
             ) = Tokenizer().tokenize_data(concat_df[input_representation])
-        elif "SELFIES" in input_representation:
+        elif "SELFIES" in input_representation or "selfies" in input_representation:
             token2idx, max_length = Tokenizer().tokenize_selfies(
                 concat_df[input_representation]
             )
@@ -390,7 +387,6 @@ def process_features(train_feature_df, test_feature_df):
     input_test_array = np.array(input_test_list)
     assert type(input_train_array[0]) == np.ndarray, input_train_array
     assert type(input_test_array[0]) == np.ndarray, input_test_array
-
     return input_train_array, input_test_array, max_input_length
 
 
@@ -434,7 +430,7 @@ def process_features_LM(
             feature_scale_dict[feature_column_min] = feature_min
 
     # create feature vocabulary and then add to existing vocabulary
-    # Adapted from https://github.com/IBM/regression-transformer/blob/main/scripts/create_vocabulary.py
+    # Adapted from https://github.com/IBM/regression-transformer/blob/master/scripts/create_vocabulary.py
     property_vocabulary: Counter = Counter()
     # tokens for property numerical values
     digits = list(range(10))
@@ -470,14 +466,12 @@ def process_features_LM(
         input_instance = "str"
         input_value = concat_df[input_representation][1]
         # print("input_value is a string")
+    print("input_instance:", input_instance)
     if (
         input_instance == "list"
     ):  # could be list of fragments or list of (augmented) SMILES.
         # check if list of: 1) fragments or 2) SMILES
-        if (
-            "Augmented" in input_representation
-            or "aug_SMILES" in input_representation
-        ):
+        if "Augmented" in input_representation or "aug_SMILES" in input_representation:
             augmented_smi_list: list = []
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])
@@ -510,14 +504,14 @@ def process_features_LM(
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "SMILES" in input_representation or "manual_str" in input_representation:
+        if "SMILES" in input_representation or "smiles" in input_representation:
             (
                 tokenized_array,
                 max_length,
                 vocab_length,
                 token2idx,
             ) = Tokenizer().tokenize_data(concat_df[input_representation])
-        elif "SELFIES" in input_representation:
+        elif "selfies" in input_representation:
             token2idx, max_length = Tokenizer().tokenize_selfies(
                 concat_df[input_representation]
             )

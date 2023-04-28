@@ -63,7 +63,7 @@ def feature_scale(feature_series: pd.Series) -> Union[float, float]:
 
 # TODO: return max length for fragments and fingerprints! not only SMILES, etc.
 def process_features(
-    train_feature_df, test_feature_df
+    train_feature_df, test_feature_df, token2idx_path: str
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Processes various types of features (str, float, list) and returns "training ready" arrays.
 
@@ -137,8 +137,8 @@ def process_features(
                 token2idx,
             ) = Tokenizer().tokenize_data(augmented_smi_series)
         else:
-            token2idx = {}
-            token_idx = 0
+            token2idx: dict = {"_PAD": 0}
+            token_idx = len(token2idx)
             for index, row in concat_df.iterrows():
                 input_value = ast.literal_eval(row[input_representation])
                 for frag in input_value:
@@ -148,8 +148,8 @@ def process_features(
     elif (
         input_instance == "list_of_list"
     ):  # list of list of augmented fragments or augmented fingerprints
-        token2idx: dict = {}
-        token_idx: int = 0
+        token2idx: dict = {"_PAD": 0}
+        token_idx = len(token2idx)
         for index, row in concat_df.iterrows():
             input_value = ast.literal_eval(row[input_representation])
             for aug_value in input_value:
@@ -158,20 +158,25 @@ def process_features(
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "SMILES" in input_representation or "manual_str" in input_representation:
+        if (
+            "smiles" in input_representation
+            or "SMILES" in input_representation
+            or "SELFIES" in input_representation
+            or "selfies" in input_representation
+        ):
             (
                 tokenized_array,
                 max_length,
                 vocab_length,
                 token2idx,
             ) = Tokenizer().tokenize_data(concat_df[input_representation])
-        elif "SELFIES" in input_representation:
+        elif "selfies" in input_representation:
             token2idx, vocab_length = Tokenizer().tokenize_selfies(
                 concat_df[input_representation]
             )
     else:
         raise TypeError("input_value is neither str or list. Fix it!")
-
+    # print(f"{token2idx=}")
     max_input_length = 0  # for padding
     # processing training data
     input_train_list = []
@@ -383,6 +388,9 @@ def process_features(
     input_test_array = np.array(input_test_list)
     assert type(input_train_array[0]) == np.ndarray, input_train_array
     assert type(input_test_array[0]) == np.ndarray, input_test_array
+    # export token2idx
+    with open(token2idx_path, "w") as handle:
+        json.dump(token2idx, handle, indent=2)
 
     return input_train_array, input_test_array, max_input_length
 

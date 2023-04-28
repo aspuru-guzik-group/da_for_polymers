@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+DFT_Ramprasad,5,selfies,value,RF,0.844542191205645,0.00701220835503777,0.7117891386364713,0.01206766122855136,0.8383819940496291,0.024815664226345704,0.5643095046413041,0.02019791701233836,3380,128

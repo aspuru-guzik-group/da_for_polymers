@@ -53,7 +53,7 @@ def dataset_find(result_path: str):
         dataset_name (str): dataset name
     """
     result_path_list: list = result_path.split("/")
-    datasets: list = ["CO2_Soleimani", "PV_Wang", "OPV_Min", "Swelling_Xu"]
+    datasets: list = ["CO2_Soleimani", "PV_Wang", "DFT_Ramprasad", "Swelling_Xu"]
     for dataset_name in datasets:
         if dataset_name in result_path_list:
             return dataset_name
@@ -72,8 +72,11 @@ def main(config: dict):
     #     config[param] = train_param[param]
 
     # process multiple data files
-    train_paths: str = config["train_paths"]
-    test_paths: str = config["test_paths"]
+    train_paths: list[str] = config["train_paths"]
+    test_paths: list[str] = config["test_paths"]
+    token2idx_path: str = (
+        Path(config["train_paths"][0]).parent.parent / "token2idx.json"
+    )
 
     # if multiple train and test paths, X-Fold Cross-test occurs here.
     outer_r: list = []
@@ -97,6 +100,7 @@ def main(config: dict):
         ) = process_features(  # additional features are added at the end of array
             train_df[config["feature_names"].split(",")],
             test_df[config["feature_names"].split(",")],
+            token2idx_path,
         )
         # process target values
         target_df_columns = config["target_name"].split(",")
@@ -152,7 +156,8 @@ def main(config: dict):
             model = SVR(kernel="rbf", degree="3", cache_size=12000, max_iter=10000)
         else:
             raise NameError("Model not found. Please use RF, BRT, LR, KRR")
-
+        print(f"{input_train_array[0]=}")
+        print(f"{target_train_array[0]=}")
         # run hyperparameter optimization
         if config["hyperparameter_optimization"] == "True":
             # setup HPO space
@@ -176,8 +181,10 @@ def main(config: dict):
             result = search.fit(input_train_array, target_train_array)
             # save best hyperparams for the best model from each fold
             best_params: dict = result.best_params_
-            # get the best performing model fit on the whole training set
+            # get the best performing model fit on the training set
             model = result.best_estimator_
+            # re-fit on whole training set
+            model.fit(input_train_array, target_train_array)
             # inference on hold out set
             yhat: np.ndarray = model.predict(input_test_array)
         else:
@@ -186,6 +193,7 @@ def main(config: dict):
             # inference on hold out set
             yhat: np.ndarray = model.predict(input_test_array)
 
+        print(f"{input_train_array[0:10]=}")
         # reverse min-max scaling
         yhat: np.ndarray = (yhat * (target_max - target_min)) + target_min
         y_test: np.ndarray = (
@@ -204,8 +212,8 @@ def main(config: dict):
         except:
             print("Folder already exists.")
         # save model
-        model_path: Path = target_dir_path / "model_{}.pkl".format(fold)
-        pickle.dump(model, open(model_path, "wb"))  # difficult to maintain
+        # model_path: Path = target_dir_path / "model_{}.pkl".format(fold)
+        # pickle.dump(model, open(model_path, "wb"))  # difficult to mastertain
         # save best hyperparams for the best model from each fold
         if config["hyperparameter_optimization"] == "True":
             hyperparam_path: Path = (

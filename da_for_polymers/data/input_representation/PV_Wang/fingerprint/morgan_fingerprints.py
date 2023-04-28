@@ -26,7 +26,7 @@ class fp_data:
     def __init__(self, master_data):
         """
         Inits fp_data with preprocessed data
-        
+
         Args:
             master_data: path to preprocessed data
         """
@@ -47,58 +47,40 @@ class fp_data:
         fp_df = self.master_data
 
         # Only used when first creating dataframe from master data before
-        fp_df.drop(
-            [
-                "Polymer_BigSMILES",
-                "Polymer_SELFIES",
-                "Solvent_SELFIES",
-                "PS_manual_tokenized",
-                "SP_manual_tokenized",
-                "PS_manual_tokenized_aug",
-                "SP_manual_tokenized_aug",
-            ],
-            axis=1,
-        )
+        # fp_df.drop(
+        #     [
+        #         "Polymer_BigSMILES",
+        #         "Polymer_SELFIES",
+        #         "Solvent_SELFIES",
+        #         "PS_manual_tokenized",
+        #         "SP_manual_tokenized",
+        #         "PS_manual_tokenized_aug",
+        #         "SP_manual_tokenized_aug",
+        #     ],
+        #     axis=1,
+        # )
 
         new_column_pm_pair = "PS_FP" + "_radius_" + str(radius) + "_nbits_" + str(nbits)
         fp_df[new_column_pm_pair] = " "
         for index, row in fp_df.iterrows():
-            pm_pair = (
-                fp_df.at[index, "Polymer_SMILES"]
-                + "."
-                + fp_df.at[index, "Solvent_SMILES"]
+            p_mol = Chem.MolFromSmiles(fp_df.at[index, "Polymer_SMILES"])
+            bitvector_p = AllChem.GetMorganFingerprintAsBitVect(
+                p_mol, radius, nBits=nbits
             )
-            pm_pair_mol = Chem.MolFromSmiles(pm_pair)
-            bitvector_pm = AllChem.GetMorganFingerprintAsBitVect(
-                pm_pair_mol, radius, nBits=nbits
+            fp_p = list(bitvector_p)
+            s_mol = Chem.MolFromSmiles(fp_df.at[index, "Solvent_SMILES"])
+            bitvector_s = AllChem.GetMorganFingerprintAsBitVect(
+                s_mol, radius, nBits=nbits
             )
-            fp_pm_list = list(bitvector_pm.ToBitString())
-            fp_pm_map = map(int, fp_pm_list)
-            fp_pm = list(fp_pm_map)
+            fp_s = list(bitvector_s)
+            fp_p.extend(fp_s)
+            fp_ps = fp_p
 
-            fp_df.at[index, new_column_pm_pair] = fp_pm
-
-        new_column_mp_pair = "SP_FP" + "_radius_" + str(radius) + "_nbits_" + str(nbits)
-        fp_df[new_column_mp_pair] = " "
-        for index, row in fp_df.iterrows():
-            mp_pair = (
-                fp_df.at[index, "Solvent_SMILES"]
-                + "."
-                + fp_df.at[index, "Polymer_SMILES"]
-            )
-            mp_pair_mol = Chem.MolFromSmiles(mp_pair)
-            bitvector_mp = AllChem.GetMorganFingerprintAsBitVect(
-                mp_pair_mol, radius, nBits=nbits
-            )
-            fp_mp_list = list(bitvector_mp.ToBitString())
-            fp_mp_map = map(int, fp_mp_list)
-            fp_mp = list(fp_mp_map)
-
-            fp_df.at[index, new_column_mp_pair] = fp_mp
+            fp_df.at[index, new_column_pm_pair] = fp_ps
 
         fp_df.to_csv(fp_path, index=False)
         # fp_df.to_pickle(fp_path)
 
 
-fp_main = fp_data(PV_MASTER)  # replace with FP_PV after first run
-fp_main.create_master_fp(FP_PV, 3, 512)
+fp_master = fp_data(PV_MASTER)  # replace with FP_PV after first run
+fp_master.create_master_fp(FP_PV, 3, 512)

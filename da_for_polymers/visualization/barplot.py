@@ -20,7 +20,8 @@ from da_for_polymers.visualization.path_utils import (
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_rows", None)
 
-### MAIN FUNCTION
+
+### master FUNCTION
 def wrap_labels(ax, width: int = 10):
     print(ax)
     labels: list = []
@@ -81,22 +82,37 @@ def barplot(config: dict):
     summary: pd.DataFrame = summary.sort_values(config["hue"])
     summary: pd.DataFrame = summary.replace(
         {
+            "BRICS": "BRICS (OHE)",
             "manual_frag": "Fragments",
             "manual_frag_aug": "Augmented Fragments",
             "manual_frag_str": "Fragment (SMILES)",
             "manual_frag_aug_str": "Augmented Fragment (SMILES)",
-            "manual_recombined_aug_SMILES": "Recombined Augmented (SMILES)",
-            "manual_recombined_aug_fingerprint": "Recombined Augmented Fingerprints",
-            "fingerprint": "Fingerprints",
-            "Augmented_SMILES": "Augmented SMILES",
-            "CO2_Soleimani": "CO2 Solubility",
+            "manual_recombined_aug_SMILES": "Recombined \n Augmented (SMILES)",
+            "manual_recombined_aug_fingerprint": "Recombined \n Augmented \n (Fingerprints)",
+            "fingerprint": "ECFP6",
+            "Augmented_SMILES": "Non-canonicalized \n Augmented SMILES",
+            "manual_frag_SMILES": "Fragments (SMILES)",
+            "manual_frag_aug_SMILES": "Augmented Fragments \n (SMILES)",
+            "BRT": "XGBoost",
+            "automated_frag": "Fragments (OHE)",
+            "automated_frag_SMILES": "Fragments \n (SMILES)",
+            "automated_frag_aug": "Iteratively Rearranged \n Fragments (OHE)",
+            "automated_frag_aug_SMILES": "Iteratively Rearranged \n Fragments (SMILES)",
+            "automated_frag_aug_recombined_fp": "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
+            "automated_frag_aug_recombined_SMILES": "Iteratively Rearranged \n Recombined Fragments (SMILES)",
+            "dimer_fp": "Dimer (ECFP6)",
+            "trimer_fp": "Trimer (ECFP6)",
+            "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
+            "ohe": "One-Hot Encoding (OHE)",
+            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }
     )
 
     # Plot Axis
-    fig, ax = plt.subplots(figsize=(8, 6.5))
+    fig, ax = plt.subplots(figsize=(9, 6.5))
     # Title
     # ax.set_title(
     #     "Barplot of {} for {}".format(
@@ -114,7 +130,11 @@ def barplot(config: dict):
     sns.set(font_scale=1.1)
 
     # Color
-    colors = ["#41ab5d", "#f16913", "#4292c6"]
+    colors = [
+        "#238b45",
+        "#d94801",
+        "#6a51a3",
+    ]
     sns.set_palette(sns.color_palette(colors))
     # sns.set_palette(sns.color_palette("husl", 8))
 
@@ -144,10 +164,10 @@ def barplot(config: dict):
         "comparison" in config["config_name"] and "recombined" in config["config_name"]
     ):
         ax.set_title(
-            "Property Prediction Performance using {} and Recombined Augmented Fingerprints".format(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Recombined Fragments (ECFP6)".format(
                 config["models"][0]
             ),
-            fontsize=12,
+            fontsize=14,
         )  # config["models"][0])
         if "fingerprint" in config["config_name"]:
             sns.barplot(
@@ -157,10 +177,11 @@ def barplot(config: dict):
                 ax=ax,
                 hue=summary[config["hue"]],
                 order=[
-                    "Fingerprints",
-                    "Recombined Augmented Fingerprints",
+                    "ECFP6",
+                    "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
                     # "Augmented Fragments",
                 ],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:
@@ -179,10 +200,10 @@ def barplot(config: dict):
 
     elif "comparison" in config["config_name"]:
         ax.set_title(
-            "Property Prediction Performance using {} and Augmented Fragments".format(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Fragments".format(
                 config["models"][0]
             ),
-            fontsize=15,
+            fontsize=14,
         )  # config["models"][0])
         if "frag" in config["config_name"]:
             sns.barplot(
@@ -192,11 +213,12 @@ def barplot(config: dict):
                 ax=ax,
                 hue=summary[config["hue"]],
                 order=[
-                    "Fragments",
-                    "Augmented Fragments",
+                    "Fragments (OHE)",
+                    "Iteratively Rearranged \n Fragments (OHE)",
                     # "Fragment (SMILES)",
                     # "Augmented Fragment (SMILES)",
                 ],
+                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:

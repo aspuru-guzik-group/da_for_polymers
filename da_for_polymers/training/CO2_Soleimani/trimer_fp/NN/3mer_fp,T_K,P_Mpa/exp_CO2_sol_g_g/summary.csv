@@ -1,0 +1,2 @@
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+CO2_Soleimani,5,"3mer_fp,T_K,P_Mpa",exp_CO2_sol_g_g,NN,0.9795567251670239,0.0073641701976957345,0.9505924293145815,0.01758389336573828,0.029480169868273277,0.00812419918490262,0.01775356782884189,0.004362968036514488,515,514
