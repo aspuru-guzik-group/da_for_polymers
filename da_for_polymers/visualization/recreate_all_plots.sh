@@ -1,6 +1,6 @@
 # BARPLOTS - Representation Comparisons across Datasets
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_smiles_comparison --plot_path ./dataset_comparisons/
-python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_comparison --plot_path ./dataset_comparisons/
+# python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_smiles_lstm_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_lstm_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_rf_comparison --plot_path ./dataset_comparisons/
@@ -8,7 +8,7 @@ python barplot.py --path ../training/ --config_path ./barplot_config.json --conf
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_rf_fingerprint_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_brt_fingerprint_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_svm_fingerprint_comparison --plot_path ./dataset_comparisons/
-python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_nn_fingerprint_comparison --plot_path ./dataset_comparisons/
+# python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_nn_fingerprint_comparison --plot_path ./dataset_comparisons/
 # python barplot.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_lstm_fingerprint_comparison --plot_path ./dataset_comparisons/
 
 # Data Comparisons
@@ -17,9 +17,8 @@ python barplot.py --path ../training/ --config_path ./barplot_config.json --conf
 # python barplot_data.py --path ../training/ --config_path ./barplot_config.json --config_name augment_recombined_fingerprint_data_comparison --plot_path ./dataset_comparisons/
 
 # HEATMAP
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name CO2_Soleimani --plot_path ./CO2_Soleimani
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name PV_Wang --plot_path ./PV_Wang
-# python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name Swelling_Xu --plot_path ./Swelling_Xu
+python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name CO2_Soleimani --plot_path ./CO2_Soleimani
+python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name PV_Wang --plot_path ./PV_Wang
 python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name DFT_Ramprasad --plot_path ./DFT_Ramprasad
 
 # BOX PLOT
@@ -33,7 +32,7 @@ python heatmap.py --path_to_training ../training/ --config_path ./heatmap_config
 # Figure 4
 # python ./PV_Wang/heatmap_figure4.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name PV_Wang --plot_path ./PV_Wang
 # Figure 5
-# python ./Swelling_Xu/heatmap_figure5.py --path_to_training ../training/ --config_path ./heatmap_config.json --config_name Swelling_Xu --plot_path ./Swelling_Xu
+
 # Figure 6
 # python ./dataset_comparisons/barplot_figure6.py --path ../training/ --config_path ./barplot_config.json --config_name augment_frag_comparison --plot_path ./dataset_comparisons/
 # Figure 7
