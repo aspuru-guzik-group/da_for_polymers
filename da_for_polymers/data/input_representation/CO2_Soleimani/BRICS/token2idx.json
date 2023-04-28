@@ -1,0 +1,14 @@
+{
+  "_PAD": 0,
+  "CC(=O)CCC=O": 1,
+  "O": 2,
+  "CO": 3,
+  "CCCC": 4,
+  "O=CCCCCC=O": 5,
+  "CC(C)C=O": 6,
+  "CC=O": 7,
+  "O=CO": 8,
+  "c1ccccc1": 9,
+  "Cc1cc(C)cc(C)c1": 10,
+  "CCC(C)C": 11
+}

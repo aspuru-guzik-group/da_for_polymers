@@ -63,7 +63,7 @@ def feature_scale(feature_series: pd.Series) -> Union[float, float]:
 
 # TODO: return max length for fragments and fingerprints! not only SMILES, etc.
 def process_features(
-    train_feature_df, test_feature_df
+    train_feature_df, test_feature_df, token2idx_path: str
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Processes various types of features (str, float, list) and returns "training ready" arrays.
 
@@ -158,7 +158,12 @@ def process_features(
                         token2idx[frag] = token_idx
                         token_idx += 1
     elif input_instance == "str":
-        if "smiles" in input_representation or "SMILES" in input_representation:
+        if (
+            "smiles" in input_representation
+            or "SMILES" in input_representation
+            or "SELFIES" in input_representation
+            or "selfies" in input_representation
+        ):
             (
                 tokenized_array,
                 max_length,
@@ -383,6 +388,9 @@ def process_features(
     input_test_array = np.array(input_test_list)
     assert type(input_train_array[0]) == np.ndarray, input_train_array
     assert type(input_test_array[0]) == np.ndarray, input_test_array
+    # export token2idx
+    with open(token2idx_path, "w") as handle:
+        json.dump(token2idx, handle, indent=2)
 
     return input_train_array, input_test_array, max_input_length
 

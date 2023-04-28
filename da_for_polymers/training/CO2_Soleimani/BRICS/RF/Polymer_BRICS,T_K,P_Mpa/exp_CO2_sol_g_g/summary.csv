@@ -1,2 +1,2 @@
-Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data
-CO2_Soleimani,7,"Polymer_BRICS,T_K,P_Mpa",exp_CO2_sol_g_g,RF,0.9836742865943514,0.011173833852928748,0.9677399566698791,0.021800647924305718,0.022668905758338638,0.006043565897509725,0.013256020880562585,0.0018338198261984666,515
+Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
+CO2_Soleimani,5,"Polymer_BRICS,T_K,P_Mpa",exp_CO2_sol_g_g,RF,0.9821312789036393,0.00759593346053654,0.9623562514202242,0.01658262099704438,0.0249092233531173,0.003977287990347003,0.014378527181540335,0.0018030995248991756,515,7

@@ -61,7 +61,7 @@ def heatmap(config: dict):
             "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
             "ohe": "One-Hot Encoding (OHE)",
             "CO2_Soleimani": r"$CO_2 Solubility$",
-            "DFT_Ramprasad": "Bandgap DFT",
+            "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }

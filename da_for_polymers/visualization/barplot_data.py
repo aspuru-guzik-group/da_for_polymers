@@ -119,7 +119,7 @@ def barplot(config: dict):
             "Augmented_SMILES": "Augmented SMILES",
             "BigSMILES": "Non-Augmented Data",
             "CO2_Soleimani": r"$CO_2 Solubility$",
-            "DFT_Ramprasad": "Bandgap DFT",
+            "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
         }

@@ -1,2 +1,2 @@
 Dataset,num_of_folds,Features,Targets,Model,r_mean,r_std,r2_mean,r2_std,rmse_mean,rmse_std,mae_mean,mae_std,num_of_data,feature_length
-PV_Wang,6,"PS_SMILES,Contact_angle,Thickness_um,Solvent_solubility_parameter_Mpa_sqrt,xw_wt_percent,Temp_C,Permeate_pressure_mbar",J_Total_flux_kg_m_2h_1,NN,0.682772804860452,0.09123331879160948,0.47450222151474036,0.12166938899083773,0.8110339450101405,0.12654300445364647,0.43527468332834723,0.05722417287409009,681,107
+PV_Wang,5,"PS_SMILES,Contact_angle,Thickness_um,Solvent_solubility_parameter_Mpa_sqrt,xw_wt_percent,Temp_C,Permeate_pressure_mbar",J_Total_flux_kg_m_2h_1,NN,0.6310075963739242,0.08332131043049468,0.3204380088896165,0.15047343743542954,0.8994071550224951,0.09944550487654144,0.4856258395040318,0.038101103966049175,681,104
