@@ -144,11 +144,13 @@ def heatmap(config: dict):
             "location": "top",
         },
     )
-
-    res.set_xticklabels(res.get_xmajorticklabels(), fontsize=14)
-    res.set_yticklabels(res.get_ymajorticklabels(), fontsize=14, rotation=0)
-    res.set_ylabel("Models", fontsize=18)
-    res.set_xlabel("Input Representations", fontsize=18)
+    res.figure.axes[-1].xaxis.label.set_size(24)
+    cbar = res.collections[0].colorbar
+    cbar.ax.tick_params(labelsize=20)
+    res.set_xticklabels(res.get_xmajorticklabels(), fontsize=20)
+    res.set_yticklabels(res.get_ymajorticklabels(), fontsize=20, rotation=0)
+    res.set_ylabel("Models", fontsize=24)
+    res.set_xlabel("Input Representations", fontsize=24)
     # Add highlighted patch
     res.add_patch(Rectangle((9, 0.03), 5.97, 4.94, fill=False, edgecolor="black", lw=6))
     # for plotting/saving
