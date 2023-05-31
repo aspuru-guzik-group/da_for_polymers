@@ -104,7 +104,7 @@ def barplot(config: dict):
             "trimer_fp": "Trimer (ECFP6)",
             "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
             "ohe": "One-Hot Encoding (OHE)",
-            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "CO2_Soleimani": r"$CO_2$ Solubility",
             "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
@@ -181,7 +181,7 @@ def barplot(config: dict):
                     "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
                     # "Augmented Fragments",
                 ],
-                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
+                hue_order=[r"$CO_2$ Solubility", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:
@@ -218,7 +218,7 @@ def barplot(config: dict):
                     # "Fragment (SMILES)",
                     # "Augmented Fragment (SMILES)",
                 ],
-                hue_order=[r"$CO_2 Solubility$", "Pervaporation", "DFT Bandgap"],
+                hue_order=[r"$CO_2$ Solubility", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
         else:

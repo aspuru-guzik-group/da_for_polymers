@@ -52,15 +52,15 @@ def heatmap(config: dict):
             "BRT": "XGBoost",
             "automated_frag": "Fragments (OHE)",
             "automated_frag_SMILES": "Fragments \n (SMILES)",
-            "automated_frag_aug": "Iteratively Rearranged \n Fragments (OHE)",
-            "automated_frag_aug_SMILES": "Iteratively Rearranged \n Fragments (SMILES)",
-            "automated_frag_aug_recombined_fp": "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
-            "automated_frag_aug_recombined_SMILES": "Iteratively Rearranged \n Recombined Fragments (SMILES)",
+            "automated_frag_aug": "IRF (OHE)",
+            "automated_frag_aug_SMILES": "IRF (SMILES)",
+            "automated_frag_aug_recombined_fp": "IRRF (ECFP6)",
+            "automated_frag_aug_recombined_SMILES": "IRRF (SMILES)",
             "dimer_fp": "Dimer (ECFP6)",
             "trimer_fp": "Trimer (ECFP6)",
             "polymer_graph_fp": "Circular Polymer \n Graph (ECFP6)",
             "ohe": "One-Hot Encoding (OHE)",
-            "CO2_Soleimani": r"$CO_2 Solubility$",
+            "CO2_Soleimani": r"$CO_2$ Solubility",
             "DFT_Ramprasad": "DFT Bandgap",
             "PV_Wang": "Pervaporation",
             "Swelling_Xu": "Swelling",
@@ -110,10 +110,10 @@ def heatmap(config: dict):
         # "Recombined \n Augmented \n (Fingerprints)",
         "Fragments (OHE)",
         "Fragments \n (SMILES)",
-        "Iteratively Rearranged \n Fragments (OHE)",
-        "Iteratively Rearranged \n Fragments (SMILES)",
-        "Iteratively Rearranged \n Recombined Fragments (SMILES)",
-        "Iteratively Rearranged \n Recombined Fragments (ECFP6)",
+        "IRF (OHE)",
+        "IRF (SMILES)",
+        "IRRF (SMILES)",
+        "IRRF (ECFP6)",
     ]
     mean_summary: pd.DataFrame = mean_summary.reindex(index=x, columns=y)
 
@@ -147,7 +147,7 @@ def heatmap(config: dict):
     res.figure.axes[-1].xaxis.label.set_size(24)
     cbar = res.collections[0].colorbar
     cbar.ax.tick_params(labelsize=20)
-    res.set_xticklabels(res.get_xmajorticklabels(), fontsize=20)
+    res.set_xticklabels(res.get_xmajorticklabels(), fontsize=20, rotation=90)
     res.set_yticklabels(res.get_ymajorticklabels(), fontsize=20, rotation=0)
     res.set_ylabel("Models", fontsize=24)
     res.set_xlabel("Input Representations", fontsize=24)
@@ -156,7 +156,7 @@ def heatmap(config: dict):
     # for plotting/saving
     # fig.subplots_adjust(left=0.4)
     plot_path: Path = Path(config["plot_path"])
-    plot_path: Path = plot_path / "{}_{}_heatmap.png".format(
+    plot_path: Path = plot_path / "{}_{}_heatmap.pdf".format(
         config["config_name"], config["metrics"]
     )
     plt.savefig(plot_path, dpi=500, bbox_inches="tight")
