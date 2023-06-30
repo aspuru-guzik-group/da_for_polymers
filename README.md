@@ -21,8 +21,4 @@ Keywords: data augmentation, machine learning, polymers, molecular representatio
 6. Access processed data ->  `da_for_polymers/data/input_representation/Dataset`
 6. Access prediction results -> `da_for_polymers/training`
 7. Run the shell files in `da_for_polymers/ML_models/pytorch/Dataset` or `da_for_polymers/ML_models/sklearn/Dataset` to run models on your setup. To run specific models or molecular representations, uncomment or comment specific lines. Recommened to understand how to use argument parsers for these scripts.
-<<<<<<< HEAD
 8. To view or re-create figures, go to -> `da_for_polymers/visualization`. Each figure in the paper can be recreated with the `recreate_all_plots.sh` file (read comments). (Supplementary Figures are found in `da_for_polymers/data/exploration`)g
-=======
-8. To view or re-create figures, go to -> `da_for_polymers/visualization`. Each figure in the paper can be recreated with the `recreate_all_plots.sh` file (read comments). (Supplementary Figures are found in `da_for_polymers/data/exploration`)
->>>>>>> 3518320fe8131a4d5c99874c5d2194ecbf421006

@@ -170,7 +170,16 @@ def barplot(config: dict):
             fontsize=14,
         )  # config["models"][0])
         if "fingerprint" in config["config_name"]:
-            sns.barplot(
+            sns.set_style("whitegrid", {'axes.grid' : True})
+            # add broken axis
+            f, ax = plt.subplots(1,1,figsize=(7.5, 6.5))
+            ax.set_title(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Recombined Fragments (ECFP6)".format(
+                config["models"][0]
+            ),
+            fontsize=14,
+        )  # config["models"][0])
+            ax = sns.barplot(
                 x=summary[config["x"]],
                 y=summary[config["metrics"]],
                 ci="sd",
@@ -184,6 +193,8 @@ def barplot(config: dict):
                 hue_order=[r"$CO_2$ Solubility", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
+            ax.set_ylim(0,1)
+
         else:
             sns.barplot(
                 x=summary[config["x"]],
@@ -206,11 +217,20 @@ def barplot(config: dict):
             fontsize=14,
         )  # config["models"][0])
         if "frag" in config["config_name"]:
-            sns.barplot(
+            sns.set_style("whitegrid", {'axes.grid' : True})
+            # add broken axis
+            f, (ax1, ax2) = plt.subplots(2,1, sharex=True, figsize=(7.5, 6.5), gridspec_kw={'height_ratios': [5, 2]})
+            ax1.set_title(
+            "Property Prediction Performance using a Neural Network and \n Iteratively Rearranged Fragments".format(
+                config["models"][0]
+            ),
+            fontsize=14,
+        )  # config["models"][0])
+            ax1 = sns.barplot(
                 x=summary[config["x"]],
                 y=summary[config["metrics"]],
                 ci="sd",
-                ax=ax,
+                ax=ax1,
                 hue=summary[config["hue"]],
                 order=[
                     "Fragments (OHE)",
@@ -221,6 +241,32 @@ def barplot(config: dict):
                 hue_order=[r"$CO_2$ Solubility", "Pervaporation", "DFT Bandgap"],
                 capsize=0.06,
             )
+            ax2 = sns.barplot(
+                x=summary[config["x"]],
+                y=summary[config["metrics"]],
+                ci="sd",
+                ax=ax2,
+                hue=summary[config["hue"]],
+                order=[
+                    "Fragments (OHE)",
+                    "Iteratively Rearranged \n Fragments (OHE)",
+                    # "Fragment (SMILES)",
+                    # "Augmented Fragment (SMILES)",
+                ],
+                hue_order=[r"$CO_2$ Solubility", "Pervaporation", "DFT Bandgap"],
+                capsize=0.06,
+            )
+            ax1.set_ylim(-0.4, 1)
+            ax2.set_ylim(-6, -3)
+            ax1.get_xaxis().set_visible(False)
+            ax1.get_legend().remove()
+            # arguments to pass to plot, just so we don't keep repeating them
+            # kwargs = dict(transform=ax1.transAxes, color='k', clip_on=False)
+            # d = 0.01
+            # ax1.plot((-d, +d), (-d, +d), **kwargs)        # top-left diagonal
+            # kwargs = dict(transform=ax2.transAxes, color='k', clip_on=False)
+            # d = 0.01
+            # ax2.plot((+d, -d), (1+d, 1-d), **kwargs)        # top-left diagonal
         else:
             sns.barplot(
                 x=summary[config["x"]],
@@ -262,8 +308,13 @@ def barplot(config: dict):
         # min_yval: float = min_yval - list(summary["r_std"])[min_idx_yval]
         # min_yval: float = min_yval * 0.9
         ax.set_ylim(min_yval, 1)
-    ax.set_ylabel("$R^2$", fontsize=14)
-
+    # ax.set_ylabel("$R^2$", fontsize=14)
+    # by default, each part will get its own "Latency in ms" label, but we want to set a common for the whole figure
+    # first, remove the y label for both subplots
+    ax1.set_ylabel("")
+    ax2.set_ylabel("")
+    # then, set a new label on the plot (basically just a piece of text) and move it to where it makes sense (requires trial and error)
+    f.text(0.004, 0.5, "$R^2$", va="center", rotation="vertical")
     # wrap_labels(ax)
     # for plotting/saving
     plt.tight_layout()
